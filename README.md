@@ -1,4 +1,4 @@
-DomCoverage
-===========
+Dom Coverage
+============
 
 Dom Coverage 
