@@ -1,4 +1,7 @@
 *.class
+.class
+.project
+chromedriver.log
 
 # Package Files #
 *.jar
