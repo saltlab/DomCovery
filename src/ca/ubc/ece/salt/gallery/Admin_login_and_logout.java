@@ -19,28 +19,31 @@ public class Admin_login_and_logout {
   @Before
   public void setUp() throws Exception {
 	System.setProperty("webdriver.chrome.driver", "lib/chromedriver");
-    driver = new ChromeDriver();
+    driver = new FirefoxDriver();
 	  js = (JavascriptExecutor) driver;
-	  js.executeScript("__funcEnter(\"1\", \"URL\", \"adminloginlogout\");");
-    baseUrl = "http://localhost:8888/phormer-photoGallery331/";
+    baseUrl = "http://watersmc.ece.ubc.ca:8888/phormer-photoGallery331/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   public void testAdmin_login_and_logout() throws Exception {
     //String String = driver.findElement(By.cssSelector("div.note_valid")).getText();
-    driver.get(baseUrl + "/");
+    driver.get(baseUrl );
+	//run funEnter
+    js.executeScript("__funcEnter(\"1\", \"URL\", \"adminloginlogout\");");
+    //
     driver.findElement(By.linkText("Admin Page")).click();
     driver.findElement(By.id("loginAdminPass")).clear();
     driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
     driver.findElement(By.cssSelector("input.submit")).click();
     driver.findElement(By.linkText("Log Out")).click();
 
+    js.executeScript("__funcExit(\"1\", \"URL\");");
+
   }
 
   @After
   public void tearDown() throws Exception {
-	    js.executeScript("__funcExit(\"1\", \"URL\");");
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {

@@ -9,15 +9,16 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class home_page_click {
+public class home_page_click extends TestWrapper{
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-
+  JavascriptExecutor js ;
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
+     js = (JavascriptExecutor) driver;
     baseUrl = "http://localhost:8888/phormer-photoGallery331/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
@@ -25,10 +26,15 @@ public class home_page_click {
   @Test
   public void testHomePageClick() throws Exception {
     driver.get(baseUrl + "/");
+    // funcEnter(driver);
+	js.executeScript("__funcEnter(\"1\", \"URL\", \"adminloginlogout\");");
     driver.findElement(By.linkText("SlideShow")).click();
-    new Select(driver.findElement(By.id("ss_refresh"))).selectByVisibleText("regexp:\\s2 Sec");
-    driver.findElement(By.id("ss_playpause_link")).click();
-    driver.findElement(By.linkText("My PhotoGallery")).click();
+    //funcExit(driver);
+    js.executeScript("__funcExit(\"1\", \"URL\");");
+
+    //new Select(driver.findElement(By.id("ss_refresh"))).selectByVisibleText("regexp:\\s2 Sec");
+    //driver.findElement(By.id("ss_playpause_link")).click();
+    //driver.findElement(By.linkText("My PhotoGallery")).click();
   }
 
   @After

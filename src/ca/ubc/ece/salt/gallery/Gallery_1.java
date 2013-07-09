@@ -15,23 +15,31 @@ public class Gallery_1 {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+private JavascriptExecutor js;
 
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "http://localhost:8888/phormer-photoGallery331/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    baseUrl = "http://watersmc.ece.ubc.ca:8888/phormer-photoGallery331/";
+	  js = (JavascriptExecutor) driver;
+   driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   public void testHidshow() throws Exception {
     driver.get(baseUrl + "/");
+    js.executeScript("__funcEnter(\"1\", \"URL\", \"adminloginlogout\");");
+    
     WebElement element = driver.findElement(By.cssSelector("img"));
 	element.click();
     driver.switchTo().window(handleMultipleWindows("\"100_0794\" of My PhotoGallery"));
     
     driver.findElement(By.id("hin")).click();
     assertTrue(driver.findElement(By.cssSelector("BODY")).getText().contains("Show info"));
+
+    
+    js.executeScript("__funcExit(\"1\", \"URL\");");
+
   }
 
   private String handleMultipleWindows(String windowTitle) {

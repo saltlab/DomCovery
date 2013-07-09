@@ -16,7 +16,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TestEnteringName {
+import ca.ubc.ece.salt.gallery.TestWrapper;
+
+public class TestEnteringName extends TestWrapper{
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -25,13 +27,14 @@ public class TestEnteringName {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "";
+    baseUrl = "http://watersmc.ece.ubc.ca:8888/example_application/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   public void testEnteringName() throws Exception {
-    driver.get(baseUrl + "file:///Users/mehdimir/Desktop/Dropbox/UBC-research/survey_application/index.html");
+    driver.get(baseUrl);
+    funcEnter(driver);
     driver.findElement(By.id("agreementCheckbox")).click();
     driver.findElement(By.id("contestName")).clear();
     driver.findElement(By.id("contestName")).sendKeys("Mehdi");
@@ -39,7 +42,8 @@ public class TestEnteringName {
     driver.findElement(By.id("contestEmail")).sendKeys("Mir");
     driver.findElement(By.id("enterContestButton")).click();
     assertEquals("You have entered in the contest!", driver.findElement(By.id("enteredInContestDiv")).getText());
-  }
+    funcExit(driver);
+      }
 
   @After
   public void tearDown() throws Exception {
