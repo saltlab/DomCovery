@@ -2,8 +2,11 @@
 .class
 .project
 chromedriver.log
+.classpath
 
 # Package Files #
 *.jar
 *.war
 *.ear
+/target
+/bin

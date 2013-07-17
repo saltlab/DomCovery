@@ -42,7 +42,9 @@ public class TestCaseParser {
 		for (MethodDeclaration methodDeclaration : testMethodsofCompilationUnit) {
 			//find location of all findelement methods 
 			MethodCallVisitor mcv= new MethodCallVisitor();
-			mcv.applyFilter(new Arraylist<String>("findElement"));
+			ArrayList<String> elementsToCover = new ArrayList<String>();
+			elementsToCover.add("findElement");
+			mcv.applyFilter(elementsToCover);
 			mcv.visit(methodDeclaration,null);
 			
 //instrument them
