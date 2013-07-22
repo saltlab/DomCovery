@@ -1,12 +1,18 @@
-package ca.ubc.ece.salt.utils;
+package ca.ubc.ece.salt.domcoverage.core.utils;
 
 import japa.parser.ast.CompilationUnit;
 import japa.parser.ast.body.BodyDeclaration;
 import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.expr.AnnotationExpr;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 public class CompilationUnitUtils {
 
@@ -16,7 +22,7 @@ public class CompilationUnitUtils {
 			MethodDeclaration j = null;
 			if (i instanceof MethodDeclaration) {
 				j = (MethodDeclaration) i;
-				boolean thisisatest = false;
+		 		boolean thisisatest = false;
 				List<AnnotationExpr> annotations = j.getAnnotations();
 				if (annotations != null && !annotations.isEmpty()) {
 					for (AnnotationExpr ann : annotations) {
@@ -33,5 +39,25 @@ public class CompilationUnitUtils {
 				// System.out.println(cu.toString());
 		}
 		return testMethodsOfCompilationUnit;
+	}
+
+	public static void writeCompilationUnitToFile(CompilationUnit cu, String fileName) {
+		
+		try {
+			FileInputStream in = new FileInputStream(fileName);
+			try {
+				FileUtils.writeStringToFile(new File(fileName), cu.toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		
 	}
 }
