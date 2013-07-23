@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.core.codeanalysis;
+package salt.domcoverage.core.codeanalysis;
 
 import japa.parser.ParseException;
 import japa.parser.ast.CompilationUnit;
@@ -14,8 +14,9 @@ import java.util.Map.Entry;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import ca.ubc.ece.salt.domcoverage.core.codeanalysis.TestCaseParser;
-import ca.ubc.ece.salt.domcoverage.core.utils.Utils;
+import salt.domcoverage.core.codeanalysis.TestCaseParser;
+import salt.domcoverage.core.utils.Utils;
+
 
 public class TestCaseParserTest {
 

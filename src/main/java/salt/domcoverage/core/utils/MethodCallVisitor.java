@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.core.utils;
+package salt.domcoverage.core.utils;
 
 import java.nio.file.WatchEvent.Modifier;
 import java.util.ArrayList;

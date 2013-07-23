@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.core.codeanalysis;
+package salt.domcoverage.core.codeanalysis;
 
 import java.util.ArrayList;
 import java.util.List;

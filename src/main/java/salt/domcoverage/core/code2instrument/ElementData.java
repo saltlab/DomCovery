@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.core.code2instrument;
+package salt.domcoverage.core.code2instrument;
 
 import java.io.File;
 import java.io.IOException;

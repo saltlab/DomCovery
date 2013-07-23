@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.core.codeanalysis;
+package salt.domcoverage.core.codeanalysis;
 
 import japa.parser.JavaParser;
 import japa.parser.ParseException;
@@ -19,9 +19,10 @@ import java.util.List;
 
 import org.apache.bcel.generic.Visitor;
 
-import ca.ubc.ece.salt.domcoverage.core.utils.CompilationUnitUtils;
-import ca.ubc.ece.salt.domcoverage.core.utils.MethodCallVisitor;
-import ca.ubc.ece.salt.domcoverage.core.utils.Utils;
+import salt.domcoverage.core.utils.CompilationUnitUtils;
+import salt.domcoverage.core.utils.MethodCallVisitor;
+import salt.domcoverage.core.utils.Utils;
+
 
 public class TestCaseParser {
 

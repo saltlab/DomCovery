@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.casestudies.photogallery;
+package salt.domcoverage.casestudies.photogallery;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -8,7 +8,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.w3c.dom.NodeList;
 
-import ca.ubc.ece.salt.domcoverage.core.code2instrument.DomCoverageClass;
+import salt.domcoverage.core.code2instrument.DomCoverageClass;
+
 
 import com.crawljax.util.XPathHelper;
 

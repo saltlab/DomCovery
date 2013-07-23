@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.casestudies.photogallery;
+package salt.domcoverage.casestudies.photogallery;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -13,7 +13,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import ca.ubc.ece.salt.domcoverage.core.code2instrument.DomCoverageClass;
+import salt.domcoverage.core.code2instrument.DomCoverageClass;
+
 
 public class TestEnteringName {
 

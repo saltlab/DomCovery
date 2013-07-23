@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.core.utils;
+package salt.domcoverage.core.utils;
 
 import japa.parser.ast.expr.MethodCallExpr;
 

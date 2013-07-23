@@ -1,4 +1,4 @@
-package ca.ubc.ece.salt.domcoverage.core.codeanalysis;
+package salt.domcoverage.core.codeanalysis;
 
 import japa.parser.JavaParser;
 import japa.parser.ParseException;
@@ -14,10 +14,11 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ubc.ece.salt.domcoverage.core.codeanalysis.TestCaseInstrumentor;
-import ca.ubc.ece.salt.domcoverage.core.codeanalysis.TestCaseParser;
-import ca.ubc.ece.salt.domcoverage.core.utils.CompilationUnitUtils;
-import ca.ubc.ece.salt.domcoverage.core.utils.Utils;
+import salt.domcoverage.core.codeanalysis.TestCaseInstrumentor;
+import salt.domcoverage.core.codeanalysis.TestCaseParser;
+import salt.domcoverage.core.utils.CompilationUnitUtils;
+import salt.domcoverage.core.utils.Utils;
+
 
 public class TestCaseInstrumentorTest {
 	TestCaseInstrumentor tci;
