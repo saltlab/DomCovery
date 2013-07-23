@@ -133,22 +133,23 @@ public class DomCoverageClass {
 	}
 
 	public static String capitalizeXpath(String s) {
-		String newXpath = "";
-		int flag = 0;
-
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if ((c != '@' && flag == 0)) {
-				c = Character.toUpperCase(c);
-			} else if (c == '@' || flag == 1) {
-				flag = 1;
-				if (c == ']')
-					flag = 0;
-
-			}
-			newXpath += Character.toString(c);
-		}
-		return newXpath;
+		return XPathHelper.formatXPath(s);
+//		String newXpath = "";
+//		int flag = 0;
+//
+//		for (int i = 0; i < s.length(); i++) {
+//			char c = s.charAt(i);
+//			if ((c != '@' && flag == 0)) {
+//				c = Character.toUpperCase(c);
+//			} else if (c == '@' || flag == 1) {
+//				flag = 1;
+//				if (c == ']')
+//					flag = 0;
+//
+//			}
+//			newXpath += Character.toString(c);
+//		}
+//		return newXpath;
 	}
 
 	static void getNameofTest() {

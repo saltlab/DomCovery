@@ -60,7 +60,7 @@ public class TestCaseParser {
 		return getSeleniumDomRelateMethodCallExpressions(cu);
 	}
 
-	static CompilationUnit getCompilationUnitOfFileName(String fileName) throws FileNotFoundException, ParseException,
+	public static CompilationUnit getCompilationUnitOfFileName(String fileName) throws FileNotFoundException, ParseException,
 			IOException {
 		FileInputStream in = new FileInputStream(fileName);
 
