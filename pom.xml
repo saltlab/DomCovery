@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>com.crawljax</groupId>
 			<artifactId>crawljax-core</artifactId>
-			<version>3.1</version>
+			<version>3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
