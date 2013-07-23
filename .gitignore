@@ -10,3 +10,4 @@ chromedriver.log
 *.ear
 /target
 /bin
+/.settings
