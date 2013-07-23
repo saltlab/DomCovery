@@ -18,7 +18,7 @@ public class TestCaseInstrumentor {
 		
 		List<Expression> oldArgs= mce.getArgs();
 		//create a methodcall expre
-		String codeToInstrument = "DomCoverageClass.collectData";
+		String codeToInstrument = "salt.domcoverage.core.code2instrument.DomCoverageClass.collectData";
 		MethodCallExpr call = new MethodCallExpr(null, codeToInstrument);
 		MethodCallExpr calltoPageSource = new MethodCallExpr(null, mce.getScope().toString()+".getPageSource");
 		MethodCallExpr calltoClassName = new MethodCallExpr(null, "this.getClass().getName()+\".\"+new Object(){}.getClass().getEnclosingMethod().getName");

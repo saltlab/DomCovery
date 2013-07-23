@@ -58,6 +58,7 @@ public class TestsInstumentor {
 			}
 			if (writeBack == true)
 				CompilationUnitUtils.writeCompilationUnitToFile(cu,fileName);
+			System.out.println("done writing");
 			
 		}
 
