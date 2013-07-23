@@ -3,6 +3,7 @@
 .project
 chromedriver.log
 .classpath
+crawljax.log
 
 # Package Files #
 *.jar
@@ -11,3 +12,4 @@ chromedriver.log
 /target
 /bin
 /.settings
+/Coverage
