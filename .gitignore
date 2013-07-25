@@ -4,6 +4,7 @@
 chromedriver.log
 .classpath
 crawljax.log
+differences.csv
 
 # Package Files #
 *.jar
@@ -13,3 +14,4 @@ crawljax.log
 /bin
 /.settings
 /Coverage
+
