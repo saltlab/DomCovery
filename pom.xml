@@ -37,7 +37,11 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.9</version>
 		</dependency>
-
+ 	<dependency>
+  		<groupId>apporiented.com</groupId>
+  		<artifactId>hierarchical-clustering</artifactId>
+  		<version>1.0</version>
+  	</dependency>
 	</dependencies>
 
 
