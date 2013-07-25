@@ -21,7 +21,7 @@ import com.crawljax.util.DomUtils;
 
 public class ElementCoverage {
 
-	void getCoverage(String coverageFolder) {
+	public void getCoverage(String coverageFolder) {
 
 		DomComparator dc = new DomComparator();
 		ArrayList<File> domFiles = dc.getDomFiles(coverageFolder);
@@ -46,34 +46,34 @@ public class ElementCoverage {
 
 					Document asDocument = DomUtils.asDocument(element.getDomData());
 					allelementsinDom = asDocument.getElementsByTagName("*").getLength();
-					int clickableElements= DOMUtility.getNumberoofAllClickables(asDocument);
+					int clickableElements = DOMUtility.getNumberoofAllClickables(asDocument);
 					int size = element.getElements().size();
 					String domFileName = element.getDomFileName();
-					printCoverage(allelementsinDom, clickableElements, size, domFileName,1);
-				}
-				else{
-					int sumofallelementsinDom=0;
-					int sumofclickableelements=0;
-					int sumofelementSize=0;
-					int allelementsinDom=0;
-					int clickableElements=0;
-					int elementSize=0;
+					printCoverage(allelementsinDom, clickableElements, size, domFileName, 1);
+				} else {
+					int sumofallelementsinDom = 0;
+					int sumofclickableelements = 0;
+					int sumofelementSize = 0;
+					int allelementsinDom = 0;
+					int clickableElements = 0;
+					int elementSize = 0;
 					for (Cluster clust : clusters) {
 						ElementData element = edp.getElementData(clust.getName(), elementsData);
 
 						Document asDocument = DomUtils.asDocument(element.getDomData());
 						allelementsinDom = asDocument.getElementsByTagName("*").getLength();
-						clickableElements= DOMUtility.getNumberoofAllClickables(asDocument);
+						clickableElements = DOMUtility.getNumberoofAllClickables(asDocument);
 						elementSize = element.getElements().size();
 					}
-					sumofallelementsinDom+=allelementsinDom;
-					sumofclickableelements+=clickableElements;
-					sumofelementSize+= elementSize;
+					sumofallelementsinDom += allelementsinDom;
+					sumofclickableelements += clickableElements;
+					sumofelementSize += elementSize;
 
 					String domName = clusters.toString();
 					int clustersize = clusters.size();
 					printCoverage(sumofallelementsinDom, sumofclickableelements, sumofelementSize, domName, clustersize);
-//					System.out.println("clickable element coverage: " +covclick);
+					// System.out.println("clickable element coverage: "
+					// +covclick);
 
 				}
 
@@ -88,18 +88,18 @@ public class ElementCoverage {
 
 	private void printCoverage(int sumofallelementsinDom, int sumofclickableelements, int sumofelementSize, String domName,
 			int clustersize) {
-		System.out.println("******for DOM: "+domName);
-		double cov =  (double)sumofelementSize / (sumofallelementsinDom/clustersize);
-		System.out.format("element coverage: %f (%d / %d) \n",cov,sumofelementSize, sumofallelementsinDom);
-		double covclick =  (double)sumofelementSize / (sumofclickableelements/clustersize);
-		System.out.format("clickable element coverage: %f (%d / %d) \n",covclick,sumofelementSize, sumofclickableelements);
+		System.out.println("******for DOM: " + domName);
+		double cov = (double) sumofelementSize / (sumofallelementsinDom / clustersize);
+		System.out.format("element coverage: %f (%d / %d) \n", cov, sumofelementSize, sumofallelementsinDom);
+		double covclick = (double) sumofelementSize / (sumofclickableelements / clustersize);
+		System.out.format("clickable element coverage: %f (%d / %d) \n", covclick, sumofelementSize, sumofclickableelements);
 	}
 
 	private void printCoverage(int allelementsinDom, int clickableElements, int size, String domFileName) {
-		System.out.println("******for DOM: "+domFileName);
-		double cov =  (double)size / allelementsinDom;
-		System.out.println("element coverage: " +cov);
-		double covclick =  (double)size / clickableElements;
-		System.out.println("clickable element coverage: " +covclick);
+		System.out.println("******for DOM: " + domFileName);
+		double cov = (double) size / allelementsinDom;
+		System.out.println("element coverage: " + cov);
+		double covclick = (double) size / clickableElements;
+		System.out.println("clickable element coverage: " + covclick);
 	}
 }
