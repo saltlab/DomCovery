@@ -22,7 +22,7 @@ import com.crawljax.util.XPathHelper;
 public class DomCoverageClass {
 
 	public enum Type {
-		XPATH, ID, NAME, CLASS, CSS, OTHERS
+		XPATH, ID, NAME, CLASS, CSS, OTHERS, LINKTEXT, TAGNAME
 	};
 
 	private static String DOM = "";
@@ -35,6 +35,7 @@ public class DomCoverageClass {
 		switch (byType(by)) {
 		case XPATH:
 			elements.addAll(getElementsByXPATHInString(dom, getXpath(by)));
+			break;
 		default:
 			elements.addAll(getElementsUsingJsoup(dom, by));
 		}
@@ -44,7 +45,7 @@ public class DomCoverageClass {
 		}
 		String time = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss").format(new Date());
 
-		new ElementData(time, testName, by.toString(), DOM, elements);
+		new ElementDataPersist(time, testName, by.toString(), DOM, elements);
 
 		return by;
 	}
@@ -64,8 +65,14 @@ public class DomCoverageClass {
 		case CLASS:
 			elements = doc.select("." + getString(by));
 			break;
+		case TAGNAME:
+			elements = doc.select(getString(by));
+			break;
 		case CSS:
-			elements = doc.select("." + getString(by));
+			elements = doc.select(getString(by));//System.out.println("css selector: "+getString(by));
+			break;
+		case LINKTEXT:
+			elements = doc.select("a:contains(" + getString(by)+")");
 			break;
 		}
 		for (Element element : elements) {
@@ -89,10 +96,14 @@ public class DomCoverageClass {
 			return Type.ID;
 		if (bystr.contains("By.name:"))
 			return Type.NAME;
+		if (bystr.contains("By.tag:"))
+			return Type.NAME;
 		if (bystr.contains("By.class:"))
 			return Type.CLASS;
-		if (bystr.contains("By.css:"))
+		if (bystr.contains("By.selector:"))
 			return Type.CSS;
+		if (bystr.contains("By.linkText:") || bystr.contains("By.partialLinkText:"))
+			return Type.LINKTEXT;
 		// if (bystr.contains("By.xpath:"))
 		return Type.OTHERS;
 	}
