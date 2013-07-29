@@ -9,6 +9,11 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import com.thoughtworks.selenium.Selenium;
+
+
+
+
 public class Add_story {
   private WebDriver driver;
   private String baseUrl;
@@ -21,6 +26,8 @@ public class Add_story {
     baseUrl ="http://localhost:8888";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
+
+ 
 
   @Test
   public void testAddStory() throws Exception {

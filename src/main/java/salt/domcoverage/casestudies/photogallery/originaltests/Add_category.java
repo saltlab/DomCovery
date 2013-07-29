@@ -45,22 +45,20 @@ public class Add_category {
 		driver.findElement(By.cssSelector("input.submit")).click();
 		// Warning: verifyTextPresent may require manual changes
 		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText()
-					.matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
+			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
 		} catch (Error e) {
 			verificationErrors.append(e.toString());
 		}
 		driver.findElement(By.xpath("(//a[contains(text(),'Delete / Clear')])[2]")).click();
 		// Warning: verifyTextPresent may require manual changes
 		try {
-			assertTrue(driver
-					.findElement(By.cssSelector("BODY"))
-					.getText()
-					.matches(
-							"^[\\s\\S]*Clears Category flowers of all its own \\(direct\\) photos, nothing will be removed[\\s\\S]*$"));
+			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Clears Category flowers of all its own \\(direct\\) photos, nothing will be removed[\\s\\S]*$"));
 		} catch (Error e) {
 			verificationErrors.append(e.toString());
 		}
+		// FileUtils.write(new
+		// File("salt.domcoverage.casestudies.photogallery.Add_category.testAddCategory.html"),
+		// driver.getPageSource());
 		driver.findElement(By.xpath("(//input[@name='howto'])[4]")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
 		assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to delete \"flowers\"[\\s\\S]$"));

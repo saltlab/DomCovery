@@ -104,7 +104,9 @@ public class ElementData {
 	List<String> elements;
 
 	
-	
+	/*
+	 * fills out the fileds, gets dom data of domfile, and elements if @elementF 
+	 */
 	public ElementData(String testName, String time, String by, String domfilename,String elementF) {
 		super();
 		this.time = time;
