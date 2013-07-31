@@ -16,7 +16,7 @@ public class DomCoverageExecuteAndGetCoverageDataExampleTest {
 	@Test
 	public void instrumentRunGetCoverageofOneTestCase() {
 
-		String test = PhotogalleryTestSourceLocations.TestAddCategory;
+		String test = PhotogalleryTestSourceLocations.add_story_assert;// PhotogalleryTestSourceLocations.TestAddCategory;
 
 		// instrument test add_Category
 		// TestCaseInstrumentor tci = new TestCaseInstrumentor();

@@ -11,7 +11,7 @@ public class DomCoverageInstrumentExampleTest {
 	@Test
 	public void instrumentOneTestCase() {
 
-		String test = PhotogalleryTestSourceLocations.TestAddCategory;
+		String test = PhotogalleryTestSourceLocations.add_story_assert;// TestAddCategory;
 
 		// instrument test add_Category
 		TestCaseInstrumentor tci = new TestCaseInstrumentor();
