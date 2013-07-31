@@ -79,7 +79,6 @@ public class ElementDataPersist {
 				// String domData, ArrayList<String> elements) {
 				ElementData elem = new ElementData(testName, time, by, domfilename, elementFile);
 				elementsData.add(elem);
-
 			}
 
 		} catch (IOException e) {
@@ -90,10 +89,10 @@ public class ElementDataPersist {
 	}
 
 	public ElementData getElementData(String name, List<ElementData> elementsData) {
-		if (name.contains(".html"))
-			name = name.substring(0, name.length() - 5);
+		// if (name.contains(".html"))
+		// name = name.substring(0, name.length() - 5);
 		for (ElementData elementData : elementsData) {
-			if (elementData.getdomfilename().equals(name))
+			if (elementData.getDomFileName().contains(name))
 				return elementData;
 		}
 		return null;

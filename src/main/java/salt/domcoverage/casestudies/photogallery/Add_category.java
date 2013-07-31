@@ -86,8 +86,10 @@ public class Add_category {
 		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("input.submit"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
 		}.getClass().getEnclosingMethod().getName())).click();
 		assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to delete \"flowers\"[\\s\\S]$"));
-		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("a[title=\"Log Out\"] > img.logo"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-		}.getClass().getEnclosingMethod().getName())).click();
+		// /driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("a[title=\"Log Out\"]"),
+		// driver.getPageSource(), this.getClass().getName() + "." + new
+		// Object() {
+		// }.getClass().getEnclosingMethod().getName())).click();
 	}
 
 	@After

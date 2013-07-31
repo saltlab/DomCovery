@@ -62,7 +62,7 @@ public class Add_category {
 		driver.findElement(By.xpath("(//input[@name='howto'])[4]")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
 		assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to delete \"flowers\"[\\s\\S]$"));
-		driver.findElement(By.cssSelector("a[title=\"Log Out\"] > img.logo")).click();
+		// driver.findElement(By.cssSelector("a[title=\"Log Out\"] > img.logo")).click();
 	}
 
 	@After

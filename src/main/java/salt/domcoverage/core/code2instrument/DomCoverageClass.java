@@ -27,13 +27,17 @@ public class DomCoverageClass {
 		XPATH, ID, NAME, CLASS, CSS, OTHERS, LINKTEXT, TAGNAME
 	};
 
-	private static String DOM = "";
+	private static String DOM;
+
+	public String getDOM() {
+		return DOM;
+	}
 
 	public static By collectData(By by, String dom, String testName) {
 		// xpathhelper
 		// jsoup
 		DOM = dom;
-		ArrayList<String> elements = getElementsofDOM(by, dom);
+		ArrayList<String> elements = getElementsofDOM(by.toString(), dom);
 
 		for (String string : elements) {
 			System.out.println("element: " + string);
@@ -65,20 +69,25 @@ public class DomCoverageClass {
 		return by;
 	}
 
-	private static ArrayList<String> getElementsofDOM(By by, String dom) {
+	public static String getModifiedElementInDOM(String string, String dom) {
+		getElementsofDOM(string, dom);
+		return DOM;
+	}
+
+	public static ArrayList<String> getElementsofDOM(String string, String dom) {
 		ArrayList<String> elements = new ArrayList<String>();
 
-		switch (byType(by)) {
+		switch (byType(string)) {
 		case XPATH:
-			elements.addAll(getElementsByXPATHInString(dom, getXpath(by)));
+			elements.addAll(getElementsByXPATHInString(dom, getXpath(string)));
 			break;
 		default:
-			elements.addAll(getElementsUsingJsoup(dom, by));
+			elements.addAll(getElementsUsingJsoup(dom, string));
 		}
 		return elements;
 	}
 
-	private static ArrayList<String> getElementsUsingJsoup(String dom, By by) {
+	private static ArrayList<String> getElementsUsingJsoup(String dom, String by) {
 		ArrayList<String> elementsString = new ArrayList<String>();
 
 		Document doc = Jsoup.parse(dom);
@@ -99,7 +108,8 @@ public class DomCoverageClass {
 			break;
 		case CSS:
 			elements = doc.select(byString);
-			System.out.println("css selector: " + byString);
+			// System.out.println("css selector : " + byString);
+			// System.out.println("element found: " + elements);
 			break;
 		case LINKTEXT:
 			elements = doc.select("a:contains(" + byString + ")");
@@ -121,12 +131,11 @@ public class DomCoverageClass {
 	}
 
 	public static String getString(String by) {
-		String s = by.substring(by.toString().indexOf(" "));
+		String s = by.substring(by.indexOf(" "));
 		return s.trim();
 	}
 
-	private static Type byType(By by) {
-		String bystr = by.toString();
+	private static Type byType(String bystr) {
 		if (bystr.contains("By.xpath:"))
 			return Type.XPATH;
 		if (bystr.contains("By.id:"))
@@ -145,8 +154,8 @@ public class DomCoverageClass {
 		return Type.OTHERS;
 	}
 
-	private static String getXpath(By by) {
-		String xpath = by.toString().substring(by.toString().indexOf(" ") + 1, by.toString().length());
+	private static String getXpath(String by) {
+		String xpath = by.substring(by.toString().indexOf(" ") + 1, by.toString().length());
 		return capitalizeXpath(xpath.trim());
 	}
 
@@ -232,7 +241,7 @@ public class DomCoverageClass {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			ArrayList<String> elements = getElementsofDOM(by, dom);
+			ArrayList<String> elements = getElementsofDOM(by.toString(), dom);
 			if (elements.size() != 0) {
 				// DOM = dom;
 				return file.getName();
@@ -250,6 +259,10 @@ public class DomCoverageClass {
 
 		// System.out.println("name:"+ new
 		// Object(){}.getClass().getEnclosingMethod().getName()+this.getClass().getName);
+	}
+
+	public static void setDom(String dom) {
+		DOM = dom;
 	}
 
 }
