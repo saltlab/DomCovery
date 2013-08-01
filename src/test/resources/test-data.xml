@@ -1,0 +1,20 @@
+<xml>
+	<news class="blue">
+
+		<div>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<span>
+			bla
+			<table></table>
+		</span>
+
+	</news>
+
+
+</xml>
