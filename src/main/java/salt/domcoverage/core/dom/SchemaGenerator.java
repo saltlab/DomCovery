@@ -1,4 +1,4 @@
-package salt.domcoverage.core.domcomparison;
+package salt.domcoverage.core.dom;
 
 import java.io.File;
 import java.io.IOException;

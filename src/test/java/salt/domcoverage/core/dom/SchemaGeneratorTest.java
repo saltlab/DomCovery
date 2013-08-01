@@ -1,4 +1,4 @@
-package salt.domcoverage.core.domcomparison;
+package salt.domcoverage.core.dom;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.impl.xb.xsdschema.SchemaDocument;
 import org.junit.Test;
+
+import salt.domcoverage.core.dom.SchemaGenerator;
 
 public class SchemaGeneratorTest {
 
