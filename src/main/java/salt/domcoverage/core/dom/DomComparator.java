@@ -56,6 +56,32 @@ public class DomComparator {
 			return 10;
 	}
 
+	public double[][] extractDistancesByCountringTheDifferences(ArrayList<File> domFiles) {
+		double[][] distances = new double[domFiles.size()][domFiles.size()];
+		try {
+			File difffile = new File("differences.csv");
+			FileUtils.deleteQuietly(difffile);
+			for (int i = 0; i < domFiles.size(); i++) {
+				for (int j = 0; j < domFiles.size(); j++) {
+					// int size =
+					// differencesSize(FileUtils.readFileToString(domFiles.get(i)),
+					// FileUtils.readFileToString(domFiles.get(j)));
+					String filei = FileUtils.readFileToString(domFiles.get(i));
+					String filej = FileUtils.readFileToString(domFiles.get(j));
+					int diff = differencesSize(filei, filej);
+					distances[i][j] = diff;
+					String stringtoWrite = domFiles.get(i).getName() + "," + domFiles.get(j).getName() + "," + diff;
+					// System.out.println(stringtoWrite);
+					FileUtils.writeStringToFile(difffile, stringtoWrite + "\n", true);
+				}
+				FileUtils.writeStringToFile(difffile, "\n", true);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return distances;
+	}
+
 	public double[][] extractDistances(ArrayList<File> domFiles) {
 		double[][] distances = new double[domFiles.size()][domFiles.size()];
 		try {

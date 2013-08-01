@@ -7,4 +7,6 @@ public class ConstantVars {
 	public static final String COVERAGE_COVERED_ELEMENTS_CSV = COVERAGE_LOCATION + "CoveredElements.csv";
 	public static final String MERGEDLOCATION = "MergedState/";
 
+	public static final String STYLE = "<style> [coverage=\"true\"]{outline:10px solid green;}</style>";
+
 }

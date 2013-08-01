@@ -107,7 +107,8 @@ public class DomCoverageClass {
 			elements = doc.select(byString);
 			break;
 		case CSS:
-			elements = doc.select(byString);
+			String str = byString.replace("\"", "");
+			elements = doc.select(str);
 			// System.out.println("css selector : " + byString);
 			// System.out.println("element found: " + elements);
 			break;
@@ -136,6 +137,9 @@ public class DomCoverageClass {
 	}
 
 	private static Type byType(String bystr) {
+		System.out.println("bystr1: " + bystr);
+		bystr = bystr.toLowerCase().replace("by.", "By.");
+		System.out.println("bystr2: " + bystr);
 		if (bystr.contains("By.xpath:"))
 			return Type.XPATH;
 		if (bystr.contains("By.id:"))
@@ -148,7 +152,7 @@ public class DomCoverageClass {
 			return Type.CLASS;
 		if (bystr.contains("By.selector:"))
 			return Type.CSS;
-		if (bystr.contains("By.linkText:") || bystr.contains("By.partialLinkText:"))
+		if (bystr.contains("By.linkText:") || bystr.contains("By.linktext:") || bystr.contains("By.partiallinktext:"))
 			return Type.LINKTEXT;
 		// if (bystr.contains("By.xpath:"))
 		return Type.OTHERS;

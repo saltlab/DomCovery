@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import salt.domcoverage.core.domcomparison.clustering.DataClusterer;
+import salt.domcoverage.core.dom.clustering.DataClusterer;
 import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.Utils;
 

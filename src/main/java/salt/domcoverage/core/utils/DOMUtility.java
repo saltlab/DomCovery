@@ -29,11 +29,11 @@ public class DOMUtility {
 		return elemA.getLength() + elemB.getLength() + elemI.getLength();
 	}
 
-	public static ArrayList<File> getDomFiles(String folder) {
+	public static ArrayList<File> getFilesInDirectoryWithExtension(String folder, String extension) {
 		Collection<File> files = FileUtils.listFiles(new File(folder), null, false);
 		ArrayList<File> domFiles = new ArrayList<File>();
 		for (File file : files) {
-			if (file.getName().contains(".html"))
+			if (file.getName().contains(extension))
 				domFiles.add(file);
 		}
 		return domFiles;
@@ -78,6 +78,7 @@ public class DOMUtility {
 		// System.out.println(readFileToString);
 		dom = new PlainStructureComparator(false).normalize(dom);
 		dom = dom.toLowerCase();
+		dom = dom.replace(" coverage=\"true\"", "");
 		dom = dom.replace("coverage=\"true\"", "");
 		dom = dom.replace("  ", " ");
 
