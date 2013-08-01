@@ -13,8 +13,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import salt.domcoverage.core.utils.CompilationUnitUtils;
+import salt.domcoverage.core.utils.TestUtil;
 
-public class TestCaseInstrumentor {
+public class TestInstrumentor {
+
+	public void instrumentTestSuite(String folder) {
+		List<String> allTests = TestUtil.getAllTests(folder);
+		for (String test : allTests) {
+			instrument(test);
+		}
+	}
 
 	public MethodCallExpr instrumentMethodCall(MethodCallExpr mce) {
 
@@ -25,8 +33,7 @@ public class TestCaseInstrumentor {
 		String codeToInstrument = "salt.domcoverage.core.code2instrument.DomCoverageClass.collectData";
 		MethodCallExpr call = new MethodCallExpr(null, codeToInstrument);
 		MethodCallExpr calltoPageSource = new MethodCallExpr(null, mce.getScope().toString() + ".getPageSource");
-		MethodCallExpr calltoClassName = new MethodCallExpr(null,
-				"this.getClass().getName()+\".\"+new Object(){}.getClass().getEnclosingMethod().getName");
+		MethodCallExpr calltoClassName = new MethodCallExpr(null, "this.getClass().getName()+\".\"+new Object(){}.getClass().getEnclosingMethod().getName");
 		oldArgs.add(calltoPageSource);
 		oldArgs.add(calltoClassName);
 

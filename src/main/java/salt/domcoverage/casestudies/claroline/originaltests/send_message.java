@@ -1,5 +1,4 @@
-package salt.domcoverage.casestudies.photogallery;
-
+package salt.domcoverage.casestudies.claroline.originaltests;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -10,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class Admin_login_and_logout {
+public class send_message {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -19,18 +18,34 @@ public class Admin_login_and_logout {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl ="http://localhost:8888";
+    baseUrl = "http://watersmc.ece.ubc.ca:8888/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testAdminLoginLogout() throws Exception {
-    driver.get(baseUrl + "/phormer-photoGallery331/");
-    driver.findElement(By.linkText("Admin Page")).click();
-    driver.findElement(By.id("loginAdminPass")).clear();
-    driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
-    driver.findElement(By.cssSelector("input.submit")).click();
-
+  public void testSendMessage() throws Exception {
+    driver.get(baseUrl + "/claroline-1.11.7/index.php");
+    driver.findElement(By.id("login")).clear();
+    driver.findElement(By.id("login")).sendKeys("nainy");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("nainy");
+    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+    driver.findElement(By.linkText("Platform administration")).click();
+    driver.findElement(By.linkText("Send a message to all users")).click();
+    driver.findElement(By.id("message_subject")).clear();
+    driver.findElement(By.id("message_subject")).sendKeys("Hello");
+    driver.findElement(By.id("message_fontselect_open")).click();
+    driver.findElement(By.cssSelector("#mce_18_aria > span.mceText")).click();
+    driver.findElement(By.cssSelector("span.mceIcon.mce_bold")).click();
+    driver.findElement(By.cssSelector("span.mceIcon.mce_italic")).click();
+    // Warning: verifyTextPresent may require manual changes
+    try {
+      assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Administrator[\\s\\S]*$"));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
+    driver.findElement(By.name("send")).click();
+    driver.findElement(By.linkText("Logout")).click();
   }
 
   @After

@@ -14,19 +14,19 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import salt.domcoverage.core.codeanalysis.TestCaseInstrumentor;
+import salt.domcoverage.core.codeanalysis.TestInstrumentor;
 import salt.domcoverage.core.codeanalysis.TestCaseParser;
 import salt.domcoverage.core.utils.CompilationUnitUtils;
 import salt.domcoverage.core.utils.Utils;
 
 
 public class TestsInstumentor {
-		TestCaseInstrumentor tci;
+		TestInstrumentor tci;
 		private boolean writeBack=true; 
 		
 		@Before
 		public void setUp(){
-			 tci = new TestCaseInstrumentor();
+			 tci = new TestInstrumentor();
 
 		}
 		@Test

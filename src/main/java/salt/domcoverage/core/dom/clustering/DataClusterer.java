@@ -1,4 +1,4 @@
-package salt.domcoverage.core.domcomparison.clustering;
+package salt.domcoverage.core.dom.clustering;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,9 +21,7 @@ public class DataClusterer {
 			List<String> cluster = new ArrayList<String>();
 			// cluster.add(name);
 			for (int j = 0; j < names.length; j++) {
-				double disij = distances[i][j];
-				double disji = distances[j][i];
-				if (disij == 1.0 || disji == 1.0) {
+				if (domsSimilar(i, j, distances)) {
 					if (!cluster.contains(names[j]) && !clustered.contains(names[j])) {
 						cluster.add(names[j]);
 						clustered.add(names[j]);
@@ -40,9 +38,17 @@ public class DataClusterer {
 
 	}
 
+	private boolean domsSimilar(int i, int j, double[][] distances) {
+
+		double disij = distances[i][j];
+		double disji = distances[j][i];
+
+		return disij == 1.0 || disji == 1.0;
+	}
+
 	public List<List<String>> clusterDataInFolder(String coverageFolder) {
 		DomComparator dc = new DomComparator();
-		ArrayList<File> domFiles = DOMUtility.getDomFiles(coverageFolder);
+		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
 		double[][] distances = dc.extractDistances(domFiles);
 
 		DataClusterer dataClustering = new DataClusterer();

@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.code2instrument.ElementDataPersist;
 import salt.domcoverage.core.dom.DomComparator;
-import salt.domcoverage.core.domcomparison.clustering.DataClusterer;
+import salt.domcoverage.core.dom.clustering.DataClusterer;
 import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.DOMUtility;
 
@@ -22,7 +22,7 @@ import com.crawljax.util.DomUtils;
 public class ElementCoverage {
 
 	public void getCoverageOffilesAccordingToCoverageTrue(String coverageFolder) {
-		ArrayList<File> domFiles = DOMUtility.getDomFiles(coverageFolder);
+		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
 		for (File file : domFiles) {
 			String dom = "";
 			try {
@@ -45,7 +45,7 @@ public class ElementCoverage {
 	public void getCoverage(String coverageFolder) {
 
 		DomComparator dc = new DomComparator();
-		ArrayList<File> domFiles = DOMUtility.getDomFiles(coverageFolder);
+		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
 		double[][] distances = dc.extractDistances(domFiles);
 
 		DataClusterer dataClustering = new DataClusterer();

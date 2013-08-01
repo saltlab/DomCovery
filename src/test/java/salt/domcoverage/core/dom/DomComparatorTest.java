@@ -9,7 +9,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import salt.domcoverage.core.dom.DomComparator;
-import salt.domcoverage.core.domcomparison.clustering.DataClusterer;
+import salt.domcoverage.core.dom.clustering.DataClusterer;
 import salt.domcoverage.core.utils.DOMUtility;
 import salt.domcoverage.core.utils.Utils;
 
@@ -31,7 +31,7 @@ public class DomComparatorTest {
 	public void testalldomsincoveragefolder() throws IOException {
 
 		DomComparator dc = new DomComparator();
-		ArrayList<File> domFiles = DOMUtility.getDomFiles("Coverage");
+		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension("Coverage", ".html");
 		double[][] distances = dc.extractDistances(domFiles);
 		System.out.println("distance: \n");
 		Utils.print2DArray(distances);

@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery;
+package salt.domcoverage.casestudies.claroline.originaltests;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class Add_story {
+public class Manage {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -18,26 +18,30 @@ public class Add_story {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl ="http://localhost:8888";
+    baseUrl = "http://watersmc.ece.ubc.ca:8888/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testAddStory() throws Exception {
-    driver.get(baseUrl + "/phormer-photoGallery331/");
-    driver.findElement(By.linkText("Admin Page")).click();
-    driver.findElement(By.id("loginAdminPass")).clear();
-    driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
-    driver.findElement(By.cssSelector("input.submit")).click();
-    driver.findElement(By.linkText("Manage Stories")).click();
-//    driver.findElement(By.id("loginAdminPass")).clear();
-//    driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
-//    driver.findElement(By.cssSelector("input.submit")).click();
-    driver.findElement(By.id("name")).clear();
-    driver.findElement(By.id("name")).sendKeys("New test case");
-    driver.findElement(By.name("desc")).clear();
-    driver.findElement(By.name("desc")).sendKeys("I cannot enter new test case related to add photos.");
-    driver.findElement(By.cssSelector("input.submit")).click();
+  public void testManage() throws Exception {
+    driver.get(baseUrl + "/claroline-1.11.7/");
+    driver.findElement(By.id("login")).clear();
+    driver.findElement(By.id("login")).sendKeys("nainy");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("nainy");
+    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+    driver.findElement(By.linkText("Platform administration")).click();
+    driver.findElement(By.linkText("Manage administrator email notifications")).click();
+    // Warning: verifyTextPresent may require manual changes
+    try {
+      assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*System mail : recipients list[\\s\\S]*$"));
+    } catch (Error e) {
+      verificationErrors.append(e.toString());
+    }
+    driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+    //driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+    driver.findElement(By.linkText("Logout")).click();
+ 
   }
 
   @After

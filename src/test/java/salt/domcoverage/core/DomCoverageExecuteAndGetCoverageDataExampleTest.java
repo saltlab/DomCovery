@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import salt.domcoverage.casestudies.photogallery.PhotogalleryTestSourceLocations;
 import salt.domcoverage.core.dom.DomMerger;
-import salt.domcoverage.core.domcomparison.clustering.DataClusterer;
+import salt.domcoverage.core.dom.clustering.DataClusterer;
 import salt.domcoverage.core.metrics.ElementCoverage;
 import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.Utils;
@@ -16,15 +15,12 @@ public class DomCoverageExecuteAndGetCoverageDataExampleTest {
 	@Test
 	public void instrumentRunGetCoverageofOneTestCase() {
 
-		String test = PhotogalleryTestSourceLocations.add_story_assert;// PhotogalleryTestSourceLocations.TestAddCategory;
-
-		// instrument test add_Category
-		// TestCaseInstrumentor tci = new TestCaseInstrumentor();
-		// tci.instrument(test);
-
 		// execute test
-
-		new TestExecutor().execute(test);
+		// List<String> allTests =
+		// TestUtil.getAllTests(TestConstantVars.clarolineTestLocation);
+		// for (String test : allTests) {
+		// new TestExecutor().execute(test);
+		// }
 
 		// merge doms
 		DataClusterer dataClusterer = new DataClusterer();

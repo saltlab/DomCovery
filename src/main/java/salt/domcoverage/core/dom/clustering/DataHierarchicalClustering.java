@@ -1,4 +1,4 @@
-package salt.domcoverage.core.domcomparison.clustering;
+package salt.domcoverage.core.dom.clustering;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,15 +11,16 @@ import com.apporiented.algorithm.clustering.Cluster;
 import com.apporiented.algorithm.clustering.ClusteringAlgorithm;
 import com.apporiented.algorithm.clustering.DefaultClusteringAlgorithm;
 import com.apporiented.algorithm.clustering.SingleLinkageStrategy;
+import com.apporiented.algorithm.clustering.visualization.DendrogramPanel;
 
 public class DataHierarchicalClustering {
 
 	public HashSet<List<String>> clusterDataToStringClusters(ArrayList<File> domFiles, double[][] distances) {
-		HashSet<ArrayList<Cluster>> clusters = new HashSet<ArrayList<Cluster>>();
+		List<List<Cluster>> clusters = new ArrayList<List<Cluster>>();
 		HashSet<List<String>> ret = new HashSet<List<String>>();
 
 		clusters = clusterData(domFiles, distances);
-		for (ArrayList<Cluster> clus : clusters) {
+		for (List<Cluster> clus : clusters) {
 			List<String> clusString = new ArrayList<String>();
 			for (Cluster cluster : clus) {
 				clusString.add(cluster.getName());
@@ -29,7 +30,21 @@ public class DataHierarchicalClustering {
 		return ret;
 	}
 
-	public HashSet<ArrayList<Cluster>> clusterData(ArrayList<File> domFiles, double[][] distances) {
+	public List<List<String>> clusterDataReturnInStrings(ArrayList<File> domFiles, double[][] distances) {
+		List<List<String>> ret = new ArrayList<List<String>>();
+		List<List<Cluster>> clusterData = clusterData(domFiles, distances);
+		for (List<Cluster> list : clusterData) {
+			List<String> retlist = new ArrayList<String>();
+			for (Cluster cluster : list) {
+				retlist.add(cluster.getName());
+			}
+			ret.add(retlist);
+		}
+		return ret;
+
+	}
+
+	public List<List<Cluster>> clusterData(ArrayList<File> domFiles, double[][] distances) {
 
 		String[] names = Utils.convertToArrayofString(domFiles);
 		// String[] names = new String[] { "O1", "O2", "O3", "O4", "O5", "O6" };
@@ -40,6 +55,7 @@ public class DataHierarchicalClustering {
 
 		ClusteringAlgorithm alg = new DefaultClusteringAlgorithm();
 		Cluster cluster = alg.performClustering(distances, names, new SingleLinkageStrategy());
+		printCluster(cluster);
 		// getleaves(cluster);
 		// System.out.println();
 		// System.out.println("countleafs: "+cluster.countLeafs());
@@ -52,7 +68,15 @@ public class DataHierarchicalClustering {
 		return clusters;
 	}
 
-	HashSet<ArrayList<Cluster>> clusters = new HashSet<ArrayList<Cluster>>();
+	private void printCluster(Cluster cluster) {
+		cluster.toConsole(0);
+		DendrogramPanel dp = new DendrogramPanel();
+		dp.setModel(cluster);
+		// dp.
+
+	}
+
+	List<List<Cluster>> clusters = new ArrayList<List<Cluster>>();
 
 	private void getMyClusters(Cluster cluster) {
 		ArrayList<Cluster> members = new ArrayList<Cluster>();
