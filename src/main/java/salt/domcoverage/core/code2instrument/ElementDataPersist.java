@@ -55,10 +55,11 @@ public class ElementDataPersist {
 
 	private void writeDOMtoFile(String domData, String domfilename) throws IOException {
 		// add style to domData after TITLE
-		String[] split = domData.toLowerCase().split("<title>");
+		String title = "<title>";
+		String[] split = domData.toLowerCase().split(title);
 		String modifieddomData = domData;
 		if (split.length == 2)
-			modifieddomData = split[0] + ConstantVars.STYLE + split[1];
+			modifieddomData = split[0] + ConstantVars.STYLE + title + split[1];
 		// if contains html does not add html extension!!!
 		FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + domfilename), modifieddomData, false);
 	}

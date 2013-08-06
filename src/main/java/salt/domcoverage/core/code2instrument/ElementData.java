@@ -103,4 +103,16 @@ public class ElementData {
 
 	}
 
+	public File getDomFile() {
+		return new File(ConstantVars.COVERAGE_LOCATION + domFileName);
+	}
+
+	public boolean contains(String element) {
+		for (String elem : this.elements) {
+			if (elem.equals(element))
+				return true;
+		}
+		return false;
+	}
+
 }

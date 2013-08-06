@@ -1,35 +1,31 @@
 package salt.domcoverage.core.dom.clustering;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import salt.domcoverage.core.dom.DomComparator;
-import salt.domcoverage.core.utils.DOMUtility;
-import salt.domcoverage.core.utils.Utils;
+import salt.domcoverage.core.code2instrument.ElementData;
 
-public class DataClusterer {
+public abstract class DataClusterer {
 
-	public List<List<String>> clusterData(ArrayList<File> domFiles, double[][] distances) {
+	public List<List<ElementData>> clusterData(List<ElementData> doms, double[][] distances) {
 		// TODO Auto-generated method stub
-		String[] names = Utils.convertToArrayofString(domFiles);
-		List<List<String>> clusters = new ArrayList<List<String>>();
-		List<String> clustered = new ArrayList<String>();
+		List<List<ElementData>> clusters = new ArrayList<List<ElementData>>();
+		List<ElementData> clustered = new ArrayList<ElementData>();
 
-		for (int i = 0; i < names.length; i++) {
-			String name = names[i];
-			List<String> cluster = new ArrayList<String>();
+		for (int i = 0; i < doms.size(); i++) {
+			String name = doms.get(i).getDomFileName();
+			List<ElementData> cluster = new ArrayList<ElementData>();
 			// cluster.add(name);
-			for (int j = 0; j < names.length; j++) {
+			for (int j = 0; j < doms.size(); j++) {
 				if (domsSimilar(i, j, distances)) {
-					if (!cluster.contains(names[j]) && !clustered.contains(names[j])) {
-						cluster.add(names[j]);
-						clustered.add(names[j]);
+					if (!cluster.contains(doms.get(j)) && !clustered.contains(doms.get(j))) {
+						cluster.add(doms.get(j));
+						clustered.add(doms.get(j));
 					}
 				}
 			}
 			if (cluster.size() > 0) {
-				Utils.printArrayList(cluster);
+				// Utils.printArrayList(cluster);
 				clusters.add(cluster);
 			}
 		}
@@ -38,23 +34,5 @@ public class DataClusterer {
 
 	}
 
-	private boolean domsSimilar(int i, int j, double[][] distances) {
-
-		double disij = distances[i][j];
-		double disji = distances[j][i];
-
-		return disij == 1.0 || disji == 1.0;
-	}
-
-	public List<List<String>> clusterDataInFolder(String coverageFolder) {
-		DomComparator dc = new DomComparator();
-		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
-		double[][] distances = dc.extractDistances(domFiles);
-
-		DataClusterer dataClustering = new DataClusterer();
-		List<List<String>> clusterData = dataClustering.clusterData(domFiles, distances);
-
-		return clusterData;
-	}
-
+	abstract boolean domsSimilar(int i, int j, double[][] distances);
 }

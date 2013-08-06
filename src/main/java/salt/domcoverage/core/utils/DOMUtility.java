@@ -74,13 +74,22 @@ public class DOMUtility {
 
 	}
 
-	public static String normalizeDOM(String dom) {
+	public static String normalizeDOM(String dom, boolean stripattributes) {
 		// System.out.println(readFileToString);
-		dom = new PlainStructureComparator(false).normalize(dom);
+		dom = new PlainStructureComparator(stripattributes).normalize(dom);
 		dom = dom.toLowerCase();
 		dom = dom.replace(" coverage=\"true\"", "");
 		dom = dom.replace("coverage=\"true\"", "");
 		dom = dom.replace("  ", " ");
+		dom = dom.replace("\"=\"\"", "");
+		// remove all comments
+		dom = removeAllComments(dom);
+		return dom;
+	}
+
+	private static String removeAllComments(String dom) {
+		// dom = dom.replaceAll(">(.*?)<", "><");
+		dom = dom.replaceAll("<!--(.*?)-->", "");
 
 		return dom;
 	}
@@ -92,16 +101,16 @@ public class DOMUtility {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		readFileToString = DOMUtility.normalizeDOM(readFileToString);
+		readFileToString = DOMUtility.normalizeDOM(readFileToString, false);
 		// System.out.println(readFileToString);
-		element_dom1 = DOMUtility.normalizeDOM(element_dom1);
+		element_dom1 = DOMUtility.normalizeDOM(element_dom1, false);
 		return readFileToString.contains(element_dom1);
 
 	}
 
-	public static String replace(String elementAccessedInDOM, String accessedDom, String mergedDom) {
+	public static String replace(String by, String mergedDom) {
 		// get element accesess method
-		String by = getByFromDOM(accessedDom);
+		// String by = getByFromDOM(accessedDom);
 		// add attribute to it
 
 		// DomCoverageClass dc = new DomCoverageClass();
@@ -124,4 +133,5 @@ public class DOMUtility {
 		}
 		return null;
 	}
+
 }

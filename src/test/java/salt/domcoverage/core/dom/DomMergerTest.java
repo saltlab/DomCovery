@@ -6,23 +6,30 @@ import java.util.List;
 
 import org.junit.Test;
 
-import salt.domcoverage.core.dom.clustering.DataClusterer;
+import salt.domcoverage.core.code2instrument.ElementData;
+import salt.domcoverage.core.code2instrument.ElementDataPersist;
+import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
 import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.Utils;
 
 public class DomMergerTest {
 
+	// @Ignore
 	@Test
-	public void testMergigDoms() {
+	public void testMergingDoms() {
 
-		DataClusterer dataClusterer = new DataClusterer();
-		List<List<String>> clusters = dataClusterer.clusterDataInFolder(ConstantVars.COVERAGE_LOCATION);
+		// List<List<String>> clusters =
+		// dataClusterer.clusterDataInFolder(ConstantVars.COVERAGE_LOCATION, new
+		// DomComparatorUsingCoveredElements());
 
-		DomMerger dm = new DomMerger();
+		DomMerger dm = new DomMerger(new DomComparatorUsingSchema(), new DataClustererWithRelativeSimilarity());
 
-		List<String> doms = dm.mergeDOMsofClusters(clusters);
+		List<ElementData> doms = new ElementDataPersist().getElementsFromFile(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV);
 
-		Utils.writeArrayToFiles(doms, ConstantVars.MERGEDLOCATION);
+		List<String> merge = dm.merge(doms);
+		// List<String> doms = dm.mergeDOMsofClusters(clusters);
+
+		Utils.writeArrayToFiles(merge, ConstantVars.MERGEDLOCATION);
 
 		assertNotNull(doms);
 

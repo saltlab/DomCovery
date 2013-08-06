@@ -17,13 +17,13 @@ public class Utils {
 		}
 	}
 
-	public static void printArrayList(ArrayList cluster) {
+	public static void printList(List cluster) {
 		for (Object o : cluster) {
 			System.out.println(cluster.size() + ": " + o);
 		}
 	}
 
-	public static void printArrayList(List<String> cluster) {
+	public static void printArrayList(List<Object> cluster) {
 		System.out.println(cluster.size() + "::: ");
 		for (Object o : cluster) {
 			System.out.println("::: " + o);
@@ -57,7 +57,7 @@ public class Utils {
 		try {
 			FileUtils.deleteQuietly(new File(loc));
 			for (int i = 0; i < doms.size(); i++) {
-				FileUtils.writeStringToFile(new File(loc + i + ".html"), doms.get(i));
+				FileUtils.writeStringToFile(new File(loc + i + ".html"), (String) doms.get(i));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -21,9 +21,8 @@ public class SchemaGenerator {
 			File xml1 = new File("src/test/resources/test-data.xml");
 			File xml2 = new File("src/test/resources/test-data2.xml");
 
-			SchemaDocument schemaDocument = generator.generateSchema(xml1, xml2);
+			SchemaDocument schemaDocument = generator.generateSchema(xml2);
 			String schema = generator.getSchema(schemaDocument);
-
 			System.out.println(schema);
 
 		} catch (IOException e) {
@@ -51,8 +50,18 @@ public class SchemaGenerator {
 		return inst2xsd(xmlInstances);
 	}
 
-	public SchemaDocument generateSchema(InputStream... inputStreams) throws XmlException,
-	        IOException {
+	// public SchemaDocument generateSchemaofXHTML(File... files) throws
+	// XmlException, IOException {
+	// XHtmlPage[] xmlInstances = new XHtmlPage[files.length];
+	//
+	// for (int i = 0; i < files.length; i++) {
+	// xmlInstances[i] = XHtmlPage. .Factory.parse(files[i]);
+	// }
+	//
+	// return inst2xsd(xmlInstances);
+	// }
+
+	public SchemaDocument generateSchema(InputStream... inputStreams) throws XmlException, IOException {
 
 		XmlObject[] xmlInstances = new XmlObject[inputStreams.length];
 
@@ -68,7 +77,7 @@ public class SchemaGenerator {
 		XmlObject[] xmlInstances = new XmlObject[strs.length];
 
 		for (int i = 0; i < strs.length; i++) {
-
+			// System.out.println("i= " + i + "  srts[i]= " + strs[i]);
 			xmlInstances[i] = XmlObject.Factory.parse(strs[i]);
 		}
 

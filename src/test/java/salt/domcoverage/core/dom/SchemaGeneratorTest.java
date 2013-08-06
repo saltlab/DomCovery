@@ -7,15 +7,13 @@ import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.impl.xb.xsdschema.SchemaDocument;
 import org.junit.Test;
 
-import salt.domcoverage.core.dom.SchemaGenerator;
-
 public class SchemaGeneratorTest {
 
 	@Test
 	public void test() throws XmlException, IOException {
 		SchemaGenerator generator = new SchemaGenerator();
 
-		File xml1 = new File("src/test/resources/test-data.xml");
+		File xml1 = new File("Coverage/salt.domcoverage.casestudies.claroline.add_class.testAddClass_DOM_2013-08-01_09-06-48.761.html");
 		File xml2 = new File("src/test/resources/test-data2.xml");
 
 		SchemaDocument schemaDocument = generator.generateSchema(xml1, xml2);

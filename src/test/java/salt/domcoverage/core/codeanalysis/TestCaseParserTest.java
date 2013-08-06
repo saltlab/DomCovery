@@ -34,7 +34,7 @@ public class TestCaseParserTest {
 	private void printResults(HashMap<MethodDeclaration, ArrayList<MethodCallExpr>> srmce) {
 		for (MethodDeclaration e : srmce.keySet()) {
 			System.out.println("testcase: " + e.getName());
-			Utils.printArrayList(srmce.get(e));
+			Utils.printList(srmce.get(e));
 		}
 	}
 
