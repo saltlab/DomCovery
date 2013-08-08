@@ -5,7 +5,9 @@ import java.util.List;
 
 import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.dom.clustering.DataClusterer;
+import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.DOMUtility;
+import salt.domcoverage.core.utils.Utils;
 
 public class DomMerger {
 	private DomComparator domComparator;
@@ -25,6 +27,9 @@ public class DomMerger {
 		List<List<ElementData>> clusterData = dataClusterer.clusterData(doms, distances);
 		// merge
 		List<String> mergeDOMsofClusters = mergeDOMsofClusters(clusterData);
+
+		Utils.writeArrayToFiles(mergeDOMsofClusters, ConstantVars.MERGEDLOCATION);
+
 		return mergeDOMsofClusters;
 
 	}
@@ -34,8 +39,9 @@ public class DomMerger {
 		String mergedDom = "";
 		if (clust.size() == 0)
 			return mergedDom;
-
-		mergedDom = clust.get(0).getDomData();
+		int maxIndex = selectStartingDom(clust);
+		mergedDom = clust.get(maxIndex).getDomData();
+		clust.remove(maxIndex);
 
 		for (int i = 1; i < clust.size(); i++) {
 			String dom = clust.get(i).getDomData();
@@ -57,6 +63,23 @@ public class DomMerger {
 
 		return mergedDom;
 
+	}
+
+	private int selectStartingDom(List<ElementData> clust) {
+		List sizeofDom = new ArrayList<Integer>();
+		for (int i = 0; i < clust.size(); i++) {
+			sizeofDom.add(clust.get(i).getDomData().length());
+		}
+		// getIndexof
+		int maxIndex = 0;
+		for (int i = 1; i < sizeofDom.size(); i++) {
+			int newnumber = (Integer) sizeofDom.get(i);
+			Integer clusterMaxIndex = (Integer) sizeofDom.get(maxIndex);
+			if (newnumber > clusterMaxIndex) {
+				maxIndex = i;
+			}
+		}
+		return maxIndex;
 	}
 
 	public List<String> mergeDOMsofClusters(List<List<ElementData>> clusterData) {

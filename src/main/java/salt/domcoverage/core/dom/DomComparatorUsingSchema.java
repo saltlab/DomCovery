@@ -1,11 +1,9 @@
 package salt.domcoverage.core.dom;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.impl.xb.xsdschema.SchemaDocument;
 import org.custommonkey.xmlunit.Difference;
@@ -14,7 +12,6 @@ import org.w3c.dom.Document;
 import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.utils.DOMUtility;
 
-import com.crawljax.util.DOMComparer;
 import com.crawljax.util.DomUtils;
 
 public class DomComparatorUsingSchema extends DomComparator {
@@ -51,18 +48,19 @@ public class DomComparatorUsingSchema extends DomComparator {
 			// schemaDom2String = DOMUtility.normalizeDOM(schemaDom2String,
 			// false);
 
-			FileUtils.writeStringToFile(new File("1"), schemaDom1String);
-			FileUtils.writeStringToFile(new File("2"), schemaDom2String);
+			// FileUtils.writeStringToFile(new File("1"), schemaDom1String);
+			// FileUtils.writeStringToFile(new File("2"), schemaDom2String);
 			// FileUtils.writeStringToFile(new File("1"), schemaDom1String);
 			// FileUtils.writeStringToFile(new File("2"), schemaDom2String);
 
 			Document dom1doc = DomUtils.asDocument(schemaDom1String);
 			Document dom2doc = DomUtils.asDocument(schemaDom2String);
 
-			DOMComparer dc = new DOMComparer(dom1doc, dom2doc);
+			DOMDiffer dc = new DOMDiffer(dom1doc, dom2doc);
 
 			differences = dc.compare();
-
+			if (differences == null)
+				return Integer.MAX_VALUE;
 			doc1size = dom1doc.getElementsByTagName("*").getLength();
 			doc2size = dom2doc.getElementsByTagName("*").getLength();
 

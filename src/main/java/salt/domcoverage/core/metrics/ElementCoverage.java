@@ -34,26 +34,6 @@ public class ElementCoverage {
 
 	}
 
-	public void getCoverageofTest(String mergedFolder) {
-		// get all doms
-		// calculate coverage using coverage=true attribute
-		ArrayList<File> filesInDirectoryWithExtension = DOMUtility.getFilesInDirectoryWithExtension(mergedFolder, ".html");
-		for (File file : filesInDirectoryWithExtension) {
-			String dom = "";
-			Document asDocument = null;
-			try {
-				dom = FileUtils.readFileToString(file);
-				asDocument = DomUtils.asDocument(dom);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			int allelementsinDom = asDocument.getElementsByTagName("*").getLength();
-			int coveredElement = DOMUtility.getElementAccessedInDOMThroughCoverageTrueAttribute(dom);
-			printCoverage(allelementsinDom, 0, coveredElement, file.getName(), 0);
-		}
-
-	}
-
 	// public void getCoverage(String coverageFolder) {
 	//
 	// // get all doms
@@ -133,12 +113,6 @@ public class ElementCoverage {
 		System.out.format("element coverage: %f (%d / %d) \n", cov, sumofelementSize, sumofallelementsinDom);
 		double covclick = (double) sumofelementSize / (sumofclickableelements / clustersize);
 		System.out.format("clickable element coverage: %f (%d / %d) \n", covclick, sumofelementSize, sumofclickableelements);
-	}
-
-	private void printCoverage(int allelementsinDom, int elementsCovered, String domName) {
-		System.out.println("******for DOM: " + domName);
-		double cov = (double) elementsCovered / allelementsinDom;
-		System.out.format("element coverage: %f (%d / %d) \n", cov, elementsCovered, allelementsinDom);
 	}
 
 	// private void printCoverage(int allelementsinDom, int clickableElements,

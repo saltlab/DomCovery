@@ -7,7 +7,9 @@ public class DataClustererWithRelativeSimilarity extends DataClusterer {
 		double disij = distances[i][j];
 		double disji = distances[j][i];
 
-		return disij <= 27 || disji <= 27;
+		boolean similar = disij <= 16;
+		System.out.println("similar?: " + similar);
+		return similar;
 	}
 
 }

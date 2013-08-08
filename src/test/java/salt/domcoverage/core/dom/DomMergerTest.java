@@ -10,7 +10,6 @@ import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.code2instrument.ElementDataPersist;
 import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
 import salt.domcoverage.core.utils.ConstantVars;
-import salt.domcoverage.core.utils.Utils;
 
 public class DomMergerTest {
 
@@ -29,7 +28,7 @@ public class DomMergerTest {
 		List<String> merge = dm.merge(doms);
 		// List<String> doms = dm.mergeDOMsofClusters(clusters);
 
-		Utils.writeArrayToFiles(merge, ConstantVars.MERGEDLOCATION);
+		// Utils.writeArrayToFiles(merge, ConstantVars.MERGEDLOCATION);
 
 		assertNotNull(doms);
 

@@ -89,10 +89,11 @@ public class DomCoverageClass {
 
 	private static ArrayList<String> getElementsUsingJsoup(String dom, String by) {
 		ArrayList<String> elementsString = new ArrayList<String>();
-
+		dom = dom.toLowerCase();
 		Document doc = Jsoup.parse(dom);
 		Elements elements = new Elements();
 		String byString = getString(by);
+		byString = byString.toLowerCase();
 		switch (byType(by)) {
 		case ID:
 			elements = doc.select("#" + byString);

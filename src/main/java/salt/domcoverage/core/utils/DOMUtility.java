@@ -82,6 +82,7 @@ public class DOMUtility {
 		dom = dom.replace("coverage=\"true\"", "");
 		dom = dom.replace("  ", " ");
 		dom = dom.replace("\"=\"\"", "");
+		dom = dom.replace("'", "");
 		// remove all comments
 		dom = removeAllComments(dom);
 		return dom;
@@ -132,6 +133,17 @@ public class DOMUtility {
 			}
 		}
 		return null;
+	}
+
+	public static boolean isInvalidDom(Document DOM) {
+		if (DOM == null)
+			return false;
+		String dom = DOM.getTextContent();
+		if (dom == null)
+			return false;
+		if (dom.length() < ConstantVars.MINIMUM_LENGTH_OF_DOM)
+			return false;
+		return true;
 	}
 
 }

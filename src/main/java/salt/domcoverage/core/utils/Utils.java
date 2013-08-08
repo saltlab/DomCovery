@@ -66,4 +66,44 @@ public class Utils {
 
 	}
 
+	public static void write2DArrayToFile(double[][] distances) {
+		String str2write = "";
+		try {
+			FileUtils.deleteQuietly(new File(ConstantVars.DISTANCES_ARRAY));
+
+			for (int i = 0; i < distances.length; i++) {
+				String line = "";
+				for (int j = 0; j < distances.length; j++) {
+					line += distances[i][j] + ",";
+				}
+				line += "\n";
+				str2write += line;
+			}
+			FileUtils.writeStringToFile(new File(ConstantVars.DISTANCES_ARRAY), str2write);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static double[][] loadArrayFromFile(File file) {
+		try {
+
+			List<String> fileLines = FileUtils.readLines(file);
+			double[][] distances = new double[fileLines.size()][fileLines.size()];
+			for (int i = 0; i < fileLines.size(); i++) {
+				String line = fileLines.get(i);
+				String[] split = line.split(",");
+				for (int j = 0; j < split.length; j++) {
+					distances[i][j] = Double.parseDouble(split[j]);
+				}
+			}
+			return distances;
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 }

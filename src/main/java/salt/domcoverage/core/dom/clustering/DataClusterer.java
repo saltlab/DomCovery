@@ -13,23 +13,26 @@ public abstract class DataClusterer {
 		List<ElementData> clustered = new ArrayList<ElementData>();
 
 		for (int i = 0; i < doms.size(); i++) {
-			String name = doms.get(i).getDomFileName();
-			List<ElementData> cluster = new ArrayList<ElementData>();
-			// cluster.add(name);
-			for (int j = 0; j < doms.size(); j++) {
-				if (domsSimilar(i, j, distances)) {
-					if (!cluster.contains(doms.get(j)) && !clustered.contains(doms.get(j))) {
-						cluster.add(doms.get(j));
+			List<ElementData> currentCluster = new ArrayList<ElementData>();
+			if (!clustered.contains(doms.get(i))) {
+				currentCluster.add(doms.get(i));
+				clustered.add(doms.get(i));
+			} else
+				continue;
+			for (int j = i + 1; j < doms.size(); j++) {
+				if (!clustered.contains(doms.get(j))) {
+					if (domsSimilar(i, j, distances)) {
+						currentCluster.add(doms.get(j));
 						clustered.add(doms.get(j));
 					}
 				}
 			}
-			if (cluster.size() > 0) {
+			if (currentCluster.size() > 0) {
 				// Utils.printArrayList(cluster);
-				clusters.add(cluster);
+				clusters.add(currentCluster);
 			}
 		}
-
+		System.out.println("number of clusters: " + clusters.size());
 		return clusters;
 
 	}
