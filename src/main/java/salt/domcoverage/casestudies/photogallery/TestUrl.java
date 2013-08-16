@@ -1,6 +1,5 @@
 package salt.domcoverage.casestudies.photogallery;
 
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import javax.xml.xpath.XPathExpressionException;
@@ -8,10 +7,7 @@ import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.w3c.dom.NodeList;
-
 import salt.domcoverage.core.code2instrument.DomCoverageClass;
-
-
 import com.crawljax.util.XPathHelper;
 
 public class TestUrl {
@@ -26,7 +22,7 @@ public class TestUrl {
 
     @Before
     public void setUp() throws Exception {
-          mydriver = new FirefoxDriver(); 
+        mydriver = new FirefoxDriver();
         baseUrl = "http://watersmc.ece.ubc.ca:8888/phormer-photoGallery331/";
     }
 
@@ -34,30 +30,31 @@ public class TestUrl {
     public void testStoringHitsValue() throws Exception {
         mydriver.get(baseUrl + "/");
         String xpathExpression = "//DIV[@id='sidecolinner']/DIV[3]/DIV[2]/DIV[5]";
-        // System.out.println(this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName()); 
-        WebElement findElement = mydriver.findElement(DomCoverageClass.collectData(By.xpath(xpathExpression), mydriver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName()));
+        // System.out.println(this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName());  
+        WebElement findElement = mydriver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(DomCoverageClass.collectData(By.xpath(xpathExpression), mydriver.getPageSource(), this.getClass().getName() + "." + new Object() {
+        }.getClass().getEnclosingMethod().getName()), mydriver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName()));
     }
 
     private By f(By xpath) {
-        // TODO Auto-generated method stub    
+        // TODO Auto-generated method stub     
         return null;
     }
 
     private String modifyElement(String location) {
         try {
-            // get the test case name: TestUrl.testStoringHitsValue    
-            // store the elements got accessed in this call    
-            // store DOM     
-            // modify the DOM to show elements that got acccessed    
+            // get the test case name: TestUrl.testStoringHitsValue     
+            // store the elements got accessed in this call     
+            // store DOM      
+            // modify the DOM to show elements that got acccessed     
             String pageSource = mydriver.getPageSource();
-            // System.out.println(pageSource);    
+            // System.out.println(pageSource);     
             NodeList evaluateXpathExpression = XPathHelper.evaluateXpathExpression(pageSource, location);
             System.out.println("lentgh: " + evaluateXpathExpression.getLength());
         } catch (XPathExpressionException e) {
-            // TODO Auto-generated catch block    
+            // TODO Auto-generated catch block     
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block    
+            // TODO Auto-generated catch block     
             e.printStackTrace();
         }
         return location;

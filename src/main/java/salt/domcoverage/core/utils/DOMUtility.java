@@ -7,8 +7,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -67,17 +65,10 @@ public class DOMUtility {
 		return element;
 	}
 
-	public static int getElementAccessedInDOMThroughCoverageTrueAttribute(String dom) {
-		org.jsoup.nodes.Document doc = Jsoup.parse(dom);
-		Elements elements = doc.select("[coverage=true]");
-		return elements.size();
-
-	}
-
 	public static String normalizeDOM(String dom, boolean stripattributes) {
 		// System.out.println(readFileToString);
 		dom = new PlainStructureComparator(stripattributes).normalize(dom);
-		dom = dom.toLowerCase();
+		// dom = dom.toLowerCase();
 		dom = dom.replace(" coverage=\"true\"", "");
 		dom = dom.replace("coverage=\"true\"", "");
 		dom = dom.replace("  ", " ");
@@ -127,8 +118,8 @@ public class DOMUtility {
 		List<ElementData> elementsFromFile = new ElementDataPersist().getElementsFromFile(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV);
 		for (ElementData elementData : elementsFromFile) {
 			if (elementData.getDomFileName().equals(dom)) {
-				String by = elementData.getBy().toLowerCase();
-				by = by.replace("by.", "By.");
+				String by = elementData.getBy();// .toLowerCase();
+				// by = by.replace("by.", "By.");
 				return by;
 			}
 		}

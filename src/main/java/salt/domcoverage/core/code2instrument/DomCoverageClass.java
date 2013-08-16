@@ -89,11 +89,11 @@ public class DomCoverageClass {
 
 	private static ArrayList<String> getElementsUsingJsoup(String dom, String by) {
 		ArrayList<String> elementsString = new ArrayList<String>();
-		dom = dom.toLowerCase();
+		// dom = dom.toLowerCase();
 		Document doc = Jsoup.parse(dom);
 		Elements elements = new Elements();
 		String byString = getString(by);
-		byString = byString.toLowerCase();
+		// byString = byString.toLowerCase();
 		switch (byType(by)) {
 		case ID:
 			elements = doc.select("#" + byString);
@@ -139,7 +139,7 @@ public class DomCoverageClass {
 
 	private static Type byType(String bystr) {
 		System.out.println("bystr1: " + bystr);
-		bystr = bystr.toLowerCase().replace("by.", "By.");
+		// bystr = bystr.toLowerCase().replace("by.", "By.");
 		System.out.println("bystr2: " + bystr);
 		if (bystr.contains("By.xpath:"))
 			return Type.XPATH;

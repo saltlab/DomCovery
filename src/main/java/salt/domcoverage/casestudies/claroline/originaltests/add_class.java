@@ -24,8 +24,9 @@ public class add_class {
   @Test
   public void testAddClass() throws Exception {
     driver.get(baseUrl + "/claroline-1.11.7/index.php");
-    driver.findElement(By.id("login")).clear();
-    driver.findElement(By.id("login")).sendKeys("nainy");
+    WebElement findElement = driver.findElement(By.id("login"));
+	findElement.clear();
+    findElement.sendKeys("nainy");
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("nainy");
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();

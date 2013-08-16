@@ -56,7 +56,9 @@ public class ElementDataPersist {
 	private void writeDOMtoFile(String domData, String domfilename) throws IOException {
 		// add style to domData after TITLE
 		String title = "<title>";
-		String[] split = domData.toLowerCase().split(title);
+		String[] split = domData.split(title);
+		if (split == null || split.length == 0)
+			split = domData.split(title.toUpperCase());
 		String modifieddomData = domData;
 		if (split.length == 2)
 			modifieddomData = split[0] + ConstantVars.STYLE + title + split[1];

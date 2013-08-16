@@ -1,35 +1,21 @@
 package salt.domcoverage.core.metrics;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.commons.io.FileUtils;
-import org.w3c.dom.Document;
-
+import salt.domcoverage.core.dom.DocumentObjectModel;
 import salt.domcoverage.core.utils.DOMUtility;
-
-import com.crawljax.util.DomUtils;
 
 public class ElementCoverage {
 
 	public void getCoverageOffilesAccordingToCoverageTrue(String coverageFolder) {
 		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
 		for (File file : domFiles) {
-			String dom = "";
-			try {
-				dom = FileUtils.readFileToString(file);
-				int size = DOMUtility.getElementAccessedInDOMThroughCoverageTrueAttribute(dom);
-				int allelementsinDom;
-
-				Document asDocument = DomUtils.asDocument(dom);
-				allelementsinDom = asDocument.getElementsByTagName("*").getLength();
-				int clickableElements = DOMUtility.getNumberoofAllClickables(asDocument);
-				printCoverage(allelementsinDom, clickableElements, size, file.getName(), 1);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
+			DocumentObjectModel DOM = new DocumentObjectModel(file);
+			int size = DOM.getElementAccessedInDOMThroughCoverageTrueAttribute();
+			int allelementsinDom = DOM.getAllElements();
+			int clickableElements = 1;// DOMUtility.getNumberoofAllClickables(asDocument);
+			printCoverage(allelementsinDom, clickableElements, size, file.getName(), 1);
 		}
 
 	}

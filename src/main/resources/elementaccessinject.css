@@ -1,0 +1,10 @@
+[indirectCoverage=true] {
+  border-style: double;
+  border-color: orange;
+  color: orange;
+}
+[coverage=true] {
+  border-style: double;
+  border-color: green;
+  color: green;
+}

@@ -49,7 +49,24 @@
 			<artifactId>hierarchical-clustering</artifactId>
 			<version>1.0</version>
 		</dependency>
+		
+				<dependency>
+			<groupId>com.crawljax.plugins</groupId>
+			<artifactId>proxy-plugin</artifactId>
+			<version>1.5</version>
+		</dependency>
+		
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>crawljax.mvn.repo</id>
+			<url>https://github.com/crawljax/crawljax-mvn-repo/raw/master</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
 
 </project>
