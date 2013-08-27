@@ -25,12 +25,13 @@ public class WebScarabProxy {
 
 	public void configureRunProxy() {
 		// Provide the JS file to be inserted
-		URL code2inject = WebScarabProxyTest.class.getClassLoader().getResource(ConstantVars.INJECT_ELEMENT_ACCESS_JS);
+		URL code2inject = WebScarabProxy.class.getClassLoader().getResource(ConstantVars.INJECT_ELEMENT_ACCESS_JS);
+
 		this.addPlugin(new FileInjectorProxyAddon(code2inject, TargetNode.HEAD, FileInjectionLocation.FIRST_ITEM, FileInjectionType.JAVASCRIPT));
 
 		// add the CSS style
-		// URL cssFile = WebScarabProxyTest.class.getClassLoader().getResource(ConstantVars.INJECT_ELEMENT_ACCESS_CSS);
-		// proxy.addPlugin(new FileInjectorProxyAddon(cssFile, TargetNode.HEAD, FileInjectionLocation.FIRST_ITEM, FileInjectionType.CSS));
+		URL cssFile = WebScarabProxy.class.getClassLoader().getResource(ConstantVars.INJECT_ELEMENT_ACCESS_CSS);
+		this.addPlugin(new FileInjectorProxyAddon(cssFile, TargetNode.HEAD, FileInjectionLocation.LAST_ITEM, FileInjectionType.CSS));
 
 		// Configure the proxy to use the port 8084 (you can change this of
 		// course)
