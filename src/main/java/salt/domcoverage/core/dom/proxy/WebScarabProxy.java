@@ -35,7 +35,7 @@ public class WebScarabProxy {
 
 		// Configure the proxy to use the port 8084 (you can change this of
 		// course)
-		ProxyConfiguration proxyConfiguration = ProxyConfiguration.manualProxyOn("127.0.0.1", 8888);
+		ProxyConfiguration proxyConfiguration = ProxyConfiguration.manualProxyOn(ConstantVars.PROXY_IP, ConstantVars.PROXY_PORT);
 
 		this.startProxy(proxyConfiguration);
 	}

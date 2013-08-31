@@ -17,4 +17,7 @@ public class ConstantVars {
 	public static final String INJECT_ELEMENT_ACCESS_JS = "elementaccessinject.js";
 	public static final String INJECT_ELEMENT_ACCESS_CSS = "elementaccessinject.css";
 
+	public static final String PROXY_IP = "127.0.0.1";
+	public static final int PROXY_PORT = 8884;
+
 }

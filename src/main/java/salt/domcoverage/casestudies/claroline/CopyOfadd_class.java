@@ -1,6 +1,6 @@
 package salt.domcoverage.casestudies.claroline;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import java.util.concurrent.TimeUnit;
@@ -13,12 +13,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import salt.domcoverage.core.dom.proxy.BrowserProfile;
 import salt.domcoverage.core.dom.proxy.WebScarabProxy;
 
-public class Login_logout {
+public class CopyOfadd_class {
 
 	private WebDriver driver;
 
@@ -32,32 +33,22 @@ public class Login_logout {
 	public void setUp() throws Exception {
 		new WebScarabProxy().configureRunProxy();
 		driver = new FirefoxDriver(BrowserProfile.getProfile());
-		baseUrl = "http://watersmc.ece.ubc.ca:8888/";
+		baseUrl = "file://localhost/Applications/MAMP/htdocs/test2.html";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	@Test
-	public void testLoginLogout() throws Exception {
-		driver.get(baseUrl + "/claroline-1.11.7/index.php");
-		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-		}.getClass().getEnclosingMethod().getName())).clear();
-		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-		}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
-		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-		}.getClass().getEnclosingMethod().getName())).clear();
-		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-		}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
-		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("button[type=\"submit\"]"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-		}.getClass().getEnclosingMethod().getName())).click();
+	public void testAddClass() throws Exception {
+		driver.get(baseUrl);
+		WebElement findElement = driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.xpath("/html/body/button"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName()));
+		findElement.click();
+		assertFalse(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).getText().contains("W3Schools"));
+		// Warning: verifyTextPresent may require manual changes
+
 		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Logout"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
 		}.getClass().getEnclosingMethod().getName())).click();
-		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-			}.getClass().getEnclosingMethod().getName())).getText().matches("^[\\s\\S]*Authentication[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
 	}
 
 	@After

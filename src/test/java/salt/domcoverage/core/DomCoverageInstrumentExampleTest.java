@@ -21,11 +21,20 @@ public class DomCoverageInstrumentExampleTest {
 
 	}
 
+	@Ignore
 	@Test
 	public void instrumentTestSuite() {
 
 		TestInstrumentor tci = new TestInstrumentor();
 		tci.instrumentTestSuite(TestConstantVars.clarolineTestLocation);
+
+	}
+
+	@Test
+	public void instrumentTestClassofJavascriptCoveredElements() {
+
+		TestInstrumentor tci = new TestInstrumentor();
+		tci.instrument(TestConstantVars.jsCoveredElement);
 
 	}
 

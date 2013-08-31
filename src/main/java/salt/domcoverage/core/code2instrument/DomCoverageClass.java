@@ -37,6 +37,7 @@ public class DomCoverageClass {
 		// xpathhelper
 		// jsoup
 		DOM = dom;
+		System.out.println(DOM);
 		ArrayList<String> elements = getElementsofDOM(by.toString(), dom);
 
 		for (String string : elements) {
@@ -52,7 +53,6 @@ public class DomCoverageClass {
 		// }
 
 		String time = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss.SSS").format(new Date());
-
 		// String recordedDomFileName = byalreadyExistInRecordedDoms(by);
 		// if (recordedDomFileName != null) {
 		// new ElementDataPersist(time, testName, by.toString(), DOM,
