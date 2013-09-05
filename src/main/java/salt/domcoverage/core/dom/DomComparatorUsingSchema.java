@@ -50,8 +50,8 @@ public class DomComparatorUsingSchema extends DomComparator {
 
 			// FileUtils.writeStringToFile(new File("1"), schemaDom1String);
 			// FileUtils.writeStringToFile(new File("2"), schemaDom2String);
-			// FileUtils.writeStringToFile(new File("1"), schemaDom1String);
-			// FileUtils.writeStringToFile(new File("2"), schemaDom2String);
+			// FileUtils.writeStringToFile(new File("dom1"), dom1);
+			// FileUtils.writeStringToFile(new File("dom2"), dom2);
 
 			Document dom1doc = DomUtils.asDocument(schemaDom1String);
 			Document dom2doc = DomUtils.asDocument(schemaDom2String);

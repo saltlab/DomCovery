@@ -103,6 +103,17 @@ public class ElementData {
 
 	}
 
+	public ElementData(String testName, String time, String by, String domdata, List<String> elems) {
+		super();
+		this.time = time;
+		this.testName = testName;
+		this.by = by;
+		this.elementFile = "";
+		this.domFileName = "";
+		domData = domdata;
+		elements = elems;
+	}
+
 	public File getDomFile() {
 		return new File(ConstantVars.COVERAGE_LOCATION + domFileName);
 	}

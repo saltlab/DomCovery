@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import salt.domcoverage.core.dom.DomComparator;
+import salt.domcoverage.core.dom.DomComparatorUsingSchema;
+import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
 import salt.domcoverage.core.utils.ConstantVars;
 
 public class ElementDataPersist {
@@ -28,6 +31,13 @@ public class ElementDataPersist {
 			String elementFile = testName + "_ELEMENT_" + time;
 			if (domfilename == "") {
 				domfilename = testName + "_DOM_" + time + ".html";
+				ElementData similarElement = similarDOM(domData, elements);
+				if (similarElement != null) {
+					domData = similarElement.getDomData();
+					domfilename = similarElement.getDomFileName();
+					elements.addAll(similarElement.getElements());
+					// TODO: "by" and "testname" and "time" should be changed to list
+				}
 				writeDOMtoFile(domData, domfilename);
 			}
 			String allElements = "";
@@ -49,6 +59,19 @@ public class ElementDataPersist {
 		// return null;
 	}
 
+	private ElementData similarDOM(String domData, List<String> elements) {
+		ElementData ed = new ElementData("", "", null, domData, elements);
+		List<ElementData> elementdatas = this.getElementsFromFile(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV);
+		for (ElementData elementData : elementdatas) {
+			DomComparator dc = new DomComparatorUsingSchema();
+			double differences = dc.differences(elementData, ed);
+			boolean similar = new DataClustererWithRelativeSimilarity().similarDomBasedonDiff(differences);
+			if (similar)
+				return elementData;
+		}
+		return null;
+	}
+
 	public ElementDataPersist() {
 		// TODO Auto-generated constructor stub
 	}
@@ -61,7 +84,7 @@ public class ElementDataPersist {
 			split = domData.split(title.toUpperCase());
 		String modifieddomData = domData;
 		if (split.length == 2)
-			modifieddomData = split[0] + ConstantVars.STYLE + title + split[1];
+			modifieddomData = split[0] + title + split[1];
 		// if contains html does not add html extension!!!
 		FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + domfilename), modifieddomData, false);
 	}

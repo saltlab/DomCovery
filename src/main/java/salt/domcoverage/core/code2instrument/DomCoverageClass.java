@@ -37,7 +37,7 @@ public class DomCoverageClass {
 		// xpathhelper
 		// jsoup
 		DOM = dom;
-		System.out.println(DOM);
+		// System.out.println(DOM);
 		ArrayList<String> elements = getElementsofDOM(by.toString(), dom);
 
 		for (String string : elements) {
