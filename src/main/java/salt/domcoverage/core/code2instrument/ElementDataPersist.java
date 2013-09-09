@@ -23,7 +23,7 @@ public class ElementDataPersist {
 		return new ElementData(testName, time, by, domfilename, elementFile);
 	}
 
-	public ElementDataPersist(String time, String testName, String by, String domData, String domfilename, ArrayList<String> elements) {
+	public ElementDataPersist(String time, String testName, String by, String domData, String domfilename, List<String> elements) {
 
 		try {
 			// FileUtils.cleanDirectory(new File("Coverage"));
@@ -35,7 +35,9 @@ public class ElementDataPersist {
 				if (similarElement != null) {
 					domData = similarElement.getDomData();
 					domfilename = similarElement.getDomFileName();
-					elements.addAll(similarElement.getElements());
+					if (elementsAreSimilar(elements, similarElement.getElements()))
+						return;
+					elements = addUniqueElements(elements, similarElement.getElements());
 					// TODO: "by" and "testname" and "time" should be changed to list
 				}
 				writeDOMtoFile(domData, domfilename);
@@ -59,11 +61,36 @@ public class ElementDataPersist {
 		// return null;
 	}
 
+	private List<String> addUniqueElements(List<String> elementsSource, List<String> elementsToEvaluate) {
+		List<String> out = new ArrayList<String>();
+		out.addAll(elementsSource);
+		for (String eval : elementsToEvaluate) {
+			if (out.contains(eval))
+				continue;
+			else
+				out.add(eval);
+		}
+		return out;
+	}
+
+	private boolean elementsAreSimilar(List<String> elementsSource, List<String> elementsToEvaluate) {
+		for (String eval : elementsToEvaluate) {
+			if (!elementsSource.contains(eval))
+				return false;
+		}
+		return true;
+	}
+
 	private ElementData similarDOM(String domData, List<String> elements) {
 		ElementData ed = new ElementData("", "", null, domData, elements);
 		List<ElementData> elementdatas = this.getElementsFromFile(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV);
+		// List<ElementData> elementdatas = Utils.keepUniqueElements(elementds);
+		List<String> domFileNames = new ArrayList<String>();
 		for (ElementData elementData : elementdatas) {
 			DomComparator dc = new DomComparatorUsingSchema();
+			if (domFileNames.contains(elementData.getDomFileName()))
+				continue;
+			domFileNames.add(elementData.getDomFileName());
 			double differences = dc.differences(elementData, ed);
 			boolean similar = new DataClustererWithRelativeSimilarity().similarDomBasedonDiff(differences);
 			if (similar)
@@ -89,10 +116,13 @@ public class ElementDataPersist {
 		FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + domfilename), modifieddomData, false);
 	}
 
-	public List<ElementData> getElementsFromFile(String file) {
+	public List<ElementData> getElementsFromFile(String filename) {
 		List<ElementData> elementsData = new ArrayList<ElementData>();
 		try {
-			List<String> fileContents = FileUtils.readLines(new File(file));
+			File file = new File(filename);
+			if (!file.exists())
+				return elementsData;
+			List<String> fileContents = FileUtils.readLines(file);
 			for (String line : fileContents) {
 				String[] split = line.split(ConstantVars.SEPARATOR);
 				String testName = split[0];

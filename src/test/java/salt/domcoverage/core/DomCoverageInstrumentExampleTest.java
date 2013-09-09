@@ -34,7 +34,7 @@ public class DomCoverageInstrumentExampleTest {
 	public void instrumentTestClassofJavascriptCoveredElements() {
 
 		TestInstrumentor tci = new TestInstrumentor();
-		tci.instrument(TestConstantVars.jsCoveredElement);
+		tci.instrument(TestConstantVars.add_class);
 
 	}
 

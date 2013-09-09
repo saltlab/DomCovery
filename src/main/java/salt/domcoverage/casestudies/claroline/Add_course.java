@@ -37,7 +37,7 @@ public class Add_course {
 
 	@Test
 	public void testAddCourse() throws Exception {
-		driver.get(baseUrl + "/claroline-1.11.7/index.php");
+		driver.get(baseUrl + "claroline-1.11.7/index.php");
 		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
 		}.getClass().getEnclosingMethod().getName())).clear();
 		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {

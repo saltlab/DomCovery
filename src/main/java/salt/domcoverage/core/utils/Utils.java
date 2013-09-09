@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 
+import salt.domcoverage.core.code2instrument.ElementData;
+
 public class Utils {
 
 	public static void print2DArray(double[][] distances) {
@@ -105,5 +107,16 @@ public class Utils {
 		}
 
 		return null;
+	}
+
+	public static List<ElementData> keepUniqueElements(List<ElementData> elementds) {
+		List<ElementData> output = new ArrayList<ElementData>();
+		for (ElementData ed : elementds) {
+			for (ElementData outputED : output) {
+				// if (outputED.contains(element))
+			}
+		}
+		return null;
+
 	}
 }

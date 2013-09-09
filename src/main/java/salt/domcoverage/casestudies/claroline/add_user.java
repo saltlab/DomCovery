@@ -1,7 +1,6 @@
 package salt.domcoverage.casestudies.claroline;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.concurrent.TimeUnit;
@@ -89,12 +88,12 @@ public class add_user {
 		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("student"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
 		}.getClass().getEnclosingMethod().getName())).click();
 		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-			}.getClass().getEnclosingMethod().getName())).getText().matches("^[\\s\\S]*\\(student\\)[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		// try {
+		// assertTrue(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		// }.getClass().getEnclosingMethod().getName())).getText().matches("^[\\s\\S]*\\(student\\)[\\s\\S]*$"));
+		// } catch (Error e) {
+		// verificationErrors.append(e.toString());
+		// }
 		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("applyChange"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
 		}.getClass().getEnclosingMethod().getName())).click();
 		assertEquals("Create a new user - Claroline", driver.getTitle());

@@ -32,23 +32,48 @@ public class CopyOfadd_class {
 	@Before
 	public void setUp() throws Exception {
 		new WebScarabProxy().configureRunProxy();
+		baseUrl = "http://localhost:8888/test2.html";
+
+		// System.setProperty("webdriver.chrome.driver", "lib/chromedriver");
+		// ChromeDriverService service = new ChromeDriverService.Builder().usingDriverExecutable(new File("lib/chromedriver")).usingPort(8884).build();
+
+		// service.start();
+		// CommandExecutor URL = new HttpCommandExecutor(new URL(System.getProperty("webdriver.remote.server", "http://localhost:8884/")));
+		// WebDriver driver = new ChromeDriver(service);
+		// WebDriver driver = new RemoteWebDriver(URL, DesiredCapabilities.chrome());
+		// DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		// capabilities.setCapability("chrome.switches", Arrays.asList("--proxy-server=http://127.0.0.1:8884"));
+		// WebDriver driver = new ChromeDriver(capabilities);
 		driver = new FirefoxDriver(BrowserProfile.getProfile());
-		baseUrl = "file://localhost/Applications/MAMP/htdocs/test2.html";
+
+		// driver = new FirefoxDriver();
+
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	@Test
-	public void testAddClass() throws Exception {
+	public void testAddClass() {
 		driver.get(baseUrl);
+		// WebElement findElement = driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.xpath("//*[@id=\"bu\"]"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		// }.getClass().getEnclosingMethod().getName()));
 		WebElement findElement = driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.xpath("/html/body/button"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
 		}.getClass().getEnclosingMethod().getName()));
 		findElement.click();
+
+		// try {
+		// Thread.sleep(1000);
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// // e.pr
+		// e.printStackTrace();
+		// }
+
 		assertFalse(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
 		}.getClass().getEnclosingMethod().getName())).getText().contains("W3Schools"));
 		// Warning: verifyTextPresent may require manual changes
 
-		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Logout"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-		}.getClass().getEnclosingMethod().getName())).click();
+		// driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Logout"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		// }.getClass().getEnclosingMethod().getName())).click();
 	}
 
 	@After

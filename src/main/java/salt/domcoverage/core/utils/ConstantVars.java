@@ -16,6 +16,10 @@ public class ConstantVars {
 	public static final String[] ELEMENTS_TO_COUNT = new String[] { "div", "input", "a", "li", "td", "tr", "table", "option", "img", "dt", "iframe", "textarea" };
 	public static final String INJECT_ELEMENT_ACCESS_JS = "elementaccessinject.js";
 	public static final String INJECT_ELEMENT_ACCESS_CSS = "elementaccessinject.css";
+	public static final String CLICKABLE_DETECTOR_JS = "clickable-detector-pre.js";
+	public static final String CLICKABLE_DETECTOR_CSS = "clickable-detected.css";
+	public static final String VISIBLE_ELEMENT_DETECTOR_JS = "visible-element-detect.js";
+	public static final String VISIBLE_ELEMENT_DETECTOR_CSS = "visible-element-detect.css";
 
 	public static final String PROXY_IP = "127.0.0.1";
 	public static final int PROXY_PORT = 8884;

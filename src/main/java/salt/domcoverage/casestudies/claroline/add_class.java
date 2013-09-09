@@ -20,17 +20,19 @@ import salt.domcoverage.core.dom.proxy.BrowserProfile;
 import salt.domcoverage.core.dom.proxy.WebScarabProxy;
 
 public class add_class {
+
 	private WebDriver driver;
+
 	private String baseUrl;
+
 	private boolean acceptNextAlert = true;
+
 	private StringBuffer verificationErrors = new StringBuffer();
 
 	@Before
 	public void setUp() throws Exception {
-
 		new WebScarabProxy().configureRunProxy();
 		driver = new FirefoxDriver(BrowserProfile.getProfile());
-
 		baseUrl = "http://watersmc.ece.ubc.ca:8888/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
@@ -38,25 +40,37 @@ public class add_class {
 	@Test
 	public void testAddClass() throws Exception {
 		driver.get(baseUrl + "/claroline-1.11.7/index.php");
-		WebElement findElement = driver.findElement(By.id("login"));
+		WebElement findElement = driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName()));
 		findElement.clear();
 		findElement.sendKeys("nainy");
-		driver.findElement(By.id("password")).clear();
-		driver.findElement(By.id("password")).sendKeys("nainy");
-		driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-		driver.findElement(By.linkText("Platform administration")).click();
-		driver.findElement(By.linkText("Manage classes")).click();
-		driver.findElement(By.linkText("Create a new class")).click();
-		driver.findElement(By.name("class_name")).clear();
-		driver.findElement(By.name("class_name")).sendKeys("EG");
-		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).clear();
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("button[type=\"submit\"]"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).click();
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Platform administration"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).click();
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Manage classes"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).click();
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Create a new class"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).click();
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.name("class_name"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).clear();
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.name("class_name"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).sendKeys("EG");
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("input[type=\"submit\"]"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).click();
 		// Warning: verifyTextPresent may require manual changes
 		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*The new class has been created[\\s\\S]*$"));
+			assertTrue(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+			}.getClass().getEnclosingMethod().getName())).getText().matches("^[\\s\\S]*The new class has been created[\\s\\S]*$"));
 		} catch (Error e) {
 			verificationErrors.append(e.toString());
 		}
-		driver.findElement(By.linkText("Logout")).click();
+		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Logout"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).click();
 	}
 
 	@After

@@ -37,11 +37,12 @@ public class DomCoverageClass {
 		// xpathhelper
 		// jsoup
 		DOM = dom;
-		// System.out.println(DOM);
+		System.out.println(DOM);
 		ArrayList<String> elements = getElementsofDOM(by.toString(), dom);
 
 		for (String string : elements) {
-			System.out.println("element: " + string);
+			if (!string.trim().startsWith("<body"))
+				System.out.println("element: " + string);
 		}
 		// try {
 		// FileUtils.write(new
@@ -61,11 +62,11 @@ public class DomCoverageClass {
 		new ElementDataPersist(time, testName, by.toString(), DOM, "", elements);
 
 		// else
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException ex) {
-			Thread.currentThread().interrupt();
-		}
+		// try {
+		// Thread.sleep(1000);
+		// } catch (InterruptedException ex) {
+		// Thread.currentThread().interrupt();
+		// }
 		return by;
 	}
 
