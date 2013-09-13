@@ -20,6 +20,8 @@ public class ConstantVars {
 	public static final String CLICKABLE_DETECTOR_CSS = "clickable-detected.css";
 	public static final String VISIBLE_ELEMENT_DETECTOR_JS = "visible-element-detect.js";
 	public static final String VISIBLE_ELEMENT_DETECTOR_CSS = "visible-element-detect.css";
+	public static final String CSS_CODE_INJECT = "cssCodeInject.css";
+	public static final String JS_CODE_INJECT = "jsCodeInject.js";
 
 	public static final String PROXY_IP = "127.0.0.1";
 	public static final int PROXY_PORT = 8884;

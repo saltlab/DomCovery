@@ -31,7 +31,9 @@ function handleChanges(summaries) {
 }
 
 function detectClickables() {
+$(document).ready(function() {
 	var all = document.getElementsByTagName("*");
+	console.log("length of all elems in doc: "+ all.length);
 	for ( var i = 0; i < all.length; i++) {
 		var node = all[i];
 		if (all[i].onclick != null) {
@@ -48,4 +50,6 @@ function detectClickables() {
 			}
 		}
 	}
+});
+
 }

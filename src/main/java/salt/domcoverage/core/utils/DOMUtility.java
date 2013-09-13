@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 import salt.domcoverage.core.code2instrument.DomCoverageClass;
 import salt.domcoverage.core.code2instrument.ElementData;
@@ -17,15 +16,6 @@ import salt.domcoverage.core.code2instrument.ElementDataPersist;
 import com.crawljax.oraclecomparator.comparators.PlainStructureComparator;
 
 public class DOMUtility {
-
-	public static int getNumberoofAllClickables(Document document) {
-
-		NodeList elemA = document.getElementsByTagName("a");
-		NodeList elemI = document.getElementsByTagName("input");
-		NodeList elemB = document.getElementsByTagName("button");
-
-		return elemA.getLength() + elemB.getLength() + elemI.getLength();
-	}
 
 	public static ArrayList<File> getFilesInDirectoryWithExtension(String folder, String extension) {
 		Collection<File> files = FileUtils.listFiles(new File(folder), null, false);
@@ -108,8 +98,10 @@ public class DOMUtility {
 		// DomCoverageClass dc = new DomCoverageClass();
 		DomCoverageClass.setDom(null);
 		String ret = DomCoverageClass.getModifiedElementInDOM(by, mergedDom);
-		if (ret == null)
+		if (ret == null) {
+			System.out.println("ret is null");
 			return mergedDom;
+		}
 		return ret;
 	}
 

@@ -14,7 +14,7 @@ public class ElementCoverage {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
 			int size = DOM.getElementAccessedInDOMThroughCoverageTrueAttribute();
 			int allelementsinDom = DOM.getAllElements();
-			int clickableElements = 1;// DOMUtility.getNumberoofAllClickables(asDocument);
+			int clickableElements = DOM.getNumberofAllClickables();
 			printCoverage(allelementsinDom, clickableElements, size, file.getName(), 1);
 		}
 

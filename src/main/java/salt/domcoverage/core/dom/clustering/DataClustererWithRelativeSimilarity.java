@@ -13,7 +13,7 @@ public class DataClustererWithRelativeSimilarity extends DataClusterer {
 	}
 
 	public boolean similarDomBasedonDiff(double diff) {
-		boolean similar = diff <= 16;
+		boolean similar = diff <= 23;
 		return similar;
 	}
 

@@ -1,6 +1,7 @@
 package salt.domcoverage.core.dom;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import salt.domcoverage.core.code2instrument.ElementData;
@@ -22,9 +23,12 @@ public class DomMerger {
 
 	public List<String> merge(List<ElementData> doms) {
 		// compare elements
-		double[][] distances = domComparator.extractDistances(doms);
+		// double[][] distances = domComparator.extractDistances(doms);
 		// cluster doms
-		List<List<ElementData>> clusterData = dataClusterer.clusterData(doms, distances);
+		// List<List<ElementData>> clusterData = dataClusterer.clusterData(doms, distances);
+
+		// clustering is already done at this stage. we just create a clusteredData with dom's elementData.
+		List<List<ElementData>> clusterData = clusterDoms(doms);
 		// merge
 		List<String> mergeDOMsofClusters = mergeDOMsofClusters(clusterData);
 
@@ -32,6 +36,27 @@ public class DomMerger {
 
 		return mergeDOMsofClusters;
 
+	}
+
+	private List<List<ElementData>> clusterDoms(List<ElementData> doms) {
+		List<List<ElementData>> ret = new ArrayList<List<ElementData>>();
+		HashMap<String, List<ElementData>> hashmap = new HashMap<String, List<ElementData>>();
+		for (ElementData elementData : doms) {
+			String domFileName = elementData.getDomFileName();
+			List<ElementData> hashmapValue = new ArrayList<ElementData>();
+			if (hashmap.containsKey(domFileName)) {
+				hashmapValue = hashmap.get(domFileName);
+			}
+			hashmapValue.add(elementData);
+			hashmap.put(domFileName, hashmapValue);
+		}
+
+		// turn hashmap to list of lists
+		for (String domfilename : hashmap.keySet()) {
+			ret.add(hashmap.get(domfilename));
+		}
+
+		return ret;
 	}
 
 	public String mergeCluster(List<ElementData> clust) {

@@ -37,17 +37,21 @@ public class DomCoverageClass {
 		// xpathhelper
 		// jsoup
 		DOM = dom;
-		System.out.println(DOM);
-		ArrayList<String> elements = getElementsofDOM(by.toString(), dom);
+		// System.out.println(DOM);
+		// try {
+		// FileUtils.write(new File("1.html"), DOM);
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		ArrayList<String> elements = getElementsofDOM(by.toString(), DOM);
 
 		for (String string : elements) {
 			if (!string.trim().startsWith("<body"))
 				System.out.println("element: " + string);
 		}
 		// try {
-		// FileUtils.write(new
-		// File("salt.domcoverage.casestudies.photogallery.Add_category.testAddCategory.html"),
-		// DOM);
+		// FileUtils.write(new File("2.html"), DOM);
 		// } catch (IOException e) {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();

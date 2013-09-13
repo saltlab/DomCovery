@@ -73,6 +73,17 @@ public class ElementDataPersist {
 		return out;
 	}
 
+	private List<ElementData> getUniqueElements(List<ElementData> elements) {
+		List<ElementData> out = new ArrayList<ElementData>();
+		for (ElementData elem : elements) {
+			// if (elem.getDomFileName().equals()
+			// continue;
+			// else
+			// out.add(eval);
+		}
+		return out;
+	}
+
 	private boolean elementsAreSimilar(List<String> elementsSource, List<String> elementsToEvaluate) {
 		for (String eval : elementsToEvaluate) {
 			if (!elementsSource.contains(eval))
@@ -114,6 +125,12 @@ public class ElementDataPersist {
 			modifieddomData = split[0] + title + split[1];
 		// if contains html does not add html extension!!!
 		FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + domfilename), modifieddomData, false);
+	}
+
+	public List<ElementData> getUniqueElements(String filename) {
+		List<ElementData> doms = getElementsFromFile(filename);
+		return doms = getUniqueElements(doms);
+
 	}
 
 	public List<ElementData> getElementsFromFile(String filename) {

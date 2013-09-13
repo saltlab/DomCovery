@@ -1,9 +1,6 @@
 package salt.domcoverage.core.dom.proxy;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +25,20 @@ public class WebScarabProxy {
 
 	public void configureRunProxy() {
 
-		// jsAndcssCodeInject(ConstantVars.INJECT_ELEMENT_ACCESS_JS, ConstantVars.INJECT_ELEMENT_ACCESS_CSS);
-		try {
-			this.addPlugin(new ExternalJavaScriptFileInjectorProxyAddon(new URI("http://mutation-summary.googlecode.com/git/src/mutation-summary.js")));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		jsAndcssCodeInject(ConstantVars.CLICKABLE_DETECTOR_JS, ConstantVars.CLICKABLE_DETECTOR_CSS);
+		jsAndcssCodeInject(ConstantVars.INJECT_ELEMENT_ACCESS_JS, ConstantVars.INJECT_ELEMENT_ACCESS_CSS);
+		// try {
+		// this.addPlugin(new ExternalJavaScriptFileInjectorProxyAddon(new URI("http://mutation-summary.googlecode.com/git/src/mutation-summary.js")));
+		// } catch (FileNotFoundException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (URISyntaxException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// jsAndcssCodeInject(ConstantVars.CLICKABLE_DETECTOR_JS, ConstantVars.CLICKABLE_DETECTOR_CSS);
 
-		jsAndcssCodeInject(ConstantVars.VISIBLE_ELEMENT_DETECTOR_JS, ConstantVars.VISIBLE_ELEMENT_DETECTOR_CSS);
+		// jsAndcssCodeInject(ConstantVars.VISIBLE_ELEMENT_DETECTOR_JS, ConstantVars.VISIBLE_ELEMENT_DETECTOR_CSS);
+		// (ALL) jsAndcssCodeInject(ConstantVars.JS_CODE_INJECT, ConstantVars.CSS_CODE_INJECT);
 
 		// Configure the proxy to use the port 8084 (you can change this of
 		// course)

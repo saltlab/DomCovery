@@ -32,6 +32,16 @@ public class DocumentObjectModel {
 
 	}
 
+	public int getNumberofAllClickables() {
+
+		Document document = getW3cDocument();
+		NodeList elemA = document.getElementsByTagName("a");
+		NodeList elemI = document.getElementsByTagName("input");
+		NodeList elemB = document.getElementsByTagName("button");
+
+		return elemA.getLength() + elemB.getLength() + elemI.getLength();
+	}
+
 	public int getAllElements() {
 		int all = 0;
 		Document w3cdoc = getW3cDocument();

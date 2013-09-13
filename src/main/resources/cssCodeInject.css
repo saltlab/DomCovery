@@ -1,3 +1,8 @@
+[data-cj-clickable=true] {
+/*  border-style: double;
+  border-color: green;
+  color: green;*/
+}
 [indirectCoverage=true] {
   border-style: double !important;
   border-color: orange !important;
@@ -7,4 +12,9 @@
   border-style: double !important;
   border-color: green !important;
   color: green;
+}
+[element-visible=true] {
+  border-style: double;
+  border-color: black;
+  color: black;
 }

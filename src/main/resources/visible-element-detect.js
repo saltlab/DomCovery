@@ -1,11 +1,12 @@
-var elements=document.body.getElementsByTagName('*');
+
+var elements=document.getElementsByTagName('body')[0].getElementsByTagName("*");
     //alert(elements.length);
     for( i=0; i < elements.length; i++ ){
        if( isVisible(elements[i])){     
 	     console.log("visible element: "+ elements[i].tagName);	
              elements[i].setAttribute("element-visible","true");
        }
-    }  
+    } 
 function isVisible(obj)
 {
     if (obj == document) return true

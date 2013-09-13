@@ -1,5 +1,6 @@
 package salt.domcoverage.casestudies.claroline;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -55,7 +56,7 @@ public class user_list {
 		}.getClass().getEnclosingMethod().getName())).click();
 		// Warning: verifyTextPresent may require manual changes
 		try {
-			assertTrue(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
+			assertFalse(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
 			}.getClass().getEnclosingMethod().getName())).getText().matches("^[\\s\\S]*Nainy[\\s\\S]*$"));
 		} catch (Error e) {
 			verificationErrors.append(e.toString());
