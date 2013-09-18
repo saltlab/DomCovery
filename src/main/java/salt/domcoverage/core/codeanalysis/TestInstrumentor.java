@@ -2,32 +2,38 @@ package salt.domcoverage.core.codeanalysis;
 
 import japa.parser.ParseException;
 import japa.parser.ast.CompilationUnit;
-import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.expr.Expression;
 import japa.parser.ast.expr.MethodCallExpr;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import salt.domcoverage.core.utils.CompilationUnitUtils;
-import salt.domcoverage.core.utils.TestUtil;
+public class TestInstrumentor extends Instrumentor {
 
-public class TestInstrumentor {
+	public void updateExpressions(CompilationUnit cu) {
 
-	public void instrumentTestSuite(String folder) {
-		List<String> allTests = TestUtil.getAllTests(folder);
-		for (String test : allTests) {
-			instrument(test);
+		TestCaseParser tcp = new TestCaseParser();
+
+		try {
+			srmce = tcp.getSeleniumDomRelateMethodCallExpressions(cu);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
-	public MethodCallExpr instrumentMethodCall(MethodCallExpr mce) {
+	public MethodCallExpr instrumentCallExpr(Expression e) {
 
 		// ASTHelper.
-
+		MethodCallExpr mce = (MethodCallExpr) e;
 		List<Expression> oldArgs = mce.getArgs();
 		// create a methodcall expre
 		String codeToInstrument = "salt.domcoverage.core.code2instrument.DomCoverageClass.collectData";
@@ -46,42 +52,6 @@ public class TestInstrumentor {
 		mce.setArgs(newArgs);
 
 		return mce;
-	}
-
-	public void instrument(String fileName) {
-		instrument(fileName, true);
-	}
-
-	public void instrument(String fileName, boolean writeBack) {
-		try {
-			TestCaseParser tcp = new TestCaseParser();
-			CompilationUnit cu;
-			cu = TestCaseParser.getCompilationUnitOfFileName(fileName);
-
-			HashMap<MethodDeclaration, ArrayList<MethodCallExpr>> srmce = tcp.getSeleniumDomRelateMethodCallExpressions(cu);
-
-			for (MethodDeclaration e : srmce.keySet()) {
-				System.out.println("testcase: " + e.getName());
-				for (MethodCallExpr mce : srmce.get(e)) {
-					this.instrumentMethodCall(mce);
-					System.out.println(mce);
-				}
-			}
-			if (writeBack == true)
-				CompilationUnitUtils.writeCompilationUnitToFile(cu, fileName);
-			System.out.println("done writing");
-
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 	}
 
 }

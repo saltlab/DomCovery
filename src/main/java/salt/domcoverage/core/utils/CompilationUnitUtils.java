@@ -6,8 +6,6 @@ import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.expr.AnnotationExpr;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +13,20 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 public class CompilationUnitUtils {
+	public static ArrayList<MethodDeclaration> getMethodsofCompilationUnit(CompilationUnit cu) {
+		ArrayList<MethodDeclaration> methodsOfCompilationUnit = new ArrayList<MethodDeclaration>();
+		for (BodyDeclaration i : cu.getTypes().get(0).getMembers()) {
+			MethodDeclaration j = null;
+			if (i instanceof MethodDeclaration) {
+				j = (MethodDeclaration) i;
+				methodsOfCompilationUnit.add(j);
+				// System.out.println("name: " + j.getNameExpr());
+
+			} // prints the resulting compilation unit to default system output
+				// System.out.println(cu.toString());
+		}
+		return methodsOfCompilationUnit;
+	}
 
 	public static ArrayList<MethodDeclaration> testMethodsofCompilationUnit(CompilationUnit cu) {
 		ArrayList<MethodDeclaration> testMethodsOfCompilationUnit = new ArrayList<MethodDeclaration>();
@@ -22,7 +34,7 @@ public class CompilationUnitUtils {
 			MethodDeclaration j = null;
 			if (i instanceof MethodDeclaration) {
 				j = (MethodDeclaration) i;
-		 		boolean thisisatest = false;
+				boolean thisisatest = false;
 				List<AnnotationExpr> annotations = j.getAnnotations();
 				if (annotations != null && !annotations.isEmpty()) {
 					for (AnnotationExpr ann : annotations) {
@@ -33,7 +45,7 @@ public class CompilationUnitUtils {
 				}
 				if (thisisatest) {
 					testMethodsOfCompilationUnit.add(j);
-					//System.out.println("name: " + j.getNameExpr());
+					// System.out.println("name: " + j.getNameExpr());
 				}
 			} // prints the resulting compilation unit to default system output
 				// System.out.println(cu.toString());
@@ -42,22 +54,19 @@ public class CompilationUnitUtils {
 	}
 
 	public static void writeCompilationUnitToFile(CompilationUnit cu, String fileName) {
-		
+		// String str = cu.getPackage().getName() + "." + cu.getTypes().get(0).getName();
+		// str = str.replace(".", "/");
+		// String rootDirectory = fileName.substring(0, fileName.indexOf(str));
+		// fileName = rootDirectory + ConstantVars.INSTRUMENTED_CODE_LOCATION + str;
+
+		// fileName = getFileNameInOutputFolder(fileName);
 		try {
-			FileInputStream in = new FileInputStream(fileName);
-			try {
-				FileUtils.writeStringToFile(new File(fileName), cu.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
+			FileUtils.writeStringToFile(new File(fileName), cu.toString());
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
-		
-		
 	}
+
 }

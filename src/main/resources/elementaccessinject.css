@@ -1,10 +1,12 @@
 [indirectCoverage=true] {
-  border-style: double !important;
+  border-style: solid !important;
   border-color: orange !important;
+  border-width: 7px;
   color: orange;
 }
 [coverage=true] {
-  border-style: double !important;
+  border-style: solid !important;
   border-color: green !important;
+  border-width: 7px;
   color: green;
 }

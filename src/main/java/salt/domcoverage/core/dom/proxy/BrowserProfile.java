@@ -4,12 +4,13 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 
 public class BrowserProfile {
 
-	public static FirefoxProfile getProfile() {
+	public static FirefoxProfile getConfigureProxyandgetProfile() {
 		FirefoxProfile profile = new FirefoxProfile();
 		// String lang = configuration.getBrowserConfig().getLangOrNull();
 		// if (!Strings.isNullOrEmpty(lang)) {
 		// profile.setPreference("intl.accept_languages", lang);
 		// }
+		salt.domcoverage.core.dom.proxy.WebScarabProxy.configureRunProxy();
 
 		profile.setPreference("network.proxy.http", "127.0.0.1");
 		profile.setPreference("network.proxy.http_port", 8884);

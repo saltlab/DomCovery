@@ -20,11 +20,12 @@ import com.crawljax.core.configuration.ProxyConfiguration;
 
 public class WebScarabProxy {
 
-	private Proxy proxy;
-	private List<ProxyPlugin> plugins = new ArrayList<ProxyPlugin>();
+	private static Proxy proxy;
+	private static List<ProxyPlugin> plugins = new ArrayList<ProxyPlugin>();
 
-	public void configureRunProxy() {
+	public static void configureRunProxy() {
 
+		plugins = new ArrayList<ProxyPlugin>();
 		jsAndcssCodeInject(ConstantVars.INJECT_ELEMENT_ACCESS_JS, ConstantVars.INJECT_ELEMENT_ACCESS_CSS);
 		// try {
 		// this.addPlugin(new ExternalJavaScriptFileInjectorProxyAddon(new URI("http://mutation-summary.googlecode.com/git/src/mutation-summary.js")));
@@ -44,28 +45,28 @@ public class WebScarabProxy {
 		// course)
 		ProxyConfiguration proxyConfiguration = ProxyConfiguration.manualProxyOn(ConstantVars.PROXY_IP, ConstantVars.PROXY_PORT);
 
-		this.startProxy(proxyConfiguration);
+		startProxy(proxyConfiguration);
 	}
 
-	private void jsAndcssCodeInject(String js, String css) {
+	private static void jsAndcssCodeInject(String js, String css) {
 		// Provide the JS file to be inserted
 		URL code2inject = WebScarabProxy.class.getClassLoader().getResource(js);
 
-		this.addPlugin(new FileInjectorProxyAddon(code2inject, TargetNode.HEAD, FileInjectionLocation.FIRST_ITEM, FileInjectionType.JAVASCRIPT));
+		addPlugin(new FileInjectorProxyAddon(code2inject, TargetNode.HEAD, FileInjectionLocation.FIRST_ITEM, FileInjectionType.JAVASCRIPT));
 
 		// add the CSS style
 		URL cssFile = WebScarabProxy.class.getClassLoader().getResource(css);
-		this.addPlugin(new FileInjectorProxyAddon(cssFile, TargetNode.HEAD, FileInjectionLocation.LAST_ITEM, FileInjectionType.CSS));
+		addPlugin(new FileInjectorProxyAddon(cssFile, TargetNode.HEAD, FileInjectionLocation.LAST_ITEM, FileInjectionType.CSS));
 
 	}
 
-	public void startProxy(ProxyConfiguration config) {
+	public static void startProxy(ProxyConfiguration config) {
 		Framework framework = new Framework();
 
 		/* set listening port before creating the object to avoid warnings */
 		Preferences.setPreference("Proxy.listeners", config.getHostname() + ":" + config.getPort());
 
-		this.proxy = new Proxy(framework);
+		proxy = new Proxy(framework);
 
 		/* add the plugins to the proxy */
 		for (ProxyPlugin p : plugins) {
@@ -81,11 +82,11 @@ public class WebScarabProxy {
 		}
 
 		/* start the proxy */
-		this.proxy.run();
+		proxy.run();
 
 	}
 
-	public void addPlugin(ProxyPlugin plugin) {
+	public static void addPlugin(ProxyPlugin plugin) {
 		plugins.add(plugin);
 	}
 }

@@ -6,6 +6,7 @@ public class ConstantVars {
 	public static final String SEPARATOR = "~~";
 	public static final String COVERAGE_COVERED_ELEMENTS_CSV = COVERAGE_LOCATION + "CoveredElements.csv";
 	public static final String MERGEDLOCATION = "MergedState/";
+	public static final String INSTRUMENTED_CODE_LOCATION = "instrumentedCode/";
 	public static final String HTML_EXTENSION = ".html";
 
 	public static final String STYLE = "<style  type=\"text/css\"> [coverage=\"true\"]{outline:10px solid green;}</style>";
@@ -25,5 +26,6 @@ public class ConstantVars {
 
 	public static final String PROXY_IP = "127.0.0.1";
 	public static final int PROXY_PORT = 8884;
+	public static final String[] SELENIUMDRIVER_METHODCALLS = new String[] { "FirefoxDriver", "ChromeDriver" };
 
 }

@@ -68,9 +68,10 @@ public class DocumentObjectModel {
 		int numberofCountingItems = 0;
 		for (int i = bodyelementorder - 1; i < elements.getLength(); i++) {
 			Node item = elements.item(i);
+			if (item.getFirstChild() != null && item.getFirstChild().getNodeValue() == "")
+				continue;
 			if (countingItem(item.getNodeName())) {
 				numberofCountingItems++;
-				// System.out.println("counting item: " + item.getNodeName());
 			}
 		}
 		return numberofCountingItems;

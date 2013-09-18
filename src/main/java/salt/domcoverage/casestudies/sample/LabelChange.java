@@ -29,7 +29,7 @@ public class LabelChange {
 	public void setUp() throws Exception {
 
 		new WebScarabProxy().configureRunProxy();
-		driver = new FirefoxDriver(BrowserProfile.getProfile());
+		driver = new FirefoxDriver(BrowserProfile.getConfigureProxyandgetProfile());
 
 		baseUrl = "http://watersmc.ece.ubc.ca:8888/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
