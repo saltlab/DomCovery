@@ -1,6 +1,7 @@
 package salt.domcoverage.core.dom;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class DomMerger {
 		mergedDom = clust.get(maxIndex).getDomData();
 		clust.remove(maxIndex);
 
-		for (int i = 1; i < clust.size(); i++) {
+		for (int i = 0; i < clust.size() - 1; i++) {
 			String dom = clust.get(i).getDomData();
 			mergedDom = DOMUtility.replace(clust.get(i).getBy(), mergedDom);
 
@@ -113,7 +114,7 @@ public class DomMerger {
 			String dom = mergeCluster(clust);
 			mergedDoms.add(dom);
 		}
-
+		Collections.sort(mergedDoms);
 		return mergedDoms;
 	}
 

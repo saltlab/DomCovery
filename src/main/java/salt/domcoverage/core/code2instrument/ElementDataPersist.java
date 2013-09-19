@@ -45,7 +45,7 @@ public class ElementDataPersist {
 			String allElements = "";
 			for (String element : elements) {
 				buffer += testName + ConstantVars.SEPARATOR + time + ConstantVars.SEPARATOR + by + ConstantVars.SEPARATOR + elementFile + ConstantVars.SEPARATOR + domfilename + "\r";
-				allElements = element + "\n";
+				allElements += element + ConstantVars.ELEMENTS_SEPARATOR;
 			}
 			FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + elementFile + ".txt"), allElements);
 

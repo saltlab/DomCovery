@@ -123,7 +123,7 @@ public class DomCoverageClass {
 			break;
 		}
 		for (org.jsoup.nodes.Element element : elements) {
-			if (!element.hasAttr("coverage")) {
+			if (!element.hasAttr("coverage") && !element.tagName().toLowerCase().equals("body")) {
 				element.attr("coverage", "true");
 				DOM = element.ownerDocument().outerHtml();
 			}

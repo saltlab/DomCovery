@@ -102,6 +102,7 @@ public class DOMUtility {
 			System.out.println("ret is null");
 			return mergedDom;
 		}
+		System.out.println("ret is not null for by: " + by);
 		return ret;
 	}
 

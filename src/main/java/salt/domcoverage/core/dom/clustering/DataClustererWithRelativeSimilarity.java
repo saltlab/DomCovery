@@ -1,5 +1,7 @@
 package salt.domcoverage.core.dom.clustering;
 
+import salt.domcoverage.core.utils.ConstantVars;
+
 public class DataClustererWithRelativeSimilarity extends DataClusterer {
 
 	boolean domsSimilar(int i, int j, double[][] distances) {
@@ -13,7 +15,7 @@ public class DataClustererWithRelativeSimilarity extends DataClusterer {
 	}
 
 	public boolean similarDomBasedonDiff(double diff) {
-		boolean similar = diff <= 23;
+		boolean similar = diff <= ConstantVars.SIMILARITY_THRESHOLD;
 		return similar;
 	}
 

@@ -27,5 +27,8 @@ public class ConstantVars {
 	public static final String PROXY_IP = "127.0.0.1";
 	public static final int PROXY_PORT = 8884;
 	public static final String[] SELENIUMDRIVER_METHODCALLS = new String[] { "FirefoxDriver", "ChromeDriver" };
+	public static final String DomCoverageCriteria = "DomCoverageCriteriaReport.txt";
+	public static final double SIMILARITY_THRESHOLD = 34;
+	public static final String ELEMENTS_SEPARATOR = "@@@@@@@@@";
 
 }

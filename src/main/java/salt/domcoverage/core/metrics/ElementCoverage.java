@@ -1,15 +1,25 @@
 package salt.domcoverage.core.metrics;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
+
 import salt.domcoverage.core.dom.DocumentObjectModel;
+import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.DOMUtility;
 
 public class ElementCoverage {
 
 	public void getCoverageOffilesAccordingToCoverageTrue(String coverageFolder) {
 		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
+		try {
+			FileUtils.write(new File(ConstantVars.DomCoverageCriteria), "", false);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (File file : domFiles) {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
 			int size = DOM.getElementAccessedInDOMThroughCoverageTrueAttribute();
@@ -93,12 +103,20 @@ public class ElementCoverage {
 	// }
 
 	private void printCoverage(int sumofallelementsinDom, int sumofclickableelements, int sumofelementSize, String domName, int clustersize) {
-		System.out.println("******for DOM: " + domName);
+
+		String outputToFile = "******for DOM: " + domName + "\n";
 		sumofallelementsinDom = sumofallelementsinDom / clustersize;
 		double cov = (double) sumofelementSize / sumofallelementsinDom;
-		System.out.format("element coverage: %f (%d / %d) \n", cov, sumofelementSize, sumofallelementsinDom);
+		outputToFile += "element coverage: " + cov + " (" + sumofelementSize + " / " + sumofallelementsinDom + ") \n";
 		double covclick = (double) sumofelementSize / (sumofclickableelements / clustersize);
-		System.out.format("clickable element coverage: %f (%d / %d) \n", covclick, sumofelementSize, sumofclickableelements);
+		outputToFile += "clickable element coverage: " + covclick + " (" + sumofelementSize + " / " + sumofclickableelements + ") \n";
+		try {
+			FileUtils.writeStringToFile(new File(ConstantVars.DomCoverageCriteria), outputToFile, true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	// private void printCoverage(int allelementsinDom, int clickableElements,

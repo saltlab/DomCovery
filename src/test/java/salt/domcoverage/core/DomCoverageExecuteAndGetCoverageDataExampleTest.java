@@ -1,40 +1,22 @@
 package salt.domcoverage.core;
 
-import java.util.List;
-
 import org.junit.Test;
-
-import salt.domcoverage.core.code2instrument.ElementData;
-import salt.domcoverage.core.code2instrument.ElementDataPersist;
-import salt.domcoverage.core.dom.DomComparatorUsingSchema;
-import salt.domcoverage.core.dom.DomMerger;
-import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
-import salt.domcoverage.core.metrics.ElementCoverage;
-import salt.domcoverage.core.utils.ConstantVars;
-import salt.domcoverage.core.utils.TestUtil;
 
 public class DomCoverageExecuteAndGetCoverageDataExampleTest {
 
 	@Test
-	public void instrumentRunGetCoverageofOneTestCase() {
+	public void execute() {
 
-		// execute test
-		List<String> allTests = TestUtil.getAllTests(TestConstantVars.clarolineTestLocation);
-		for (String test : allTests) {
-			new TestExecutor().execute(test);
-		}
+		final long startTime = System.currentTimeMillis();
 
-		// merge the doms
-		DomMerger dm = new DomMerger(new DomComparatorUsingSchema(), new DataClustererWithRelativeSimilarity());
+		String testLocationFolder = TestConstantVars.clarolineTestLocation4test;
+		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
+		rtdc.execute(testLocationFolder);
 
-		List<ElementData> doms = new ElementDataPersist().getElementsFromFile(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV);
+		
+		final long endTime = System.currentTimeMillis();
 
-		List<String> merge = dm.merge(doms);
-
-		// getcoverage
-
-		ElementCoverage ec = new ElementCoverage();
-		ec.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION);
+			System.out.println("Total execution time: " + (endTime - startTime) );
 
 	}
 }

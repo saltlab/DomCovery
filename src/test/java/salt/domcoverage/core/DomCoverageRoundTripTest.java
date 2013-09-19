@@ -1,16 +1,23 @@
 package salt.domcoverage.core;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class DomCoverageRoundTripTest {
 
+	RoundTripDOMCoverage rtdc;
+	String testLocationFolder;
+
+	@Before
+	public void setUp() throws Exception {
+		testLocationFolder = TestConstantVars.clarolineTestLocation4test;
+		rtdc = new RoundTripDOMCoverage();
+	}
+
 	@Test
-	public void instrumentRunGetCoverageofOneTestCase() {
-		String testLocationFolder = TestConstantVars.clarolineTestLocation4test;
-
-		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
-		rtdc.performRoundtripActions(testLocationFolder);
-
+	public void Zexecute() {
+		rtdc.instrument(testLocationFolder);
+		rtdc.execute(testLocationFolder);
 	}
 
 }

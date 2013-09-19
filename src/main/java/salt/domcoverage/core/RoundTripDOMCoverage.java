@@ -16,7 +16,7 @@ import salt.domcoverage.core.utils.TestUtil;
 
 public class RoundTripDOMCoverage {
 
-	public void performRoundtripActions(String testLocationFolder) {
+	public void instrument(String testLocationFolder) {
 		// instrument drivers of tests
 		DriverInstrumentor driverInstrumentor = new DriverInstrumentor();
 		driverInstrumentor.instrumentTestSuite(testLocationFolder);
@@ -24,11 +24,18 @@ public class RoundTripDOMCoverage {
 		// instrument tests
 		TestInstrumentor tci = new TestInstrumentor();
 		tci.instrumentTestSuite(testLocationFolder);
+		// Utils.sleep(5000);
 
 		// re-compile tests
-		CompileUtil.compileFiles(testLocationFolder);
+		// CompileUtil.compileFiles(testLocationFolder);
 
-		// execute test
+		// Utils.sleep(5000);
+	}
+
+	// execute test
+
+	public void execute(String testLocationFolder) {
+
 		List<String> allTests = TestUtil.getAllTests(testLocationFolder, ".java");
 
 		TestUtil.executeUnitTests(allTests);

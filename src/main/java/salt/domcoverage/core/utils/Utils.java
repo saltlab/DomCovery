@@ -119,4 +119,12 @@ public class Utils {
 		return null;
 
 	}
+
+	public static void sleep(int i) {
+		try {
+			Thread.sleep(i);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+	}
 }

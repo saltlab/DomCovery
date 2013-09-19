@@ -2,6 +2,8 @@ package salt.domcoverage.core.code2instrument;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -96,7 +98,7 @@ public class ElementData {
 		this.domFileName = domfilename;
 		try {
 			domData = FileUtils.readFileToString(new File(ConstantVars.COVERAGE_LOCATION + domfilename));
-			elements = FileUtils.readLines(new File(ConstantVars.COVERAGE_LOCATION + elementF + ".txt"));
+			elements = Arrays.asList((FileUtils.readFileToString(new File(ConstantVars.COVERAGE_LOCATION + elementF + ".txt"))).split(ConstantVars.ELEMENTS_SEPARATOR));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
