@@ -49,7 +49,7 @@ public class ElementDataPersist {
 			}
 			FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + elementFile + ".txt"), allElements);
 
-			FileUtils.write(new File(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV), buffer, null, true);
+			FileUtils.write(new File(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV), buffer, true);
 
 			// return new ElementData(testName, time, by, domfilename,
 			// elementFile);

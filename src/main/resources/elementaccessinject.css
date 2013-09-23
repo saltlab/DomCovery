@@ -1,13 +1,13 @@
 [indirectCoverage=true] {
   border-style: solid !important;
   border-color: orange !important;
-  border-width: 7px;
+  border-width: 3px;
   color: orange;
 }
 [coverage=true] {
-  outline: 7px solid green;
+  outline: 3px solid green;
   border-style: solid !important;
   border-color: green !important;
-  border-width: 7px;
+  border-width: 3px;
   color: green;
 }

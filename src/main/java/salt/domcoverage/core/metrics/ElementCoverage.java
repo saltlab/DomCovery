@@ -111,6 +111,7 @@ public class ElementCoverage {
 		double covclick = (double) sumofelementSize / (sumofclickableelements / clustersize);
 		outputToFile += "clickable element coverage: " + covclick + " (" + sumofelementSize + " / " + sumofclickableelements + ") \n";
 		try {
+			System.out.println(outputToFile);
 			FileUtils.writeStringToFile(new File(ConstantVars.DomCoverageCriteria), outputToFile, true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
