@@ -24,14 +24,24 @@ public class DomEstimation {
 		long WAIT_TIME_AFTER_RELOAD = 400;
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(URL);
-
+		builder.crawlRules().clickDefaultElements();
+		builder.crawlRules().click("span", "div", "p", "a", "input", "button", "li");
+		builder.crawlRules().clickOnce(false);
+		builder.crawlRules().crawlFrames(true);
+		builder.crawlRules().followExternalLinks(false);
+		builder.crawlRules().dontClick("a").withText("Logout");
 		builder.crawlRules().setInputSpec(getInputSpecification());
 
 		CrawlOverview plugin = new CrawlOverview();
 		deleteOutDirectory();
 		builder.addPlugin(plugin);
 
-		builder.setMaximumRunTime(1, TimeUnit.MINUTES);
+		builder.addPlugin(new DomComparatorPlugin());
+
+		builder.setUnlimitedCrawlDepth();
+		builder.setUnlimitedStates();
+
+		builder.setMaximumRunTime(10, TimeUnit.MINUTES);
 		builder.crawlRules().insertRandomDataInInputForms(false);
 		builder.crawlRules().waitAfterReloadUrl(WAIT_TIME_AFTER_RELOAD, TimeUnit.MILLISECONDS);
 		builder.crawlRules().waitAfterEvent(WAIT_TIME_AFTER_EVENT, TimeUnit.MILLISECONDS);

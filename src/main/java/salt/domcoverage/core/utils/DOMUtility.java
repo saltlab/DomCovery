@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.w3c.dom.Document;
@@ -61,12 +63,24 @@ public class DOMUtility {
 		// dom = dom.toLowerCase();
 		dom = dom.replace(" coverage=\"true\"", "");
 		dom = dom.replace("coverage=\"true\"", "");
+		dom = dom.replace(" indirectCoverage=\"true\"", "");
+		dom = dom.replace("indirectCoverage=\"true\"", "");
+		dom = dom.replace(" indirectcoverage=\"true\"", "");
+		dom = dom.replace("indirectcoverage=\"true\"", "");
 		dom = dom.replace("  ", " ");
 		dom = dom.replace("\"=\"\"", "");
 		dom = dom.replace("'", "");
 		// remove all comments
 		dom = removeAllComments(dom);
 		return dom;
+	}
+
+	public static String removeTagName(String data, String tagname) {
+		StringBuilder regex = new StringBuilder("<" + tagname + "[^>]*>(.*?)</" + tagname + ">");
+		int flags = Pattern.MULTILINE | Pattern.DOTALL | Pattern.CASE_INSENSITIVE;
+		Pattern pattern = Pattern.compile(regex.toString(), flags);
+		Matcher matcher = pattern.matcher(data);
+		return matcher.replaceAll("");
 	}
 
 	private static String removeAllComments(String dom) {

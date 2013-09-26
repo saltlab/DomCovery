@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
@@ -126,5 +129,22 @@ public class Utils {
 		} catch (InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
+	}
+
+	public static Map<String, String> readFilesfromDirectory(String location, String ext) {
+		String[] st = new String[] { ext };
+		Map<String, String> doms = new HashMap<String, String>();
+		Collection<File> listFiles = FileUtils.listFiles(new File(location), st, false);
+		for (File file2 : listFiles) {
+			try {
+				doms.put(file2.getName(), FileUtils.readFileToString(file2));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		return doms;
 	}
 }

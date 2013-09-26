@@ -1,9 +1,11 @@
 package salt.domcoverage.core.dom;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.impl.xb.xsdschema.SchemaDocument;
 import org.custommonkey.xmlunit.Difference;
@@ -32,8 +34,13 @@ public class DomComparatorUsingSchema extends DomComparator {
 			dom1 = DOMUtility.normalizeDOM(dom1, false);
 			dom2 = DOMUtility.normalizeDOM(dom2, false);
 
+			// remove style and script tags
+			dom1 = DOMUtility.removeTagName(dom1, "script");
+			dom1 = DOMUtility.removeTagName(dom1, "style");
+			dom2 = DOMUtility.removeTagName(dom2, "script");
+			dom2 = DOMUtility.removeTagName(dom2, "style");
 			// create a valid xhtml
-			// FileUtils.writeStringToFile(new File("1-afterSrtip"), dom1);
+			FileUtils.writeStringToFile(new File("1-afterSrtip"), dom1);
 			dom1 = XHTMLTransformer.getDocumentToString(DomUtils.asDocument(dom1));
 			dom2 = XHTMLTransformer.getDocumentToString(DomUtils.asDocument(dom2));
 			// FileUtils.writeStringToFile(new File("2-xhtml"), dom2);
@@ -75,7 +82,9 @@ public class DomComparatorUsingSchema extends DomComparator {
 		// Utils.printList(differences);
 
 		// calculate score
-		boolean contains = ed2.contains(ed1.getElements().get(0));
+		boolean contains = false;
+		if (ed1.getElements() != null && ed1.getElements().size() != 0)
+			contains = ed2.contains(ed1.getElements().get(0));
 		double diffscore = getDiffScore(differences.size(), doc1size, doc2size, contains);
 
 		System.out.println("size: " + diffscore);
