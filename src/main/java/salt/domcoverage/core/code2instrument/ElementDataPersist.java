@@ -11,6 +11,7 @@ import salt.domcoverage.core.dom.DomComparator;
 import salt.domcoverage.core.dom.DomComparatorUsingSchema;
 import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
 import salt.domcoverage.core.utils.ConstantVars;
+import salt.domcoverage.core.utils.DOMUtility;
 
 public class ElementDataPersist {
 
@@ -23,6 +24,7 @@ public class ElementDataPersist {
 		return new ElementData(testName, time, by, domfilename, elementFile);
 	}
 
+	@SuppressWarnings("unused")
 	public ElementDataPersist(String time, String testName, String by, String domData, String domfilename, List<String> elements) {
 
 		try {
@@ -31,14 +33,17 @@ public class ElementDataPersist {
 			String elementFile = testName + "_ELEMENT_" + time;
 			if (domfilename == "") {
 				domfilename = testName + "_DOM_" + time + ".html";
-				ElementData similarElement = similarDOM(domData, elements);
-				if (similarElement != null) {
-					domData = similarElement.getDomData();
-					domfilename = similarElement.getDomFileName();
-					if (elementsAreSimilar(elements, similarElement.getElements()))
-						return;
-					elements = addUniqueElements(elements, similarElement.getElements());
-					// TODO: "by" and "testname" and "time" should be changed to list
+				if (ConstantVars.ENFORCE_SIMILARITY_FROM_BEGINING == true) {
+					ElementData similarElement = similarDOM(domData, elements);
+					if (similarElement != null) {
+						String domDataofSimilarDom = similarElement.getDomData();
+						domData = DOMUtility.replaceIndirectCoverageElements(domData, domDataofSimilarDom);
+						domfilename = similarElement.getDomFileName();
+						if (elementsAreSimilar(elements, similarElement.getElements()))
+							return;
+						// elements = addUniqueElements(elements, similarElement.getElements());
+						// TODO: "by" and "testname" and "time" should be changed to list
+					}
 				}
 				writeDOMtoFile(domData, domfilename);
 			}

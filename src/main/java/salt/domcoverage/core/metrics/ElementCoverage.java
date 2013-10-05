@@ -14,12 +14,7 @@ public class ElementCoverage {
 
 	public void getCoverageOffilesAccordingToCoverageTrue(String coverageFolder) {
 		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
-		try {
-			FileUtils.write(new File(ConstantVars.DomCoverageCriteria), "", false);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		for (File file : domFiles) {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
 			int size = DOM.getElementAccessedInDOMThroughCoverageTrueAttribute();

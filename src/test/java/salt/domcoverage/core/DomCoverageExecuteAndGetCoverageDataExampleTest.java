@@ -9,14 +9,15 @@ public class DomCoverageExecuteAndGetCoverageDataExampleTest {
 
 		final long startTime = System.currentTimeMillis();
 
-		String testLocationFolder = TestConstantVars.clarolineTestLocation4test;
+		// String testLocationFolder = TestConstantVars.clarolineTestLocation4test;
+		// String testLocationFolder = TestConstantVars.theorgnizerlocation;
+		String testLocationFolder = TestConstantVars.photogalleryTestLocation;
 		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
-		rtdc.execute(testLocationFolder);
+		rtdc.execute(testLocationFolder, "DomcoveryOutput");
 
-		
 		final long endTime = System.currentTimeMillis();
 
-			System.out.println("Total execution time: " + (endTime - startTime) );
+		System.out.println("Total execution time: " + (endTime - startTime));
 
 	}
 }

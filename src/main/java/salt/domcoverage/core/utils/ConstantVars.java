@@ -28,9 +28,12 @@ public class ConstantVars {
 	public static final int PROXY_PORT = 8884;
 	public static final String[] SELENIUMDRIVER_METHODCALLS = new String[] { "FirefoxDriver", "ChromeDriver" };
 	public static final String DomCoverageCriteria = "DomCoverageCriteriaReport.txt";
-	public static final double SIMILARITY_THRESHOLD = 34;//
+	public static final double SIMILARITY_THRESHOLD = 34;// 5;// 34;//
 	public static final String ELEMENTS_SEPARATOR = "@@@@@@@@@";
 	public static final String CRAWLJAXDOMS = "out/doms/";
+	public static final String CRAWLOVERVIEW = "out";
 	public static final String CRAWLJAX_IMAGES = "out/screenshots/";
+	public static final boolean ENFORCE_SIMILARITY_FROM_BEGINING = true;
+	public static boolean JS_REWRITE_EXECUTED = false;
 
 }

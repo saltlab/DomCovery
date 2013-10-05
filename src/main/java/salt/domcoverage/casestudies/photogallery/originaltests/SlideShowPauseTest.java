@@ -41,7 +41,7 @@ public class SlideShowPauseTest {
         driver.get(baseUrl);
         By by = By.id("ss_playpause_link");
         //System.out.println("by: "+by);  
-        driver.findElement(DomCoverageClass.collectData(by, driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(DomCoverageClass.collectData(by, driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
     }
 
     private void modifyElementAll(String url, String loc) throws IOException {

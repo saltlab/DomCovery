@@ -54,6 +54,19 @@ public class DomStateCoverage {
 			String domStateCoveredFileName = domStateCoverage.get(crawljaxStateFileName);
 			domScreenShot.takeScreenshot(ConstantVars.MERGEDLOCATION + domStateCoveredFileName, ConstantVars.CRAWLJAX_IMAGES + crawljaxStateFileName.replace(".html", ".jpg"));
 		}
+		domScreenShot.finalize();
+
+		// print resutls in file
+		String outputToFile = "******for Whole Application: \n";
+		double domStateCoverageRatio = (double) domStateCoverage.keySet().size() / crawljaxDoms.keySet().size();
+		String coverageLine = "DOM state coverage is : " + domStateCoverageRatio + " (" + domStateCoverage.keySet().size() + " / " + crawljaxDoms.keySet().size() + ") \n";
+		System.out.println(coverageLine);
+		try {
+			FileUtils.writeStringToFile(new File(ConstantVars.DomCoverageCriteria), outputToFile + coverageLine, false);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

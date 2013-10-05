@@ -10,14 +10,15 @@ public class DomCoverageRoundTripTest {
 
 	@Before
 	public void setUp() throws Exception {
-		testLocationFolder = TestConstantVars.clarolineTestLocation4test;
+		// testLocationFolder = TestConstantVars.clarolineTestLocation4test;
+		testLocationFolder = TestConstantVars.theorgnizerlocation;
 		rtdc = new RoundTripDOMCoverage();
 	}
 
 	@Test
 	public void Zexecute() {
 		rtdc.instrument(testLocationFolder);
-		rtdc.execute(testLocationFolder);
+		rtdc.execute(testLocationFolder, "DomcoveryOutput");
 	}
 
 }

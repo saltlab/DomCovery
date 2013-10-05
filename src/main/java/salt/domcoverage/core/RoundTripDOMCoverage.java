@@ -9,7 +9,9 @@ import salt.domcoverage.core.codeanalysis.TestInstrumentor;
 import salt.domcoverage.core.dom.DomComparatorUsingSchema;
 import salt.domcoverage.core.dom.DomMerger;
 import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
+import salt.domcoverage.core.metrics.DomStateCoverage;
 import salt.domcoverage.core.metrics.ElementCoverage;
+import salt.domcoverage.core.task.TaskUtil;
 import salt.domcoverage.core.utils.CompileUtil;
 import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.TestUtil;
@@ -34,7 +36,9 @@ public class RoundTripDOMCoverage {
 
 	// execute test
 
-	public void execute(String testLocationFolder) {
+	public void execute(String testLocationFolder, String outputFolder) {
+
+		TaskUtil.setUpDomcoveryExecution(outputFolder);
 
 		List<String> allTests = TestUtil.getAllTests(testLocationFolder, ".java");
 
@@ -49,8 +53,14 @@ public class RoundTripDOMCoverage {
 
 		// getcoverage
 
+		DomStateCoverage domStateCoverage = new DomStateCoverage();
+		domStateCoverage.getDomStateCoverage();
+
 		ElementCoverage ec = new ElementCoverage();
 		ec.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION);
+
+		TaskUtil.cleanUpAfterRunningDomcovery(outputFolder);
+
 	}
 
 }

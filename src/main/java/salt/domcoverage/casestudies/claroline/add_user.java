@@ -29,39 +29,39 @@ public class add_user {
     @Test
     public void testAddUser() throws Exception {
         driver.get(baseUrl + "/claroline-1.11.7/index.php");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("button[type=\"submit\"]"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Platform administration"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Create user"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("lastname"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("lastname"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("Naman");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("firstname"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("firstname"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("Agr");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("officialCode"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("officialCode"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("a7");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("username"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("username"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("nam");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("username"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("username"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("naman");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("123456");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password_conf"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password_conf"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("123456");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("student"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("student"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("student"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("button[type=\"submit\"]"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Platform administration"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Create user"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("lastname"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("lastname"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("Naman");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("firstname"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("firstname"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("Agr");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("officialCode"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("officialCode"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("a7");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("username"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("username"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("nam");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("username"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("username"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("naman");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("123456");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password_conf"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password_conf"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("123456");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("student"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("student"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("student"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
         // Warning: verifyTextPresent may require manual changes  
         try {
-            assertTrue(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).getText().matches("^[\\s\\S]*\\(student\\)[\\s\\S]*$"));
+            assertTrue(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).getText().matches("^[\\s\\S]*\\(student\\)[\\s\\S]*$"));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("applyChange"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("applyChange"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
         assertEquals("Create a new user - Claroline", driver.getTitle());
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Logout"), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Logout"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
     }
 
     @After

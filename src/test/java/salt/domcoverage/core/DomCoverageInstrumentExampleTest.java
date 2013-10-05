@@ -9,15 +9,14 @@ public class DomCoverageInstrumentExampleTest {
 
 		final long startTime = System.currentTimeMillis();
 
-		String testLocationFolder = TestConstantVars.clarolineTestLocation4test;
+		// String testLocationFolder = TestConstantVars.photogalleryTestLocation;
+		String testLocationFolder = System.getProperty("user.dir") + "/src/main/java/salt/domcoverage/casestudies/photogallery/instrumentedtask2";
 		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
 		rtdc.instrument(testLocationFolder);
 
-		
-		
 		final long endTime = System.currentTimeMillis();
 
-			System.out.println("Total execution time: " + (endTime - startTime) );
+		System.out.println("Total execution time: " + (endTime - startTime));
 
 	}
 

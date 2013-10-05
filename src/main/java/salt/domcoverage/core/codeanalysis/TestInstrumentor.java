@@ -38,9 +38,10 @@ public class TestInstrumentor extends Instrumentor {
 		// create a methodcall expre
 		String codeToInstrument = "salt.domcoverage.core.code2instrument.DomCoverageClass.collectData";
 		MethodCallExpr call = new MethodCallExpr(null, codeToInstrument);
-		MethodCallExpr calltoPageSource = new MethodCallExpr(null, mce.getScope().toString() + ".getPageSource");
+		// MethodCallExpr calltoPageSource = new MethodCallExpr(null, mce.getScope().toString() + ".getPageSource");
 		MethodCallExpr calltoClassName = new MethodCallExpr(null, "this.getClass().getName()+\".\"+new Object(){}.getClass().getEnclosingMethod().getName");
-		oldArgs.add(calltoPageSource);
+		// oldArgs.add(calltoPageSource);
+		oldArgs.add(mce.getScope());
 		oldArgs.add(calltoClassName);
 
 		call.setArgs(oldArgs);

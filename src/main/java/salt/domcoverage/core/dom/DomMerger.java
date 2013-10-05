@@ -67,10 +67,11 @@ public class DomMerger {
 			return mergedDom;
 		int maxIndex = selectStartingDom(clust);
 		mergedDom = clust.get(maxIndex).getDomData();
-		clust.remove(maxIndex);
+		// if (clust.size() == 1)
+		// return DOMUtility.replace(clust.get(0).getBy(), mergedDom);
+		// clust.remove(maxIndex);
 
-		for (int i = 0; i < clust.size() - 1; i++) {
-			String dom = clust.get(i).getDomData();
+		for (int i = 0; i < clust.size(); i++) {
 			mergedDom = DOMUtility.replace(clust.get(i).getBy(), mergedDom);
 
 			// String elementAccessedInDOM =

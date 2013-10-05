@@ -1,115 +1,95 @@
 package salt.domcoverage.casestudies.clarolinetest;
 
+import java.io.File;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.*;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class Add_course {
+	private WebDriver driver;
+	private String baseUrl;
+	private boolean acceptNextAlert = true;
+	private StringBuffer verificationErrors = new StringBuffer();
 
-    private WebDriver driver;
+	@Before
+	public void setUp() throws Exception {
+		driver = new FirefoxDriver();
+		baseUrl = "http://watersmc.ece.ubc.ca:8888/";
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
 
-    private String baseUrl;
+	@Test
+	public void testAddCourse() throws Exception {
+		driver.get(baseUrl + "/claroline-1.11.7/index.php");
+		driver.findElement(By.id("login")).clear();
+		driver.findElement(By.id("login")).sendKeys("nainy");
+		driver.findElement(By.id("password")).clear();
+		((JavascriptExecutor) driver).executeScript("console.log('hello world');");
+		driver.findElement(By.id("password")).sendKeys("nainy");
+		driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+		driver.findElement(By.linkText("Create a course site")).click();
+		driver.findElement(By.id("course_title")).clear();
+		driver.findElement(By.id("course_title")).sendKeys("Computer Science");
+		driver.findElement(By.id("course_officialCode")).clear();
+		driver.findElement(By.id("course_officialCode")).sendKeys("A7");
+		// ERROR: Caught exception [ERROR: Unsupported command [addSelection | id=mslist2 | label=Sciences]]
+		driver.findElement(By.linkText("Advanced options")).click();
+		driver.findElement(By.id("course_status_date")).click();
+		driver.findElement(By.name("changeProperties")).click();
+	}
 
-    private boolean acceptNextAlert = true;
+	@After
+	public void tearDown() throws Exception {
+		// ((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('report');}");
+		// String json = (String) ((JavascriptExecutor) driver).executeScript("return jscoverage_serializeCoverageToJSON();");
+		// System.out.println(json);
+		// FileUtils.writeStringToFile(new File("coverage.txt"), json);
+		driver.quit();
+		String verificationErrorString = verificationErrors.toString();
+		if (!"".equals(verificationErrorString)) {
+			fail(verificationErrorString);
+		}
+	}
 
-    private StringBuffer verificationErrors = new StringBuffer();
+	private boolean isElementPresent(By by) {
+		try {
+			driver.findElement(by);
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
+		}
+	}
 
-    @Before
-    public void setUp() throws Exception {
-        driver = new FirefoxDriver(salt.domcoverage.core.dom.proxy.BrowserProfile.getConfigureProxyandgetProfile());
-        baseUrl = "http://watersmc.ece.ubc.ca:8888/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    }
+	private boolean isAlertPresent() {
+		try {
+			driver.switchTo().alert();
+			return true;
+		} catch (NoAlertPresentException e) {
+			return false;
+		}
+	}
 
-    @Test
-    public void testAddCourse() throws Exception {
-        driver.get(baseUrl + "/claroline-1.11.7/index.php");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("login"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("password"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("nainy");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("button[type=\"submit\"]"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Create a course site"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("course_title"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("course_title"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("Computer Science");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("course_officialCode"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("course_officialCode"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("A7");
-        // ERROR: Caught exception [ERROR: Unsupported command [addSelection | id=mslist2 | label=Sciences]]       
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Advanced options"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("course_status_date"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.name("changeProperties"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
-        }
-    }
-
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
-        }
-    }
+	private String closeAlertAndGetItsText() {
+		try {
+			Alert alert = driver.switchTo().alert();
+			String alertText = alert.getText();
+			if (acceptNextAlert) {
+				alert.accept();
+			} else {
+				alert.dismiss();
+			}
+			return alertText;
+		} finally {
+			acceptNextAlert = true;
+		}
+	}
 }

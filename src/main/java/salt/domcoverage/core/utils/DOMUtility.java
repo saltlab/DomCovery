@@ -9,6 +9,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 
 import salt.domcoverage.core.code2instrument.DomCoverageClass;
@@ -113,7 +116,7 @@ public class DOMUtility {
 		DomCoverageClass.setDom(null);
 		String ret = DomCoverageClass.getModifiedElementInDOM(by, mergedDom);
 		if (ret == null) {
-			System.out.println("ret is null");
+			System.out.println("ret is null for by: " + by);
 			return mergedDom;
 		}
 		System.out.println("ret is not null for by: " + by);
@@ -142,6 +145,40 @@ public class DOMUtility {
 		if (dom.length() < ConstantVars.MINIMUM_LENGTH_OF_DOM)
 			return false;
 		return true;
+	}
+
+	public static String replaceIndirectCoverageElements(String mergedDom, String dom) {
+		org.jsoup.nodes.Document docDom = Jsoup.parse(dom);
+		org.jsoup.nodes.Document docMergedDom = Jsoup.parse(mergedDom);
+		Elements elements = new Elements();
+		elements = docDom.select("[indirectCoverage=true]");
+		for (org.jsoup.nodes.Element element : elements) {
+			element.removeAttr("indirectCoverage");
+			element.removeAttr("coverage");
+			org.jsoup.nodes.Element elementInMergedDom = DOMUtility.elementExistsInDom(docMergedDom, element);
+			if (elementInMergedDom != null) {
+				System.out.println("containts!");
+				elementInMergedDom.attr("indirectCoverage", "true");
+			}
+			// DOM = element.ownerDocument().outerHtml();
+		}
+		String returnDom = docMergedDom.ownerDocument().outerHtml();
+		return returnDom;
+	}
+
+	private static Element elementExistsInDom(org.jsoup.nodes.Document docMergedDom, Element find) {
+		for (org.jsoup.nodes.Element element : docMergedDom.getAllElements()) {
+			if (prepare(element).equals(prepare(find)))
+				return element;
+		}
+		return null;
+	}
+
+	private static String prepare(Element element) {
+		String s = element.toString().replace(" ", "").toLowerCase();
+		int ind = (s.length() > 40) ? 40 : s.length();
+		System.out.println("element to comapre: " + s.substring(0, ind) + "  ........");
+		return s;
 	}
 
 }

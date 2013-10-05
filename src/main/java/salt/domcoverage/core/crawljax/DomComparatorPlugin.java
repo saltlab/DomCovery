@@ -18,7 +18,7 @@ import flex.messaging.io.ArrayList;
 public class DomComparatorPlugin implements DomChangeNotifierPlugin {
 
 	public boolean isDomChanged(CrawlerContext context, String domBefore, Eventable e, String domAfter) {
-
+		// DomStateCoverage.domsSimilar(this.getDom(), that.getDom())
 		String before = new String(domBefore);
 		String after = new String(domAfter);
 		boolean similar = DomStateCoverage.domsSimilar(before, after);

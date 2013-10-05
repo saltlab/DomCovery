@@ -1,3 +1,4 @@
+function enableRewrite() {
 var geet = Document.prototype.getElementById
 Document.prototype.getElementById= function(id) {
      var r= geet.call(this,id);
@@ -25,8 +26,7 @@ Document.prototype.getElementsByClassName= function(id) {
     console.log("id: "+id+ "  geetClassName: "+geetClassName); 
     return modifyAll(geetClassName.call(this, id));
 }
-/* add querySelector, child, paretn,...
-*/
+}
 
 function modify(elem){
    elem.setAttribute("indirectCoverage", "true");

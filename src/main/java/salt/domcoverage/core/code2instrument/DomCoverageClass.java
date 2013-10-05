@@ -12,6 +12,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -33,10 +35,13 @@ public class DomCoverageClass {
 		return DOM;
 	}
 
-	public static By collectData(By by, String dom, String testName) {
+	public static By collectData(By by, WebDriver driver, String testName) {
 		// xpathhelper
 		// jsoup
-		DOM = dom;
+		((JavascriptExecutor) driver).executeScript("enableRewrite();");
+
+		// if (ConstantVars.JS_REWRITE_EXECUTED = false;)
+		DOM = driver.getPageSource();
 		// System.out.println(DOM);
 		// try {
 		// FileUtils.write(new File("1.html"), DOM);

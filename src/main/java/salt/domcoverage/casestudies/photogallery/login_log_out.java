@@ -21,7 +21,7 @@ public class login_log_out {
 
     @Before
     public void setUp() throws Exception {
-        driver = new FirefoxDriver();
+        driver = new FirefoxDriver(salt.domcoverage.core.dom.proxy.BrowserProfile.getConfigureProxyandgetProfile());
         baseUrl = "http://localhost:8888";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
@@ -29,34 +29,13 @@ public class login_log_out {
     @Test
     public void testLoginLogOut() throws Exception {
         driver.get(baseUrl + "/phormer-photoGallery331/");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Admin Page"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("loginAdminPass"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("loginAdminPass"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("editor");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("input.submit"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Manage Categories"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("<< Admin Page"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Log Out"), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver.getPageSource(), this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Admin Page"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("loginAdminPass"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).clear();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("loginAdminPass"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).sendKeys("editor");
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("input.submit"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Manage Categories"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("<< Admin Page"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Log Out"), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
     }
 
     @After
