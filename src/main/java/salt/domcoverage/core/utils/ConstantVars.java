@@ -12,7 +12,9 @@ public class ConstantVars {
 	public static final String STYLE = "<style  type=\"text/css\"> [coverage=\"true\"]{outline:10px solid green;}</style>";
 	public static final int MINIMUM_LENGTH_OF_DOM = 50;
 	public static final String DISTANCES_ARRAY = "Distances.csv";
-	public static final String[] seleniumDomRelatedMethodCallList = new String[] { "findElement" };
+	public static final String[] seleniumDomRelatedMethodCallList = new String[] { "findElement", "findElements" };
+	public static final String[] allSeleniumMethodCalls = new String[] { "findElement", "id", "xpath", "tagName", "linkText", "cssSelector", "partialLinkText", "className", "findElements" };
+	public static final String[] assertion_methods_list = new String[] { "assertEquals", "assertTrue", "assertNotNull", "assertNull" };
 	public static final String[] ELEMENTS_NOT_COUNT = new String[] { "p", "form", "tbody", "tabular", "span", "thead", "h1", "h2", "h3", "br", "hr", "code", "i", "kbd", "pre", "small", "strong", "abbr", "ul", "ol", "dl", "th", "select" };
 	public static final String[] ELEMENTS_TO_COUNT = new String[] { "div", "input", "a", "li", "td", "tr", "table", "option", "img", "dt", "iframe", "textarea" };
 	public static final String INJECT_ELEMENT_ACCESS_JS = "elementaccessinject.js";
@@ -35,5 +37,6 @@ public class ConstantVars {
 	public static final String CRAWLJAX_IMAGES = "out/screenshots/";
 	public static final boolean ENFORCE_SIMILARITY_FROM_BEGINING = true;
 	public static boolean JS_REWRITE_EXECUTED = false;
+	public static boolean oracleAssertion = false;
 
 }

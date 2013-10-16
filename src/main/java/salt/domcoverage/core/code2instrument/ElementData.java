@@ -12,6 +12,8 @@ import salt.domcoverage.core.utils.ConstantVars;
 
 public class ElementData {
 
+	private String observerElement;
+
 	public String getElementFile() {
 		return elementFile;
 	}
@@ -89,13 +91,14 @@ public class ElementData {
 	/*
 	 * fills out the fileds, gets dom data of domfile, and elements if @elementF
 	 */
-	public ElementData(String testName, String time, String by, String domfilename, String elementF) {
+	public ElementData(String testName, String time, String by, String domfilename, String elementF, String observedElement) {
 		super();
 		this.time = time;
 		this.testName = testName;
 		this.by = by;
 		this.elementFile = elementF;
 		this.domFileName = domfilename;
+		this.observerElement = observedElement;
 		try {
 			domData = FileUtils.readFileToString(new File(ConstantVars.COVERAGE_LOCATION + domfilename));
 			elements = Arrays.asList((FileUtils.readFileToString(new File(ConstantVars.COVERAGE_LOCATION + elementF + ".txt"))).split(ConstantVars.ELEMENTS_SEPARATOR));
@@ -126,6 +129,14 @@ public class ElementData {
 				return true;
 		}
 		return false;
+	}
+
+	public String getObserverElement() {
+		return observerElement;
+	}
+
+	public void setObserverElement(String observerElement) {
+		this.observerElement = observerElement;
 	}
 
 }

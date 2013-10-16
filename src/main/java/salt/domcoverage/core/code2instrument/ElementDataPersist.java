@@ -21,7 +21,7 @@ public class ElementDataPersist {
 		String domfilename = testName + "_DOM_" + time;
 		String elementFile = testName + "_ELEMENT_" + time;
 
-		return new ElementData(testName, time, by, domfilename, elementFile);
+		return new ElementData(testName, time, by, domfilename, elementFile, "false");
 	}
 
 	@SuppressWarnings("unused")
@@ -49,7 +49,7 @@ public class ElementDataPersist {
 			}
 			String allElements = "";
 			for (String element : elements) {
-				buffer += testName + ConstantVars.SEPARATOR + time + ConstantVars.SEPARATOR + by + ConstantVars.SEPARATOR + elementFile + ConstantVars.SEPARATOR + domfilename + "\r";
+				buffer += testName + ConstantVars.SEPARATOR + time + ConstantVars.SEPARATOR + by + ConstantVars.SEPARATOR + elementFile + ConstantVars.SEPARATOR + domfilename + ConstantVars.SEPARATOR + ConstantVars.oracleAssertion + "\r";
 				allElements += element + ConstantVars.ELEMENTS_SEPARATOR;
 			}
 			FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + elementFile + ".txt"), allElements);
@@ -152,9 +152,10 @@ public class ElementDataPersist {
 				String by = split[2];
 				String elementFile = split[3];
 				String domfilename = split[4];
+				String observedElement = split[5];
 				// public ElementData(String time, String testName, String by,
 				// String domData, ArrayList<String> elements) {
-				ElementData elem = new ElementData(testName, time, by, domfilename, elementFile);
+				ElementData elem = new ElementData(testName, time, by, domfilename, elementFile, observedElement);
 				elementsData.add(elem);
 			}
 

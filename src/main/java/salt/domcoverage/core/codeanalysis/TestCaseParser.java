@@ -46,7 +46,7 @@ public class TestCaseParser {
 	}
 
 	public HashMap<MethodDeclaration, ArrayList<Expression>> getSeleniumDomRelateMethodCallExpressions(CompilationUnit cu) throws FileNotFoundException, ParseException, IOException {
-		ArrayList<MethodDeclaration> testMethodsofCompilationUnit = CompilationUnitUtils.testMethodsofCompilationUnit(cu);
+		ArrayList<MethodDeclaration> testMethodsofCompilationUnit = CompilationUnitUtils.methodsofCompilationUnit(cu);
 		return getMethodCallExpressions(testMethodsofCompilationUnit, ConstantVars.seleniumDomRelatedMethodCallList);
 
 	}
@@ -87,6 +87,11 @@ public class TestCaseParser {
 			in.close();
 		}
 		return cu;
+	}
+
+	public HashMap<MethodDeclaration, ArrayList<Expression>> getAssertionCallExpr(CompilationUnit cu) {
+		ArrayList<MethodDeclaration> methodsofCompilationUnit = CompilationUnitUtils.getMethodsofCompilationUnit(cu);
+		return getMethodCallExpressions(methodsofCompilationUnit, ConstantVars.assertion_methods_list);
 	}
 
 }

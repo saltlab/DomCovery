@@ -8,13 +8,13 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestCaseInstrumentorTest {
-	TestInstrumentor tci;
+public class AssertionInstrumentorTest {
+	AssertionInstrumentor ait;
 	private boolean writeBack = true;
 
 	@Before
 	public void setUp() {
-		tci = new TestInstrumentor();
+		ait = new AssertionInstrumentor();
 
 	}
 
@@ -25,7 +25,7 @@ public class TestCaseInstrumentorTest {
 
 	@Test
 	public void testInstrumentMethodCallforStopPlay() throws FileNotFoundException, ParseException, IOException {
-		tci.instrument(TestSourceLocations.MainViewTest, true);
+		ait.instrument(TestSourceLocations.MainViewTest, true);
 	}
 
 }

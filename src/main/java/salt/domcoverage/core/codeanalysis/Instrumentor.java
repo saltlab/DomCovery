@@ -41,11 +41,12 @@ public abstract class Instrumentor {
 				System.out.println("method: " + e.getName());
 				for (Expression mce : srmce.get(e)) {
 					this.instrumentCallExpr(mce);
-					System.out.println(mce);
+					System.out.println("instrumented mce: " + mce);
 				}
 			}
 			if (writeBack == true)
 				CompilationUnitUtils.writeCompilationUnitToFile(cu, fileName);
+			System.out.println(cu);
 			System.out.println("done writing");
 
 		} catch (FileNotFoundException e1) {

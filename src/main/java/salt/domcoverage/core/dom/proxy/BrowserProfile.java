@@ -28,7 +28,7 @@ public class BrowserProfile {
 		FirefoxProfile profile = new FirefoxProfile();
 
 		profile.setPreference("network.proxy.http", "127.0.0.1");
-		profile.setPreference("network.proxy.http_port", 3128);
+		profile.setPreference("network.proxy.http_port", 8884);
 		profile.setPreference("network.proxy.type", 1);
 		/* use proxy for everything, including localhost */
 		profile.setPreference("network.proxy.no_proxies_on", "");

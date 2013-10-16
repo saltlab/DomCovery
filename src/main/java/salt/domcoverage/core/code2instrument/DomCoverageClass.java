@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
@@ -13,7 +16,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -35,7 +40,37 @@ public class DomCoverageClass {
 		return DOM;
 	}
 
+	public static WebElement collectData(WebElement webElement, WebDriver driver, String testName) {
+		// webElement.get
+		String bys = webElement.toString();
+		Pattern pattern1 = Pattern.compile("-> (.*): (.*)]");
+		Matcher matcher1 = pattern1.matcher(bys);
+		boolean find = matcher1.find();
+		// System.out.println(find);
+		String by0 = matcher1.group(1);
+		String by1 = matcher1.group(2);
+
+		bys = "By." + by0 + ": " + by1;
+		collectData(bys, driver, testName);
+		// d.findElement(webElement);
+		// here record dom state and elements got accessed!
+		return webElement;
+	}
+
+	public static By collectAssertedElements(By by, WebDriver d) {
+		// webElement.get
+		ConstantVars.oracleAssertion = true;
+		// collectData(by, d, "", by.toString());
+		// here record dom state and elements got accessed!
+		return by;
+	}
+
 	public static By collectData(By by, WebDriver driver, String testName) {
+		collectData(by.toString(), driver, testName);
+		return by;
+	}
+
+	public static String collectData(String bys, WebDriver driver, String testName) {
 		// xpathhelper
 		// jsoup
 		((JavascriptExecutor) driver).executeScript("enableRewrite();");
@@ -49,7 +84,7 @@ public class DomCoverageClass {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
-		ArrayList<String> elements = getElementsofDOM(by.toString(), DOM);
+		ArrayList<String> elements = getElementsofDOM(bys, DOM);
 
 		for (String string : elements) {
 			if (!string.trim().startsWith("<body"))
@@ -68,7 +103,7 @@ public class DomCoverageClass {
 		// new ElementDataPersist(time, testName, by.toString(), DOM,
 		// recordedDomFileName, elements);
 		// } else
-		new ElementDataPersist(time, testName, by.toString(), DOM, "", elements);
+		new ElementDataPersist(time, testName, bys, DOM, "", elements);
 
 		// else
 		// try {
@@ -76,7 +111,8 @@ public class DomCoverageClass {
 		// } catch (InterruptedException ex) {
 		// Thread.currentThread().interrupt();
 		// }
-		return by;
+		// oracleAssertion = false;
+		return bys;
 	}
 
 	public static String getModifiedElementInDOM(String string, String dom) {
@@ -278,6 +314,15 @@ public class DomCoverageClass {
 
 	public static void setDom(String dom) {
 		DOM = dom;
+	}
+
+	public static void assertionModeOn() {
+		ConstantVars.oracleAssertion = true;
+	}
+
+	public static void assertionModeOff() {
+		ConstantVars.oracleAssertion = false;
+
 	}
 
 }

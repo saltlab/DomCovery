@@ -53,6 +53,16 @@ public class CompilationUnitUtils {
 		return testMethodsOfCompilationUnit;
 	}
 
+	public static ArrayList<MethodDeclaration> methodsofCompilationUnit(CompilationUnit cu) {
+		ArrayList<MethodDeclaration> methodsOfCompilationUnit = new ArrayList<MethodDeclaration>();
+		for (BodyDeclaration i : cu.getTypes().get(0).getMembers()) {
+			if (i instanceof MethodDeclaration) {
+				methodsOfCompilationUnit.add((MethodDeclaration) i);
+			}
+		}
+		return methodsOfCompilationUnit;
+	}
+
 	public static void writeCompilationUnitToFile(CompilationUnit cu, String fileName) {
 		// String str = cu.getPackage().getName() + "." + cu.getTypes().get(0).getName();
 		// str = str.replace(".", "/");
