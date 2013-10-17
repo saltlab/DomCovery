@@ -1,16 +1,5 @@
 Dom Coverage
 ============
-
-next steps:
-- clickable detection
-- count only visible elements that have some innertext. otherwise do not count them. 
-- automatically addd proxy configuration to the test case with javaparser
-
-
-
-
-other minor todos: 
-- automatically copy css/img files in mergeState folder.
-- add support to selenium.click("id=balbal") or selenium.type("linke=balahh") 
+With increasing popularity of web applications, there is a great demand for tools to ensure the dependability of applications. To measure the quality of test suites, using code based coverage adequacy criteria are not enough because of dynamic nature of web applications. We present new coverage criteria to help determine the adequacy of test suite of web applications. These coverage criteria use the user interface state and element accesses from test suite to specify a measure of test adequacy. Since the user interface of web application changes frequently and the total number of permutation of elements and states are non-trivial, we approximate the total number of user interface states using automated crawling. We propose algorithms to identify the differences in user interface states, cluster the similar states, and merge them. We provide four coverage criteria for assessing quality of web application test suite: DOM State Coverage, DOM Transition Coverage, Direct and Indirect Elements adequacy criteria. A user study on X number of participants illustrates the usefulness of the coverage adequacy in further guiding the test engineers to write more effective test suite.
 
 
