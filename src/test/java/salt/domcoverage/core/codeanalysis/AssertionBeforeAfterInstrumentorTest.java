@@ -25,7 +25,7 @@ public class AssertionBeforeAfterInstrumentorTest {
 
 	@Test
 	public void testInstrumentMethodCallforStopPlay() throws FileNotFoundException, ParseException, IOException {
-		ait.instrumentTestSuite(TestSourceLocations.ClasrolineTestFolder);
+		ait.instrument(TestSourceLocations.ClasrolineTestFolder);
 	}
 
 }

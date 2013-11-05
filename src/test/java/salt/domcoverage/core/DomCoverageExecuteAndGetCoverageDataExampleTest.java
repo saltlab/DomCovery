@@ -11,7 +11,8 @@ public class DomCoverageExecuteAndGetCoverageDataExampleTest {
 
 		// String testLocationFolder = TestConstantVars.clarolineTestLocation4test;
 		// String testLocationFolder = TestConstantVars.theorgnizerlocation;
-		String testLocationFolder = TestConstantVars.photogalleryTestLocation;
+		// String testLocationFolder = TestConstantVars.photogalleryTestLocation;
+		String testLocationFolder = TestConstantVars.add_story_assert;
 		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
 		rtdc.execute(testLocationFolder, "DomcoveryOutput");
 

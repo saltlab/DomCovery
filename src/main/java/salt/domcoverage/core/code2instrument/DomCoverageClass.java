@@ -164,6 +164,12 @@ public class DomCoverageClass {
 			break;
 		}
 		for (org.jsoup.nodes.Element element : elements) {
+			if (!element.hasAttr(ConstantVars.assertedCoverageAttribute) && ConstantVars.oracleAssertion) {
+				element.attr(ConstantVars.assertedCoverageAttribute, "true");
+				DOM = element.ownerDocument().outerHtml();
+				elementsString.add(element.toString());
+				continue;
+			}
 			if (!element.hasAttr("coverage") && !element.tagName().toLowerCase().equals("body")) {
 				element.attr("coverage", "true");
 				DOM = element.ownerDocument().outerHtml();
@@ -238,6 +244,11 @@ public class DomCoverageClass {
 			for (int j = 0; j < evaluateXpathExpression.getLength(); j++) {
 				Node item = evaluateXpathExpression.item(j);
 				Element e = (Element) item;
+				if (e.getAttribute(ConstantVars.assertedCoverageAttribute) == "" && ConstantVars.oracleAssertion) {
+					e.setAttribute(ConstantVars.assertedCoverageAttribute, "true");
+					DOM = DomUtils.getDocumentToString(e.getOwnerDocument());
+					continue;
+				}
 				if (e.getAttribute("coverage") == "") {
 					e.setAttribute("coverage", "true");
 					DOM = DomUtils.getDocumentToString(e.getOwnerDocument());

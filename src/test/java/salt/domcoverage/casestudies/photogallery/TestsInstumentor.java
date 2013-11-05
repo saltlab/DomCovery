@@ -11,7 +11,7 @@ public class TestsInstumentor {
 	public void instrumentTestSuite() {
 
 		TestInstrumentor tci = new TestInstrumentor();
-		tci.instrumentTestSuite(TestConstantVars.photogalleryTestLocation);
+		tci.instrument(TestConstantVars.photogalleryTestLocation);
 
 	}
 

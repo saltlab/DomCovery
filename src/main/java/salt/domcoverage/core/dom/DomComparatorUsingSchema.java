@@ -40,7 +40,7 @@ public class DomComparatorUsingSchema extends DomComparator {
 			dom2 = DOMUtility.removeTagName(dom2, "script");
 			dom2 = DOMUtility.removeTagName(dom2, "style");
 			// create a valid xhtml
-			FileUtils.writeStringToFile(new File("1-afterSrtip"), dom1);
+			// FileUtils.writeStringToFile(new File("1-afterSrtip"), dom1);
 			dom1 = XHTMLTransformer.getDocumentToString(DomUtils.asDocument(dom1));
 			dom2 = XHTMLTransformer.getDocumentToString(DomUtils.asDocument(dom2));
 			// FileUtils.writeStringToFile(new File("2-xhtml"), dom2);

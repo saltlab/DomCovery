@@ -4,7 +4,9 @@ import java.util.List;
 
 import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.code2instrument.ElementDataPersist;
+import salt.domcoverage.core.codeanalysis.AssertionBeforeAfterInstrumentor;
 import salt.domcoverage.core.codeanalysis.DriverInstrumentor;
+import salt.domcoverage.core.codeanalysis.Instrumentor;
 import salt.domcoverage.core.codeanalysis.TestInstrumentor;
 import salt.domcoverage.core.dom.DomComparatorUsingSchema;
 import salt.domcoverage.core.dom.DomMerger;
@@ -21,11 +23,16 @@ public class RoundTripDOMCoverage {
 	public void instrument(String testLocationFolder) {
 		// instrument drivers of tests
 		DriverInstrumentor driverInstrumentor = new DriverInstrumentor();
-		driverInstrumentor.instrumentTestSuite(testLocationFolder);
+		driverInstrumentor.instrument(testLocationFolder);
 
-		// instrument tests
+		// instrument calls in tests
 		TestInstrumentor tci = new TestInstrumentor();
-		tci.instrumentTestSuite(testLocationFolder);
+		tci.instrument(testLocationFolder);
+
+		// instrument assertions
+		Instrumentor asser = new AssertionBeforeAfterInstrumentor();
+		asser.instrument(testLocationFolder);
+
 		// Utils.sleep(5000);
 
 		// re-compile tests

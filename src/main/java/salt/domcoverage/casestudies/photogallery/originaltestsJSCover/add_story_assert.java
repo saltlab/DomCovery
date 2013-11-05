@@ -25,7 +25,9 @@ public class add_story_assert {
 	@Before
 	public void setUp() throws Exception {
 		driver = new FirefoxDriver(salt.domcoverage.core.dom.proxy.BrowserProfile.getProfile());
+		// driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8888";
+		baseUrl = "http://watersmc.ece.ubc.ca:8888";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 

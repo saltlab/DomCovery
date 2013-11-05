@@ -58,8 +58,10 @@ public class DomStateCoverage {
 
 		// print resutls in file
 		String outputToFile = "******for Whole Application: \n";
-		double domStateCoverageRatio = (double) domStateCoverage.keySet().size() / crawljaxDoms.keySet().size();
-		String coverageLine = "DOM state coverage is : " + domStateCoverageRatio + " (" + domStateCoverage.keySet().size() + " / " + crawljaxDoms.keySet().size() + ") \n";
+		int statesCovered = domStateCoverage.keySet().size();
+		int statesAll = crawljaxDoms.keySet().size();
+		double domStateCoverageRatio = (double) statesCovered / statesAll;
+		String coverageLine = "DOM state coverage is : " + domStateCoverageRatio + " (" + statesCovered + " / " + statesAll + ") \n";
 		System.out.println(coverageLine);
 		try {
 			FileUtils.writeStringToFile(new File(ConstantVars.DomCoverageCriteria), outputToFile + coverageLine, false);
@@ -67,6 +69,12 @@ public class DomStateCoverage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		CoverageReport cr = new CoverageReport();
+		cr.addStateCoverage(statesCovered, statesAll);
+
+	}
+
+	private void AddToDomReport(int statesCovered, int statesAll) {
 
 	}
 

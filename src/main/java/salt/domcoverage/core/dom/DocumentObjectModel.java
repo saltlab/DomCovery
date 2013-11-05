@@ -96,9 +96,9 @@ public class DocumentObjectModel {
 		return asDocument;
 	}
 
-	public int getElementAccessedInDOMThroughCoverageTrueAttribute() {
+	public int getElementAccessedInDOMThroughAttribute(String attribute) {
 		org.jsoup.nodes.Document doc = Jsoup.parse(DOM);
-		Elements elements = doc.select("[coverage=true]");
+		Elements elements = doc.select("[" + attribute + "]");
 		return elements.size();
 
 	}

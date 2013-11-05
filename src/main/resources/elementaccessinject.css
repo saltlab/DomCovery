@@ -11,3 +11,10 @@
   border-width: 3px;
   color: green;
 }
+[assertedcoverage=true] {
+  outline: 3px solid green;
+  border-style: solid !important;
+  border-color: blue !important;
+  border-width: 3px;
+  color: green;
+}

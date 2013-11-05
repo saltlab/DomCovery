@@ -18,40 +18,46 @@ import com.crawljax.core.configuration.Form;
 import com.crawljax.core.configuration.InputSpecification;
 import com.crawljax.plugins.crawloverview.CrawlOverview;
 
-public class CrawljaxExecutionSaltLab {
+public class CrawljaxExecutionClaroline {
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
-		// String URL = "http://watersmc.ece.ubc.ca:8888/claroline-1.11.7/";
-		crwalCall();
-		// photogalleryCall();
+		String URL = "http://watersmc.ece.ubc.ca:8888/claroline-1.11.7/";
+		// String URL = "http://localhost:8888/phormer-photoGallery331";
+		InputSpecification inputSpecification = getInputSpecification();
+		int time = 120;
+
+		callCrawljax(URL, inputSpecification, time, ConstantVars.ESTIMATIONFILE);
 	}
 
-	private static void crwalCall() {
-		int time = 5;
-		int numberOfBrowsers = 1;
-		String serializedFile = ConstantVars.ESTIMATIONFILE;
-
-		String URL = "http://salt.ece.ubc.ca/";
+	private static void callCrawljax(String URL, InputSpecification inputSpecification, int time, String sfgLocation) {
+		long WAIT_TIME_AFTER_EVENT = 3000;
+		long WAIT_TIME_AFTER_RELOAD = 3000;
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(URL);
+		// builder.crawlRules().clickDefaultElements();
+		builder.crawlRules().click("span", "div", "p", "a", "input", "button", "li", "img");
+		// builder.crawlRules().clickOnce(false);
+		// builder.crawlRules().insertRandomDataInInputForms(true);
+		builder.crawlRules().crawlFrames(true);
+		// builder.crawlRules().followExternalLinks(false);
+
+		builder.crawlRules().setInputSpec(inputSpecification);
 
 		CrawlOverview plugin = new CrawlOverview();
 		deleteOutDirectory();
 		builder.addPlugin(plugin);
 
 		builder.addPlugin(new DomComparatorPlugin());
-		// builder.addPlugin(new SerializeSFGPlugin(new File(serializedFile)));
+		// builder.addPlugin(new SerializeSFGPlugin(new File(sfgLocation)));
 
 		builder.setUnlimitedCrawlDepth();
 		builder.setUnlimitedStates();
-		long WAIT_TIME_AFTER_EVENT = 3000;
-		long WAIT_TIME_AFTER_RELOAD = 3000;
 
-		builder.setMaximumRunTime(time, TimeUnit.SECONDS);
+		builder.setMaximumRunTime(time, TimeUnit.MINUTES);
 		builder.crawlRules().insertRandomDataInInputForms(false);
 		builder.crawlRules().waitAfterReloadUrl(WAIT_TIME_AFTER_RELOAD, TimeUnit.MILLISECONDS);
 		builder.crawlRules().waitAfterEvent(WAIT_TIME_AFTER_EVENT, TimeUnit.MILLISECONDS);
-		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, numberOfBrowsers));
+		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, 1));
 		CrawljaxRunner crawljax = new CrawljaxRunner(builder.build());
 		crawljax.call();
 	}
@@ -69,20 +75,11 @@ public class CrawljaxExecutionSaltLab {
 	private static InputSpecification getInputSpecification() {
 		InputSpecification input = new InputSpecification();
 		Form loginForm = new Form();
-		// loginForm.field("login").setValues("nainy");
-		// loginForm.field("password").setValues("nainy");
-		loginForm.field("logon_username").setValues("mehdi");
-		loginForm.field("logon_password").setValues("m");
-		// input.setValuesInForm(loginForm).beforeClickElement("button").withText("Enter");
-		input.setValuesInForm(loginForm).beforeClickElement("class").withText("submit");
+		loginForm.field("login").setValues("nainy");
+		loginForm.field("password").setValues("nainy");
+		input.setValuesInForm(loginForm).beforeClickElement("button").withText("Enter");
+		// input.setValuesInForm(loginForm).beforeClickElement("class").withText("submit");
 		return input;
 	}
 
-	private static InputSpecification getGalleryInputSpecification() {
-		InputSpecification input = new InputSpecification();
-		Form loginForm = new Form();
-		loginForm.field("loginAdminPass").setValues("editor");
-		input.setValuesInForm(loginForm).beforeClickElement("input").withAttribute("class", "submit");
-		return input;
-	}
 }

@@ -42,4 +42,8 @@ public class ConstantVars {
 	public static String ESTIMATIONFILE = "estimation.b";
 	public static String EXPLORATIONFILE = "exploration.b";
 
+	public static final String assertedCoverageAttribute = "assertedcoverage";
+	public static final String coverageAttribute = "coverage";
+	public static final String clickableCoverageAttribute = "clickablecoverage";
+
 }

@@ -17,10 +17,11 @@ public class ElementCoverage {
 
 		for (File file : domFiles) {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
-			int size = DOM.getElementAccessedInDOMThroughCoverageTrueAttribute();
+			int coverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("coverage=true");
+			int assertedCoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("assertedcoverage=true");
 			int allelementsinDom = DOM.getAllElements();
 			int clickableElements = DOM.getNumberofAllClickables();
-			printCoverage(allelementsinDom, clickableElements, size, file.getName(), 1);
+			printCoverage(allelementsinDom, clickableElements, coverageTrueSize, file.getName(), 1, assertedCoverageTrueSize);
 		}
 
 	}
@@ -97,12 +98,14 @@ public class ElementCoverage {
 	// // if cluster is a set of nodes: get
 	// }
 
-	private void printCoverage(int sumofallelementsinDom, int sumofclickableelements, int sumofelementSize, String domName, int clustersize) {
+	private void printCoverage(int sumofallelementsinDom, int sumofclickableelements, int sumofelementSize, String domName, int clustersize, double sumofasserted) {
 
 		String outputToFile = "******for DOM: " + domName + "\n";
 		sumofallelementsinDom = sumofallelementsinDom / clustersize;
 		double cov = (double) sumofelementSize / sumofallelementsinDom;
 		outputToFile += "element coverage: " + cov + " (" + sumofelementSize + " / " + sumofallelementsinDom + ") \n";
+		double ac = (double) sumofasserted / sumofallelementsinDom;
+		outputToFile += "Asserted Element coverage: " + ac + " (" + sumofasserted + " / " + sumofallelementsinDom + ") \n";
 		double covclick = (double) sumofelementSize / (sumofclickableelements / clustersize);
 		outputToFile += "clickable element coverage: " + covclick + " (" + sumofelementSize + " / " + sumofclickableelements + ") \n";
 		try {

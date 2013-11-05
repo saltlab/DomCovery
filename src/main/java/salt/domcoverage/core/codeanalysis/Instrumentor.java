@@ -5,11 +5,14 @@ import japa.parser.ast.CompilationUnit;
 import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.expr.Expression;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 import salt.domcoverage.core.utils.CompilationUnitUtils;
 import salt.domcoverage.core.utils.TestUtil;
@@ -18,14 +21,15 @@ public abstract class Instrumentor {
 
 	HashMap<MethodDeclaration, ArrayList<Expression>> srmce;
 
-	public void instrumentTestSuite(String folder) {
-		List<String> allTests = TestUtil.getAllTests(folder);
-		for (String test : allTests) {
-			instrument(test);
-		}
-	}
-
 	public void instrument(String fileName) {
+		File f = new File(fileName);
+		if (f.isDirectory()) {
+			List<String> allTests = TestUtil.getAllTests(fileName);
+			for (String test : allTests) {
+				instrument(test, true);
+			}
+			return;
+		}
 		instrument(fileName, true);
 	}
 

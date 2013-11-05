@@ -17,14 +17,21 @@ import org.w3c.dom.Document;
 import salt.domcoverage.core.code2instrument.DomCoverageClass;
 import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.code2instrument.ElementDataPersist;
+import bsh.commands.dir;
 
 import com.crawljax.oraclecomparator.comparators.PlainStructureComparator;
 
 public class DOMUtility {
 
 	public static ArrayList<File> getFilesInDirectoryWithExtension(String folder, String extension) {
-		Collection<File> files = FileUtils.listFiles(new File(folder), null, false);
 		ArrayList<File> domFiles = new ArrayList<File>();
+
+		File directory = new File(folder);
+		if (!directory.isDirectory()) {
+			domFiles.add(directory);
+			return domFiles;
+		}
+		Collection<File> files = FileUtils.listFiles(directory, null, false);
 		for (File file : files) {
 			if (file.getName().contains(extension))
 				domFiles.add(file);

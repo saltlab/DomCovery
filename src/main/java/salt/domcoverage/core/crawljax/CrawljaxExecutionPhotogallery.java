@@ -18,21 +18,10 @@ import com.crawljax.core.configuration.Form;
 import com.crawljax.core.configuration.InputSpecification;
 import com.crawljax.plugins.crawloverview.CrawlOverview;
 
-public class CrawljaxExecution {
+public class CrawljaxExecutionPhotogallery {
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
-		// String URL = "http://watersmc.ece.ubc.ca:8888/claroline-1.11.7/";
-		organizerCall();
-		// photogalleryCall();
-	}
-
-	private static void organizerCall() {
-		String URL = "http://localhost:8080/theorganizer";
-		// String URL = "http://localhost:8888/phormer-photoGallery331";
-		InputSpecification inputSpecification = getInputSpecification();
-		int time = 5;
-
-		callCrawljax(URL, inputSpecification, time, ConstantVars.ESTIMATIONFILE);
+		photogalleryCall();
 	}
 
 	private static void photogalleryCall() {
@@ -48,26 +37,19 @@ public class CrawljaxExecution {
 		long WAIT_TIME_AFTER_RELOAD = 3000;
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(URL);
-		// builder.crawlRules().clickDefaultElements();
-		builder.crawlRules().click("span", "div", "p", "a", "input", "button", "li", "img");
+		builder.crawlRules().clickDefaultElements();
+		// builder.crawlRules().click("span", "div", "p", "a", "input", "button", "li", "img");
 		// builder.crawlRules().clickOnce(false);
 		// builder.crawlRules().insertRandomDataInInputForms(true);
 		builder.crawlRules().crawlFrames(true);
 		// builder.crawlRules().followExternalLinks(false);
 
-		// organizer:
-		// builder.crawlRules().dontClick("a").withText("Logout");
-		builder.crawlRules().dontClick("img").withAttribute("id", "\"logoff\"");
-		builder.crawlRules().dontClick("input").underXPath("//*[@id=\"accountRetrieve\"]/table/tbody/tr[4]/td/div/input;");// .withAttribute("src", "http://localhost:8080/theorganizer/img/delete0.gif");
-		builder.crawlRules().dontClick("input").withAttribute("src", "http://localhost:8080/theorganizer/img/delete0.gif");
-
 		// gallery:
-		// builder.crawlRules().dontClick("a").withText("Log Out");
-		// builder.crawlRules().dontClick("a").withAttribute("href", "?page=logout");
-		// builder.crawlRules().dontClick("a").withAttribute("target", "_blank");
-		// builder.crawlRules().dontClick("a").withAttribute("title", "RSS Feed");
-		// builder.crawlRules().dontClick("div").withAttribute("class", "back2mainR");
-		// builder.crawlRules().setInputSpec(getGalleryInputSpecification());
+		builder.crawlRules().dontClick("a").withText("Log Out");
+		builder.crawlRules().dontClick("a").withAttribute("href", "?page=logout");
+		builder.crawlRules().dontClick("a").withAttribute("target", "_blank");
+		builder.crawlRules().dontClick("a").withAttribute("title", "RSS Feed");
+		builder.crawlRules().dontClick("div").withAttribute("class", "back2mainR");
 
 		builder.crawlRules().setInputSpec(inputSpecification);
 
@@ -98,18 +80,6 @@ public class CrawljaxExecution {
 			e.printStackTrace();
 		}
 
-	}
-
-	private static InputSpecification getInputSpecification() {
-		InputSpecification input = new InputSpecification();
-		Form loginForm = new Form();
-		// loginForm.field("login").setValues("nainy");
-		// loginForm.field("password").setValues("nainy");
-		loginForm.field("logon_username").setValues("mehdi");
-		loginForm.field("logon_password").setValues("m");
-		// input.setValuesInForm(loginForm).beforeClickElement("button").withText("Enter");
-		input.setValuesInForm(loginForm).beforeClickElement("class").withText("submit");
-		return input;
 	}
 
 	private static InputSpecification getGalleryInputSpecification() {

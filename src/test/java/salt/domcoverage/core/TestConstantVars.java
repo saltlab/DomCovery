@@ -20,4 +20,6 @@ public class TestConstantVars {
 
 	public static String theorgnizerlocation = userDir + "/src/main/java/salt/domcoverage/casestudies/theorganizerdomcovery";
 
+	public static final String add_story_assert = userDir + "/src/main/java/salt/domcoverage/casestudies/photogallery/add_story_assert.java";
+
 }
