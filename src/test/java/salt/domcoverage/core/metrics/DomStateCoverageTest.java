@@ -8,7 +8,7 @@ public class DomStateCoverageTest {
 
 	@Test
 	public void testCoverage() {
-		DomStateCoverage domStateCoverage = new DomStateCoverage();
-		domStateCoverage.getDomStateCoverage();
+		DomInterStateCoverage domStateCoverage = new DomInterStateCoverage();
+		domStateCoverage.getDomStateAndTransitionCoverage();
 	}
 }

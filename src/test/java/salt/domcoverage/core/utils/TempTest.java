@@ -17,7 +17,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import salt.domcoverage.core.metrics.DomStateCoverage;
+import salt.domcoverage.core.metrics.DomInterStateCoverage;
 
 import com.crawljax.util.DomUtils;
 import com.crawljax.util.XPathHelper;

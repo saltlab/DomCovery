@@ -1,6 +1,7 @@
 package salt.domcoverage.core;
 
 import java.util.List;
+import java.util.Map;
 
 import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.code2instrument.ElementDataPersist;
@@ -11,7 +12,8 @@ import salt.domcoverage.core.codeanalysis.TestInstrumentor;
 import salt.domcoverage.core.dom.DomComparatorUsingSchema;
 import salt.domcoverage.core.dom.DomMerger;
 import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
-import salt.domcoverage.core.metrics.DomStateCoverage;
+import salt.domcoverage.core.metrics.DomInterStateCoverage;
+import salt.domcoverage.core.metrics.DomInterStateCoverageEasy;
 import salt.domcoverage.core.metrics.ElementCoverage;
 import salt.domcoverage.core.task.TaskUtil;
 import salt.domcoverage.core.utils.CompileUtil;
@@ -56,17 +58,29 @@ public class RoundTripDOMCoverage {
 
 		List<ElementData> doms = new ElementDataPersist().getElementsFromFile(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV);
 
-		List<String> merge = dm.merge(doms);
+		dm.merge(doms);
 
 		// getcoverage
 
-		DomStateCoverage domStateCoverage = new DomStateCoverage();
-		domStateCoverage.getDomStateCoverage();
+		DomInterStateCoverageEasy domStateCoverage = new DomInterStateCoverageEasy();
+		Map<String, Double> coverage = domStateCoverage.getDomStateAndTransitionCoverage();
+		// coverage.putAll();
 
 		ElementCoverage ec = new ElementCoverage();
-		ec.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION);
+		coverage.putAll(ec.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION));
+
+		// just print coverge hashmap;
+		printMap(coverage);
+		// integrate with crawljax and overviewplugin
 
 		TaskUtil.cleanUpAfterRunningDomcovery(outputFolder);
+
+	}
+
+	private void printMap(Map<String, Double> coverage) {
+		for (String type : coverage.keySet()) {
+			System.out.println(type + ": " + coverage.get(type));
+		}
 
 	}
 

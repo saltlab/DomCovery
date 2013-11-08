@@ -6,7 +6,7 @@ import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.dom.DomComparator;
 import salt.domcoverage.core.dom.DomComparatorUsingSchema;
 import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
-import salt.domcoverage.core.metrics.DomStateCoverage;
+import salt.domcoverage.core.metrics.DomInterStateCoverage;
 
 import com.crawljax.core.CrawlerContext;
 import com.crawljax.core.plugin.DomChangeNotifierPlugin;
@@ -21,7 +21,7 @@ public class DomComparatorPlugin implements DomChangeNotifierPlugin {
 		// DomStateCoverage.domsSimilar(this.getDom(), that.getDom())
 		String before = new String(domBefore);
 		String after = new String(domAfter);
-		boolean similar = DomStateCoverage.domsSimilar(before, after);
+		boolean similar = DomInterStateCoverage.domsSimilar(before, after);
 		System.out.println("Domchanged? : " + !similar);
 		return !similar;
 	}

@@ -15,7 +15,7 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.math.stat.descriptive.summary.Product;
 import org.jgrapht.DirectedGraph;
 
-import salt.domcoverage.core.metrics.DomStateCoverage;
+import salt.domcoverage.core.metrics.DomInterStateCoverage;
 import salt.domcoverage.core.utils.ConstantVars;
 
 import com.crawljax.core.state.Eventable;

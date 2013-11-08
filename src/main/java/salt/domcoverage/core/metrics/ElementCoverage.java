@@ -3,8 +3,12 @@ package salt.domcoverage.core.metrics;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+
+import com.google.common.io.Files;
 
 import salt.domcoverage.core.dom.DocumentObjectModel;
 import salt.domcoverage.core.utils.ConstantVars;
@@ -12,18 +16,84 @@ import salt.domcoverage.core.utils.DOMUtility;
 
 public class ElementCoverage {
 
-	public void getCoverageOffilesAccordingToCoverageTrue(String coverageFolder) {
-		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
+	public void addCoverageToStateReport(String folder) {
+		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(folder, ".html");
 
 		for (File file : domFiles) {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
 			int coverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("coverage=true");
+			int indirectcoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("indirectcoverage=true");
 			int assertedCoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("assertedcoverage=true");
 			int allelementsinDom = DOM.getAllElements();
 			int clickableElements = DOM.getNumberofAllClickables();
-			printCoverage(allelementsinDom, clickableElements, coverageTrueSize, file.getName(), 1, assertedCoverageTrueSize);
+			double directCov = (double) coverageTrueSize / allelementsinDom;
+			double indirectCov = (double) indirectcoverageTrueSize / allelementsinDom;
+			double assertedCov = (double) assertedCoverageTrueSize / allelementsinDom;
+			Map<String, Double> rep = new HashMap<String, Double>();
+			rep.put(ConstantVars.DirectElementCoverage, directCov);
+			rep.put(ConstantVars.IndirectElementCoverage, indirectCov);
+			rep.put(ConstantVars.AssertedElementCoverage, assertedCov);
+			// return rep;// replaceInStateReport(file.getName(), rep);
+
+		}
+	}
+
+	private void replaceInStateReport(String filename, Map<String, Double> rep) {
+		// statereportfile= new File(ConstantVars.CRAWLJAXSTATES+filename);
+		for (String covType : rep.keySet()) {
+
 		}
 
+	}
+
+	public Map<String, Double> getCoverageOffilesAccordingToCoverageTrue(String coverageFolder) {
+		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
+		double directCov = 0, indirectCov = 0, assertedCov = 0, clickableCov = 0;
+		int allallelements = 0;
+		for (File file : domFiles) {
+			DocumentObjectModel DOM = new DocumentObjectModel(file);
+			int coverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("coverage=true");
+			int assertedCoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("assertedcoverage=true");
+			int indirectcoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("indirectcoverage=true");
+			int allelementsinDom = DOM.getAllElements();
+			int clickableElements = DOM.getNumberofAllClickables();
+			String domName = file.getName();
+
+			String outputToFile = "******for DOM: " + domName + "\n";
+			int clustersize = 1;
+			allelementsinDom = allelementsinDom / clustersize;
+			double cov = (double) coverageTrueSize / allelementsinDom;
+			outputToFile += "direct coverage: " + cov + " (" + coverageTrueSize + " / " + allelementsinDom + ") \n";
+			double indircov = (double) indirectcoverageTrueSize / allelementsinDom;
+			outputToFile += "inidirect coverage: " + indircov + " (" + indirectcoverageTrueSize + " / " + allelementsinDom + ") \n";
+			double ac = (double) assertedCoverageTrueSize / allelementsinDom;
+			outputToFile += "Asserted Element coverage: " + ac + " (" + assertedCoverageTrueSize + " / " + allelementsinDom + ") \n";
+			double covclick = (double) coverageTrueSize / (clickableElements / clustersize);
+			outputToFile += "clickable element coverage: " + covclick + " (" + coverageTrueSize + " / " + clickableElements + ") \n";
+
+			directCov += cov;
+			indirectCov += indircov;
+			assertedCov += ac;
+			clickableCov += covclick;
+			try {
+				System.out.println(outputToFile);
+				FileUtils.writeStringToFile(new File(ConstantVars.DomCoverageCriteria), outputToFile, true);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// printCoverage(allelementsinDom, clickableElements, coverageTrueSize, file.getName(), 1, assertedCoverageTrueSize);
+		}
+
+		Map<String, Double> rep = new HashMap<String, Double>();
+		int no = domFiles.size();
+		rep.put(ConstantVars.DirectElementCoverage, (double) directCov / no);
+		rep.put(ConstantVars.IndirectElementCoverage, (double) indirectCov / no);
+		rep.put(ConstantVars.AssertedElementCoverage, (double) assertedCov / no);
+		rep.put(ConstantVars.ClickableElementCoverage, (double) clickableCov / no);
+
+		return rep;
 	}
 
 	// public void getCoverage(String coverageFolder) {
@@ -116,6 +186,14 @@ public class ElementCoverage {
 			e.printStackTrace();
 		}
 
+	}
+
+	public double getDirectElementCoverage(String string) {
+		DocumentObjectModel DOM = new DocumentObjectModel(new File(string));
+		int coverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("coverage=true");
+		int allElements = DOM.getAllElements();
+
+		return (double) coverageTrueSize / allElements;
 	}
 
 	// private void printCoverage(int allelementsinDom, int clickableElements,

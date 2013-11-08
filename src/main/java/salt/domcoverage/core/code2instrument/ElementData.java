@@ -68,6 +68,10 @@ public class ElementData {
 		return domFileName;
 	}
 
+	public String getDomFileNamewithoutext() {
+		return domFileName.replace(".html", "");
+	}
+
 	public void setDomFileName(String domFileName) {
 		this.domFileName = domFileName;
 	}
@@ -121,6 +125,17 @@ public class ElementData {
 
 	public File getDomFile() {
 		return new File(ConstantVars.COVERAGE_LOCATION + domFileName);
+	}
+
+	public String retrieveDomString() {
+		File f = new File(ConstantVars.COVERAGE_LOCATION + domFileName);
+		try {
+			return FileUtils.readFileToString(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	public boolean contains(String element) {

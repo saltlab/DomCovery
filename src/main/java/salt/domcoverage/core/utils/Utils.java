@@ -71,6 +71,19 @@ public class Utils {
 
 	}
 
+	public static void writeMapToFiles(Map<String, String> doms, String loc) {
+		try {
+			FileUtils.deleteQuietly(new File(loc));
+			for (String domfilename : doms.keySet()) {
+				FileUtils.writeStringToFile(new File(loc + domfilename), doms.get(domfilename));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	public static void write2DArrayToFile(double[][] distances) {
 		String str2write = "";
 		try {

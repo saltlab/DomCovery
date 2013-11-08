@@ -3,6 +3,7 @@ package salt.domcoverage.core.dom;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class DomMergerTest {
 
 		List<ElementData> doms = new ElementDataPersist().getElementsFromFile(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV);
 
-		List<String> merge = dm.merge(doms);
+		Map<String, String> merge = dm.merge(doms);
 		// List<String> doms = dm.mergeDOMsofClusters(clusters);
 
 		// Utils.writeArrayToFiles(merge, ConstantVars.MERGEDLOCATION);

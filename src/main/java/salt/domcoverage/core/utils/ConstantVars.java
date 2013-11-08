@@ -33,7 +33,8 @@ public class ConstantVars {
 	public static final double SIMILARITY_THRESHOLD = 5;// 34;//
 	public static final String ELEMENTS_SEPARATOR = "@@@@@@@@@";
 	public static final String CRAWLJAXDOMS = "out/doms/";
-	public static final String CRAWLOVERVIEW = "out";
+	public static final String CRAWLJAXSTATES = "out/states/";
+	public static final String CRAWLOVERVIEW = "out/";
 	public static final String CRAWLJAX_IMAGES = "out/screenshots/";
 	public static final boolean ENFORCE_SIMILARITY_FROM_BEGINING = true;
 	public static boolean JS_REWRITE_EXECUTED = false;
@@ -45,5 +46,12 @@ public class ConstantVars {
 	public static final String assertedCoverageAttribute = "assertedcoverage";
 	public static final String coverageAttribute = "coverage";
 	public static final String clickableCoverageAttribute = "clickablecoverage";
+
+	public static final String DomStateCoverage = "DomStateCoverage";
+	public static final String DomTransitionCoverage = "DomTransitionCoverage";
+	public static final String DirectElementCoverage = "DirectElementCoverage";
+	public static final String IndirectElementCoverage = "IndirectElementCoverage";
+	public static final String AssertedElementCoverage = "AssertedElementCoverage";
+	public static final String ClickableElementCoverage = "ClickableElementCoverage";
 
 }
