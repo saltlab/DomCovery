@@ -51,7 +51,7 @@ public class ConstantVars {
 	public static final String DomStateCoverage = "DomStateCoverage";
 	public static final String DomTransitionCoverage = "DomTransitionCoverage";
 	public static final String DirectElementCoverage = "DirectElementCoverage";
-	public static final String indirectCoverage = "IndirectCoverage";
+	public static final String indirectCoverage = "indirectcoverage";
 	public static final String IndirectElementCoverage = "IndirectElementCoverage";
 	public static final String AssertedElementCoverage = "AssertedElementCoverage";
 	public static final String ClickableElementCoverage = "ClickableElementCoverage";

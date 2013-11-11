@@ -75,9 +75,15 @@ var geom = Viva.Graph.geom();
 
 graphics.link(function(link){
 	// Notice the Triangle marker-end attribe:
+	var covered= 'grey';
+	var thick =2;
+	if (link.data.covered == 'true'){
+  		covered='green';
+		thick=3; 
+	}
 	var path = Viva.Graph.svg('path')
-	.attr('stroke', 'gray')
-	.attr('stroke-width', 2)
+	.attr('stroke', covered)
+	.attr('stroke-width', thick)
 	.attr('marker-end', 'url(#Triangle)');
 	$(path).click(function(){
 		showInfo(link);

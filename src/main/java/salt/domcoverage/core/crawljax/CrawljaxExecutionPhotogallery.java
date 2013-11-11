@@ -27,7 +27,7 @@ public class CrawljaxExecutionPhotogallery {
 	private static void photogalleryCall() {
 		String URL = "http://localhost:8888/phormer-photoGallery331";
 		InputSpecification inputSpecification = getGalleryInputSpecification();
-		int time = 20;
+		int time = 10;
 
 		callCrawljax(URL, inputSpecification, time, ConstantVars.ESTIMATIONFILE);
 	}

@@ -13,6 +13,15 @@ import salt.domcoverage.core.utils.ConstantVars;
 public class ElementData {
 
 	private String observerElement;
+	private String indirectElement;
+
+	public String getIndirectElement() {
+		return indirectElement;
+	}
+
+	public void setIndirectElement(String indirectElement) {
+		this.indirectElement = indirectElement;
+	}
 
 	public String getElementFile() {
 		return elementFile;
@@ -95,8 +104,9 @@ public class ElementData {
 	/*
 	 * fills out the fileds, gets dom data of domfile, and elements if @elementF
 	 */
-	public ElementData(String testName, String time, String by, String domfilename, String elementF, String observedElement) {
+	public ElementData(String testName, String time, String by, String domfilename, String elementF, String observedElement, String indirectElem) {
 		super();
+		this.indirectElement = indirectElem;
 		this.time = time;
 		this.testName = testName;
 		this.by = by;
@@ -121,6 +131,10 @@ public class ElementData {
 		this.domFileName = "";
 		domData = domdata;
 		elements = elems;
+	}
+
+	public ElementData(String testName, String time, String by, String domfilename, String elementF, String observedElement) {
+		new ElementData(testName, time, by, domfilename, elementF, observedElement, "false");
 	}
 
 	public File getDomFile() {

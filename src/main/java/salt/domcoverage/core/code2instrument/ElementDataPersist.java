@@ -40,6 +40,11 @@ public class ElementDataPersist {
 					if (similarElement != null) {
 						String domDataofSimilarDom = similarElement.getDomData();
 						domData = DOMUtility.replaceIndirectCoverageElements(domData, domDataofSimilarDom);
+						// if (ConstantVars.oracleAssertion) {
+						// DomCoverageClass domCoverageClass = new DomCoverageClass();
+						// domCoverageClass.getElementsofDOM(by, domDataofSimilarDom);
+						// domData = domCoverageClass.getDOM();
+						// }
 						domfilename = similarElement.getDomFileName();
 						DOMFileName = domfilename;
 						if (elementsAreSimilar(elements, similarElement.getElements()))
@@ -49,11 +54,12 @@ public class ElementDataPersist {
 					}
 				}
 				DOMFileName = domfilename;
+				// System.out.println(domData);
 				writeDOMtoFile(domData, domfilename);
 			}
 			String allElements = "";
 			for (String element : elements) {
-				buffer += testName + ConstantVars.SEPARATOR + time + ConstantVars.SEPARATOR + by + ConstantVars.SEPARATOR + elementFile + ConstantVars.SEPARATOR + domfilename + ConstantVars.SEPARATOR + ConstantVars.oracleAssertion + "\r";
+				buffer += testName + ConstantVars.SEPARATOR + time + ConstantVars.SEPARATOR + by + ConstantVars.SEPARATOR + elementFile + ConstantVars.SEPARATOR + domfilename + ConstantVars.SEPARATOR + ConstantVars.oracleAssertion + ConstantVars.SEPARATOR + ConstantVars.indirectCoverageMode + "\r";
 				allElements += element + ConstantVars.ELEMENTS_SEPARATOR;
 			}
 			FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + elementFile + ".txt"), allElements);
@@ -158,9 +164,10 @@ public class ElementDataPersist {
 				String elementFile = split[3];
 				String domfilename = split[4];
 				String observedElement = split[5];
+				String indirectElement = split[6];
 				// public ElementData(String time, String testName, String by,
 				// String domData, ArrayList<String> elements) {
-				ElementData elem = new ElementData(testName, time, by, domfilename, elementFile, observedElement);
+				ElementData elem = new ElementData(testName, time, by, domfilename, elementFile, observedElement, indirectElement);
 				elementsData.add(elem);
 			}
 

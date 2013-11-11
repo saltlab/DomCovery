@@ -193,6 +193,7 @@ public class DomInterStateCoverage {
 		// copy states to out states directory
 		try {
 			FileUtils.copyDirectory(new File(ConstantVars.OutPutBuilderTemp + "states"), new File(ConstantVars.CRAWLJAXSTATES));
+			FileUtils.copyDirectory(new File(ConstantVars.OutPutBuilderTemp + "js"), new File(ConstantVars.CRAWLOVERVIEW + "js"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

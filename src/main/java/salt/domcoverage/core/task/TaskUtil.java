@@ -13,7 +13,7 @@ public class TaskUtil {
 		try {
 			FileUtils.deleteQuietly(new File(ConstantVars.COVERAGE_LOCATION));
 
-			FileUtils.copyDirectory(new File(ConstantVars.CRAWLOVERVIEW), new File(ConstantVars.CRAWLOVERVIEW + "temp"));
+			FileUtils.copyDirectory(new File(ConstantVars.CRAWLOVERVIEW), new File("temp"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,8 +35,9 @@ public class TaskUtil {
 			FileUtils.deleteQuietly(new File(taskLocation + "Domcovery-DomStates-report"));
 			FileUtils.copyDirectory(new File(ConstantVars.CRAWLOVERVIEW), new File(taskLocation + "Domcovery-DomStates-report"));
 			// copy back the temp to out directory
-			FileUtils.copyDirectory(new File(ConstantVars.CRAWLOVERVIEW + "temp"), new File(ConstantVars.CRAWLOVERVIEW));
-			FileUtils.deleteQuietly(new File(ConstantVars.CRAWLOVERVIEW + "temp"));
+			FileUtils.deleteQuietly(new File(ConstantVars.CRAWLOVERVIEW));
+			FileUtils.copyDirectory(new File("temp"), new File(ConstantVars.CRAWLOVERVIEW));
+			FileUtils.deleteQuietly(new File("temp"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

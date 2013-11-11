@@ -1,8 +1,8 @@
-[indirectElementCoverage=true] {
+[indirectcoverage=true] {
   border-style: solid !important;
-  border-color: orange !important;
+  border-color: grey !important;
   border-width: 3px;
-  color: orange;
+  color: grey;
 }
 [coverage=true] {
   outline: 3px solid green;

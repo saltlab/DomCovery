@@ -1,10 +1,14 @@
 package salt.domcoverage.core.dom;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.io.FileUtils;
 
 import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.dom.clustering.DataClusterer;
@@ -35,6 +39,13 @@ public class DomMerger {
 		Map<String, String> mergeDOMsofClusters = mergeDOMsofClusters(clusterData);
 
 		Utils.writeMapToFiles(mergeDOMsofClusters, ConstantVars.MERGEDLOCATION);
+
+		try {
+			FileUtils.copyDirectory(new File("extrafilesToCopy/photogallery"), new File(ConstantVars.MERGEDLOCATION));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return mergeDOMsofClusters;
 
@@ -73,8 +84,14 @@ public class DomMerger {
 		// clust.remove(maxIndex);
 
 		for (int i = 0; i < clust.size(); i++) {
-			mergedDom = DOMUtility.replace(clust.get(i).getBy(), mergedDom);
-
+			ElementData elementData = clust.get(i);
+			if (elementData.getObserverElement().toLowerCase().equals("true"))
+				ConstantVars.oracleAssertion = true;
+			if (elementData.getIndirectElement().toLowerCase().equals("true"))
+				ConstantVars.indirectCoverageMode = true;
+			mergedDom = DOMUtility.replace(elementData.getBy(), mergedDom);
+			ConstantVars.oracleAssertion = false;
+			ConstantVars.indirectCoverageMode = false;
 			// String elementAccessedInDOM =
 			// DOMUtility.getElementAccessedInDOM(dom);
 

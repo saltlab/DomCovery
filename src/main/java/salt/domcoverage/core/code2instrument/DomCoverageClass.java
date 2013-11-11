@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
+import org.cyberneko.html.parsers.DOMFragmentParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -63,32 +64,60 @@ public class DomCoverageClass {
 		return webElement;
 	}
 
-	private static void indirectElements(WebDriver driver) {
+	// private static void indirectElements(WebDriver driver) {
+	// if (DOM == null || DOM.length() == 0)
+	// return;
+	// List<String> elements = new ArrayList(IndirectelementAccessData.Elements);
+	// for (String typeandId : elements) {
+	// String[] split = typeandId.split(ConstantVars.SEPARATOR);
+	// String type = split[0].toLowerCase().trim();
+	// String id = split[1].trim();
+	// String html = split[2].trim();
+	// boolean domsSimilar = DomInterStateCoverage.domsSimilar(DOM, html);
+	// if (!domsSimilar)
+	// continue;
+	// System.out.println("found an indirect access: " + Utils.printSubstring(typeandId, 20));
+	// Type eumType = extractEnumTypeofString(type);
+	// ConstantVars.indirectCoverageMode = true;
+	// ArrayList<String> elementsUsingJsoupByIdTypeandId = getElementsUsingJsoupByIdTypeandId(DOM, id, eumType);
+	// ConstantVars.indirectCoverageMode = false;
+	// try {
+	// FileUtils.writeStringToFile(new File(ConstantVars.COVERAGE_LOCATION + ElementDataPersist.DOMFileName), DOM);
+	// } catch (IOException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
+	// // prevDOM
+	// // TODO Auto-generated method stub
+	//
+	// }
+
+	private static void indirectElements(String testName, WebDriver driver) {
 		if (DOM == null || DOM.length() == 0)
 			return;
+		List<String> elements2add = new ArrayList<String>();
 		List<String> elements = new ArrayList(IndirectelementAccessData.Elements);
 		for (String typeandId : elements) {
 			String[] split = typeandId.split(ConstantVars.SEPARATOR);
 			String type = split[0].toLowerCase().trim();
 			String id = split[1].trim();
 			String html = split[2].trim();
-			boolean domsSimilar = DomInterStateCoverage.domsSimilar(DOM, html);
-			if (!domsSimilar)
-				continue;
+			// boolean domsSimilar = DomInterStateCoverage.domsSimilar(DOM, html);
+			// if (!domsSimilar)
+			// continue;
 			System.out.println("found an indirect access: " + Utils.printSubstring(typeandId, 20));
 			Type eumType = extractEnumTypeofString(type);
-			ConstantVars.indirectCoverageMode = true;
 			ArrayList<String> elementsUsingJsoupByIdTypeandId = getElementsUsingJsoupByIdTypeandId(DOM, id, eumType);
+			ConstantVars.indirectCoverageMode = true;
+			String time = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss.SSS").format(new Date());
+			String by = "By." + type + ": " + id;
+
+			new ElementDataPersist(time, testName, by, html, ElementDataPersist.DOMFileName, elementsUsingJsoupByIdTypeandId);
 			ConstantVars.indirectCoverageMode = false;
-			try {
-				FileUtils.writeStringToFile(new File(ConstantVars.COVERAGE_LOCATION + ElementDataPersist.DOMFileName), DOM);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 		}
-		// prevDOM
-		// TODO Auto-generated method stub
+		IndirectelementAccessData.Elements = new ArrayList<String>();
 
 	}
 
@@ -129,7 +158,7 @@ public class DomCoverageClass {
 		// xpathhelper
 		// jsoup
 		((JavascriptExecutor) driver).executeScript("enableRewrite();");
-		indirectElements(driver);
+		indirectElements(testName, driver);
 
 		// if (ConstantVars.JS_REWRITE_EXECUTED = false;)
 		DOM = driver.getPageSource();
@@ -266,7 +295,7 @@ public class DomCoverageClass {
 	private static Type byType(String bystr) {
 		System.out.println("bystr1: " + bystr);
 		// bystr = bystr.toLowerCase().replace("by.", "By.");
-		System.out.println("bystr2: " + bystr);
+		// System.out.println("bystr2: " + bystr);
 		if (bystr.contains("By.xpath:"))
 			return Type.XPATH;
 		if (bystr.contains("By.id:"))

@@ -67,8 +67,8 @@ public class RoundTripDOMCoverage {
 		Map<String, String> coverage = domStateCoverage.getDomStateAndTransitionCoverage();
 		// coverage.putAll();
 
-		ElementCoverage ec = new ElementCoverage();
-		coverage.putAll(ec.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION));
+		// /ElementCoverage ec = new ElementCoverage();
+		// coverage.putAll(ec.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION));
 
 		// just print coverge hashmap;
 		// printMap(coverage);
