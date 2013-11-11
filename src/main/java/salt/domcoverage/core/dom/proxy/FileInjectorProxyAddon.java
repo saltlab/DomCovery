@@ -14,12 +14,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import salt.domcoverage.core.utils.Utils;
+
 import com.crawljax.util.DomUtils;
 
 /**
- * This plugin intercepts the HTML code from the server and injects the contents
- * of a file targetNode the document. It can inject the file at different
- * locations in the HTML document.
+ * This plugin intercepts the HTML code from the server and injects the contents of a file targetNode the document. It can inject the file at different locations in the HTML document.
  * 
  */
 public class FileInjectorProxyAddon extends ProxyPlugin {
@@ -84,8 +84,7 @@ public class FileInjectorProxyAddon extends ProxyPlugin {
 		}
 
 		/**
-		 * This plugin only handles the response: If the response contains HTML
-		 * and is a complete document, it adds the content to it.
+		 * This plugin only handles the response: If the response contains HTML and is a complete document, it adds the content to it.
 		 * 
 		 * @param request
 		 *            The incoming request.
@@ -103,6 +102,14 @@ public class FileInjectorProxyAddon extends ProxyPlugin {
 
 			// parse the response body
 			try {
+				System.out.println("REQUESTTTTTTTTTTTTTTTTTTTT: " + request.getURL());
+				if (request.getURL().toString().contains("?thisisafunctiontracingcall")) {
+					String rawResponse = new String(request.getContent());
+					System.out.println("rawResponse: " + Utils.printSubstring(rawResponse, 20));
+					IndirectelementAccessData.addElements(rawResponse);
+					return response;
+				}
+
 				String contentType = response.getHeader("Content-Type");
 				if (contentType == null) {
 					return response;

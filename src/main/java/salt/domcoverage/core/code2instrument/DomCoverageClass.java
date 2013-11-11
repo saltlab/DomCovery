@@ -19,11 +19,16 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.internal.selenesedriver.GetUrl;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import salt.domcoverage.core.dom.proxy.IndirectelementAccessData;
+import salt.domcoverage.core.metrics.DomInterStateCoverage;
+import salt.domcoverage.core.metrics.DomStateCoverageTest;
 import salt.domcoverage.core.utils.ConstantVars;
+import salt.domcoverage.core.utils.Utils;
 
 import com.crawljax.util.DomUtils;
 import com.crawljax.util.XPathHelper;
@@ -35,6 +40,7 @@ public class DomCoverageClass {
 	};
 
 	private static String DOM;
+	private static String prevDOM;
 
 	public String getDOM() {
 		return DOM;
@@ -57,6 +63,55 @@ public class DomCoverageClass {
 		return webElement;
 	}
 
+	private static void indirectElements(WebDriver driver) {
+		if (DOM == null || DOM.length() == 0)
+			return;
+		List<String> elements = new ArrayList(IndirectelementAccessData.Elements);
+		for (String typeandId : elements) {
+			String[] split = typeandId.split(ConstantVars.SEPARATOR);
+			String type = split[0].toLowerCase().trim();
+			String id = split[1].trim();
+			String html = split[2].trim();
+			boolean domsSimilar = DomInterStateCoverage.domsSimilar(DOM, html);
+			if (!domsSimilar)
+				continue;
+			System.out.println("found an indirect access: " + Utils.printSubstring(typeandId, 20));
+			Type eumType = extractEnumTypeofString(type);
+			ConstantVars.indirectCoverageMode = true;
+			ArrayList<String> elementsUsingJsoupByIdTypeandId = getElementsUsingJsoupByIdTypeandId(DOM, id, eumType);
+			ConstantVars.indirectCoverageMode = false;
+			try {
+				FileUtils.writeStringToFile(new File(ConstantVars.COVERAGE_LOCATION + ElementDataPersist.DOMFileName), DOM);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// prevDOM
+		// TODO Auto-generated method stub
+
+	}
+
+	private static Type extractEnumTypeofString(String type) {
+		if (type.contains("xpath"))
+			return Type.XPATH;
+		if (type.contains("id"))
+			return Type.ID;
+		if (type.contains("name"))
+			return Type.NAME;
+		if (type.contains("tag"))
+			return Type.NAME;
+		if (type.contains("class"))
+			return Type.CLASS;
+		if (type.contains("selector"))
+			return Type.CSS;
+		if (type.contains("linkText"))
+			return Type.LINKTEXT;
+		// if (bystr.contains("By.xpath:"))
+		return Type.OTHERS;
+
+	}
+
 	public static By collectAssertedElements(By by, WebDriver d) {
 		// webElement.get
 		ConstantVars.oracleAssertion = true;
@@ -74,6 +129,7 @@ public class DomCoverageClass {
 		// xpathhelper
 		// jsoup
 		((JavascriptExecutor) driver).executeScript("enableRewrite();");
+		indirectElements(driver);
 
 		// if (ConstantVars.JS_REWRITE_EXECUTED = false;)
 		DOM = driver.getPageSource();
@@ -103,6 +159,7 @@ public class DomCoverageClass {
 		// new ElementDataPersist(time, testName, by.toString(), DOM,
 		// recordedDomFileName, elements);
 		// } else
+		addClickableElementsToDom(DOM);
 		new ElementDataPersist(time, testName, bys, DOM, "", elements);
 
 		// else
@@ -113,6 +170,10 @@ public class DomCoverageClass {
 		// }
 		// oracleAssertion = false;
 		return bys;
+	}
+
+	private static void addClickableElementsToDom(String dOM2) {
+
 	}
 
 	public static String getModifiedElementInDOM(String string, String dom) {
@@ -134,13 +195,20 @@ public class DomCoverageClass {
 	}
 
 	private static ArrayList<String> getElementsUsingJsoup(String dom, String by) {
+
+		String byString = getString(by);
+		// byString = byString.toLowerCase();
+		Type byType = byType(by);
+		ArrayList<String> elementsString = getElementsUsingJsoupByIdTypeandId(dom, byString, byType);
+		return elementsString;
+	}
+
+	private static ArrayList<String> getElementsUsingJsoupByIdTypeandId(String dom, String byString, Type byType) {
 		ArrayList<String> elementsString = new ArrayList<String>();
 		// dom = dom.toLowerCase();
 		Document doc = Jsoup.parse(dom);
 		Elements elements = new Elements();
-		String byString = getString(by);
-		// byString = byString.toLowerCase();
-		switch (byType(by)) {
+		switch (byType) {
 		case ID:
 			elements = doc.select("#" + byString);
 			break;
@@ -164,6 +232,12 @@ public class DomCoverageClass {
 			break;
 		}
 		for (org.jsoup.nodes.Element element : elements) {
+			if (!element.hasAttr(ConstantVars.indirectCoverage) && ConstantVars.indirectCoverageMode) {
+				element.attr(ConstantVars.indirectCoverage, "true");
+				DOM = element.ownerDocument().outerHtml();
+				elementsString.add(element.toString());
+				continue;
+			}
 			if (!element.hasAttr(ConstantVars.assertedCoverageAttribute) && ConstantVars.oracleAssertion) {
 				element.attr(ConstantVars.assertedCoverageAttribute, "true");
 				DOM = element.ownerDocument().outerHtml();

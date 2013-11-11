@@ -15,6 +15,8 @@ import salt.domcoverage.core.utils.DOMUtility;
 
 public class ElementDataPersist {
 
+	public static String DOMFileName;
+
 	public ElementData createElementData(String time, String testName, String by, String domData, ArrayList<String> elements) {
 
 		String buffer = "";
@@ -39,12 +41,14 @@ public class ElementDataPersist {
 						String domDataofSimilarDom = similarElement.getDomData();
 						domData = DOMUtility.replaceIndirectCoverageElements(domData, domDataofSimilarDom);
 						domfilename = similarElement.getDomFileName();
+						DOMFileName = domfilename;
 						if (elementsAreSimilar(elements, similarElement.getElements()))
 							return;
 						// elements = addUniqueElements(elements, similarElement.getElements());
 						// TODO: "by" and "testname" and "time" should be changed to list
 					}
 				}
+				DOMFileName = domfilename;
 				writeDOMtoFile(domData, domfilename);
 			}
 			String allElements = "";
@@ -64,6 +68,7 @@ public class ElementDataPersist {
 			e.printStackTrace();
 		}
 		// return null;
+
 	}
 
 	private List<String> addUniqueElements(List<String> elementsSource, List<String> elementsToEvaluate) {

@@ -59,6 +59,11 @@ public class Note {
 		}.getClass().getEnclosingMethod().getName())).sendKeys("note text");
 		driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("input[type=\"image\"]"), driver, this.getClass().getName() + "." + new Object() {
 		}.getClass().getEnclosingMethod().getName())).click();
+		salt.domcoverage.core.code2instrument.DomCoverageClass.assertionModeOn();
+		assertEquals("Note has been created.", driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("mainContent"), driver, this.getClass().getName() + "." + new Object() {
+		}.getClass().getEnclosingMethod().getName())).getText());
+		salt.domcoverage.core.code2instrument.DomCoverageClass.assertionModeOff();
+
 	}
 
 	@After

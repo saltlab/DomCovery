@@ -38,8 +38,9 @@ public class DocumentObjectModel {
 		NodeList elemA = document.getElementsByTagName("a");
 		NodeList elemI = document.getElementsByTagName("input");
 		NodeList elemB = document.getElementsByTagName("button");
+		NodeList elemIm = document.getElementsByTagName("img");
 
-		return elemA.getLength() + elemB.getLength() + elemI.getLength();
+		return elemA.getLength() + elemB.getLength() + elemI.getLength() + elemIm.getLength();
 	}
 
 	public int getAllElements() {
@@ -68,13 +69,22 @@ public class DocumentObjectModel {
 		int numberofCountingItems = 0;
 		for (int i = bodyelementorder - 1; i < elements.getLength(); i++) {
 			Node item = elements.item(i);
-			if (item.getFirstChild() != null && item.getFirstChild().getNodeValue() == "")
+			if (item.getFirstChild() != null && !containsText(item.getFirstChild().getNodeValue()))
 				continue;
 			if (countingItem(item.getNodeName())) {
 				numberofCountingItems++;
 			}
 		}
 		return numberofCountingItems;
+	}
+
+	private boolean containsText(String nodeValue) {
+		if (nodeValue == null)
+			return false;
+		String s = new String(nodeValue);
+		s = s.replace(" ", "");
+		s = s.replaceAll("\\r\\n|\\r|\\n", " ");
+		return s.equals("");
 	}
 
 	private boolean countingItem(String nodeName) {

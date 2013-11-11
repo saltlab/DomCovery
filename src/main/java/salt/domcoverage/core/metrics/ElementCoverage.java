@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
@@ -46,7 +47,13 @@ public class ElementCoverage {
 
 	}
 
-	public Map<String, Double> getCoverageOffilesAccordingToCoverageTrue(String coverageFolder) {
+	List<ElementCoverageData> elementCovData = new ArrayList<ElementCoverageData>();
+
+	public List<ElementCoverageData> getElementCovData() {
+		return elementCovData;
+	}
+
+	public Map<String, String> getCoverageOffilesAccordingToCoverageTrue(String coverageFolder) {
 		ArrayList<File> domFiles = DOMUtility.getFilesInDirectoryWithExtension(coverageFolder, ".html");
 		double directCov = 0, indirectCov = 0, assertedCov = 0, clickableCov = 0;
 		int allallelements = 0;
@@ -63,13 +70,20 @@ public class ElementCoverage {
 			int clustersize = 1;
 			allelementsinDom = allelementsinDom / clustersize;
 			double cov = (double) coverageTrueSize / allelementsinDom;
-			outputToFile += "direct coverage: " + cov + " (" + coverageTrueSize + " / " + allelementsinDom + ") \n";
+			String dirCovAll = cov + " (" + coverageTrueSize + " / " + allelementsinDom + ")";
+			outputToFile += "direct coverage: " + dirCovAll + " \n";
 			double indircov = (double) indirectcoverageTrueSize / allelementsinDom;
-			outputToFile += "inidirect coverage: " + indircov + " (" + indirectcoverageTrueSize + " / " + allelementsinDom + ") \n";
+			String indirectCovAll = indircov + " (" + indirectcoverageTrueSize + " / " + allelementsinDom + ")";
+			outputToFile += "inidirect coverage: " + indirectCovAll + "\n";
 			double ac = (double) assertedCoverageTrueSize / allelementsinDom;
-			outputToFile += "Asserted Element coverage: " + ac + " (" + assertedCoverageTrueSize + " / " + allelementsinDom + ") \n";
+			String assertedCovAll = ac + " (" + assertedCoverageTrueSize + " / " + allelementsinDom + ")";
+			outputToFile += "Asserted Element coverage: " + assertedCovAll + " \n";
 			double covclick = (double) coverageTrueSize / (clickableElements / clustersize);
-			outputToFile += "clickable element coverage: " + covclick + " (" + coverageTrueSize + " / " + clickableElements + ") \n";
+			String covClickAll = covclick + " (" + coverageTrueSize + " / " + clickableElements + ")";
+			outputToFile += "clickable element coverage: " + covClickAll + " \n";
+
+			ElementCoverageData ecd = new ElementCoverageData(file, dirCovAll, indirectCovAll, assertedCovAll, covClickAll);
+			elementCovData.add(ecd);
 
 			directCov += cov;
 			indirectCov += indircov;
@@ -86,12 +100,16 @@ public class ElementCoverage {
 			// printCoverage(allelementsinDom, clickableElements, coverageTrueSize, file.getName(), 1, assertedCoverageTrueSize);
 		}
 
-		Map<String, Double> rep = new HashMap<String, Double>();
+		Map<String, String> rep = new HashMap<String, String>();
 		int no = domFiles.size();
-		rep.put(ConstantVars.DirectElementCoverage, (double) directCov / no);
-		rep.put(ConstantVars.IndirectElementCoverage, (double) indirectCov / no);
-		rep.put(ConstantVars.AssertedElementCoverage, (double) assertedCov / no);
-		rep.put(ConstantVars.ClickableElementCoverage, (double) clickableCov / no);
+		double directCovStr = (double) directCov / no;
+		rep.put(ConstantVars.DirectElementCoverage, String.valueOf(directCovStr));
+		double indirectCovStr = (double) indirectCov / no;
+		rep.put(ConstantVars.IndirectElementCoverage, String.valueOf(indirectCovStr));
+		double assertedCovStr = (double) assertedCov / no;
+		rep.put(ConstantVars.AssertedElementCoverage, String.valueOf(assertedCovStr));
+		double clickableCovStr = (double) clickableCov / no;
+		rep.put(ConstantVars.ClickableElementCoverage, String.valueOf(clickableCovStr));
 
 		return rep;
 	}

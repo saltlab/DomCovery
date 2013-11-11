@@ -30,7 +30,7 @@ public class ConstantVars {
 	public static final int PROXY_PORT = 8884;
 	public static final String[] SELENIUMDRIVER_METHODCALLS = new String[] { "FirefoxDriver", "ChromeDriver" };
 	public static final String DomCoverageCriteria = "DomCoverageCriteriaReport.txt";
-	public static final double SIMILARITY_THRESHOLD = 5;// 34;//
+	public static final double SIMILARITY_THRESHOLD = 34;// 5
 	public static final String ELEMENTS_SEPARATOR = "@@@@@@@@@";
 	public static final String CRAWLJAXDOMS = "out/doms/";
 	public static final String CRAWLJAXSTATES = "out/states/";
@@ -42,6 +42,7 @@ public class ConstantVars {
 
 	public static String ESTIMATIONFILE = "estimation.b";
 	public static String EXPLORATIONFILE = "exploration.b";
+	public static boolean indirectCoverageMode = false;
 
 	public static final String assertedCoverageAttribute = "assertedcoverage";
 	public static final String coverageAttribute = "coverage";
@@ -50,8 +51,10 @@ public class ConstantVars {
 	public static final String DomStateCoverage = "DomStateCoverage";
 	public static final String DomTransitionCoverage = "DomTransitionCoverage";
 	public static final String DirectElementCoverage = "DirectElementCoverage";
+	public static final String indirectCoverage = "IndirectCoverage";
 	public static final String IndirectElementCoverage = "IndirectElementCoverage";
 	public static final String AssertedElementCoverage = "AssertedElementCoverage";
 	public static final String ClickableElementCoverage = "ClickableElementCoverage";
+	public static final String OutPutBuilderTemp = "outputbuildertemp/";
 
 }

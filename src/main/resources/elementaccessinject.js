@@ -1,8 +1,15 @@
+window.xhr = new XMLHttpRequest();
+
 function enableRewrite() {
 var geet = Document.prototype.getElementById
 Document.prototype.getElementById= function(id) {
-     var r= geet.call(this,id);
+	 //notify client the accesses to this element:
+	 var r= geet.call(this,id);
+     window.xhr.open('POST', document.location.href + '?thisisafunctiontracingcall', false);
+     window.xhr.send('id~~'+id+'~~'+document.documentElement.outerHTML);
+     console.log("dom: "+document);
      console.log("id: "+id +" and r is: "+r); 
+     
      if(r)
        return modify(r);
      else

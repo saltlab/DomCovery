@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.io.FileUtils;
 
@@ -15,11 +16,26 @@ import salt.domcoverage.core.code2instrument.ElementData;
 
 public class Utils {
 
+	public static void writeStringToFile(String filename, String out) {
+		try {
+			FileUtils.writeStringToFile(new File(filename), out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public static void print2DArray(double[][] distances) {
 
 		for (double[] arr : distances) {
 			System.out.println(Arrays.toString(arr));
 		}
+	}
+
+	public static String printSubstring(String s, int atmost) {
+		int ind = (s.length() > atmost) ? atmost : s.length();
+		return s.substring(0, ind) + "  ........";
+
 	}
 
 	public static void printList(List cluster) {
@@ -159,5 +175,14 @@ public class Utils {
 		}
 
 		return doms;
+	}
+
+	public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+		for (Entry<T, E> entry : map.entrySet()) {
+			if (value.equals(entry.getValue())) {
+				return entry.getKey();
+			}
+		}
+		return null;
 	}
 }

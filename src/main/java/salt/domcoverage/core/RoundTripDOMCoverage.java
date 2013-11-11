@@ -62,15 +62,16 @@ public class RoundTripDOMCoverage {
 
 		// getcoverage
 
-		DomInterStateCoverageEasy domStateCoverage = new DomInterStateCoverageEasy();
-		Map<String, Double> coverage = domStateCoverage.getDomStateAndTransitionCoverage();
+		// DomInterStateCoverageEasy domStateCoverage = new DomInterStateCoverageEasy();
+		DomInterStateCoverage domStateCoverage = new DomInterStateCoverage();
+		Map<String, String> coverage = domStateCoverage.getDomStateAndTransitionCoverage();
 		// coverage.putAll();
 
 		ElementCoverage ec = new ElementCoverage();
 		coverage.putAll(ec.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION));
 
 		// just print coverge hashmap;
-		printMap(coverage);
+		// printMap(coverage);
 		// integrate with crawljax and overviewplugin
 
 		TaskUtil.cleanUpAfterRunningDomcovery(outputFolder);

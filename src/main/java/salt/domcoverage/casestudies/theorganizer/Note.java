@@ -20,7 +20,7 @@ public class Note {
 
 	@Before
 	public void setUp() throws Exception {
-		driver = new FirefoxDriver(salt.domcoverage.core.dom.proxy.BrowserProfile.getProfile());
+		driver = new FirefoxDriver();
 		// driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8080/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -41,7 +41,7 @@ public class Note {
 		driver.findElement(By.id("noteCreateShow_text")).clear();
 		driver.findElement(By.id("noteCreateShow_text")).sendKeys("note text");
 		driver.findElement(By.cssSelector("input[type=\"image\"]")).click();
-		// assertEquals("Note has been created.", driver.findElement(By.id("mainContent")).getText());
+		assertEquals("Note has been created.", driver.findElement(By.id("mainContent")).getText());
 	}
 
 	@After
