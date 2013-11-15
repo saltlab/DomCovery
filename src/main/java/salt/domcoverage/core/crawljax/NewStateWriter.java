@@ -23,9 +23,9 @@ import com.crawljax.plugins.crawloverview.model.State;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
-public class StateWriter {
+public class NewStateWriter {
 
-	private static final Logger LOG = LoggerFactory.getLogger(StateWriter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(NewStateWriter.class);
 
 	private static final String COLOR_NEW_STATE = "green";
 	private static final String COLOR_A_PREVIOUS_STATE = "#00FFFF";
@@ -35,7 +35,7 @@ public class StateWriter {
 	private final StateFlowGraph sfg;
 	private final Map<String, StateVertex> visitedStates;
 
-	public StateWriter(OutputBuilder outBuilder, StateFlowGraph sfg, Map<String, StateVertex> visitedStates) {
+	public NewStateWriter(OutputBuilder outBuilder, StateFlowGraph sfg, Map<String, StateVertex> visitedStates) {
 		this.outBuilder = outBuilder;
 		this.sfg = sfg;
 		this.visitedStates = visitedStates;

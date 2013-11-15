@@ -1,5 +1,6 @@
 package salt.domcoverage.casestudies.photogallery.task1;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -45,7 +46,8 @@ public class ONE {
 		driver.findElement(By.name("desc")).sendKeys("Greenery !!");
 		// Warning: verifyTextPresent may require manual changes
 		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Get Comments[\\s\\S]*$"));
+			assertEquals("Get Comments:", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div[3]/center/form/table/tbody/tr[4]/td")).getText());
+			// assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Get Comments[\\s\\S]*$"));
 		} catch (Error e) {
 			verificationErrors.append(e.toString());
 		}

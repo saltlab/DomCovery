@@ -12,6 +12,7 @@ import salt.domcoverage.core.dom.DomComparatorUsingSchema;
 import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
 import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.DOMUtility;
+import salt.domcoverage.core.utils.Utils;
 
 public class ElementDataPersist {
 
@@ -47,8 +48,10 @@ public class ElementDataPersist {
 						// }
 						domfilename = similarElement.getDomFileName();
 						DOMFileName = domfilename;
-						if (elementsAreSimilar(elements, similarElement.getElements()))
+						if (elementsAreSimilar(elements, similarElement.getElements())) {
+							Utils.Record(testName, domfilename);
 							return;
+						}
 						// elements = addUniqueElements(elements, similarElement.getElements());
 						// TODO: "by" and "testname" and "time" should be changed to list
 					}
@@ -65,6 +68,7 @@ public class ElementDataPersist {
 			FileUtils.write(new File(ConstantVars.COVERAGE_LOCATION + elementFile + ".txt"), allElements);
 
 			FileUtils.write(new File(ConstantVars.COVERAGE_COVERED_ELEMENTS_CSV), buffer, true);
+			Utils.Record(testName, domfilename);
 
 			// return new ElementData(testName, time, by, domfilename,
 			// elementFile);

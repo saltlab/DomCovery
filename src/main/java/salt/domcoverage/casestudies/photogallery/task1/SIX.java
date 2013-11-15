@@ -1,7 +1,6 @@
 package salt.domcoverage.casestudies.photogallery.task1;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -44,18 +43,11 @@ public class SIX {
 		driver.findElement(By.id("listRadioYe")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
 		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.findElement(By.cssSelector("div.note_valid")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
 		driver.findElement(By.xpath("(//a[contains(text(),'Delete / Clear')])[2]")).click();
 		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Clears Category flowers of all its own \\(direct\\) photos, nothing will be removed[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertEquals("Clears Category flowers of all its own (direct) photos, nothing will be removed.", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div/div/form/table/tbody/tr/td[2]")).getText());
+		// assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Clears Category flowers of all its own \\(direct\\) photos, nothing will be removed[\\s\\S]*$"));
 		// FileUtils.write(new
 		// File("salt.domcoverage.casestudies.photogallery.Add_category.testAddCategory.html"),
 		// driver.getPageSource());

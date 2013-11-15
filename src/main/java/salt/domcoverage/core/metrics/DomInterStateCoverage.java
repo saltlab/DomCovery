@@ -33,7 +33,7 @@ import com.google.common.collect.Lists;
 import salt.domcoverage.core.code2instrument.ElementData;
 import salt.domcoverage.core.code2instrument.ElementDataPersist;
 import salt.domcoverage.core.crawljax.RewriteCrawljaxState;
-import salt.domcoverage.core.crawljax.StateWriter;
+import salt.domcoverage.core.crawljax.NewStateWriter;
 import salt.domcoverage.core.dom.DOMScreenShot;
 import salt.domcoverage.core.dom.DocumentObjectModel;
 import salt.domcoverage.core.dom.DomComparator;
@@ -76,7 +76,7 @@ public class DomInterStateCoverage {
 				String pathname = ConstantVars.CRAWLJAXDOMS + number;
 				File newhtmlfilename = new File(pathname);
 				FileUtils.copyFile(new File(ConstantVars.MERGEDLOCATION + mergeddomFileName), newhtmlfilename);
-				domScreenShot.takeScreenshot(pathname, ConstantVars.CRAWLJAX_IMAGES + newhtmlfilename.getName().replace(".html", ".jpg"), true);
+				domScreenShot.takeScreenshot(ConstantVars.MERGEDLOCATION + mergeddomFileName, ConstantVars.CRAWLJAX_IMAGES + newhtmlfilename.getName().replace(".html", ".jpg"), true);
 				// add border
 				addBorder(ConstantVars.CRAWLJAX_IMAGES + newhtmlfilename.getName().replace(".html", "") + "_small.jpg");
 
@@ -110,7 +110,7 @@ public class DomInterStateCoverage {
 		int statesVisitedBytestsbutnotCrwaljax = statesCoveredbyTests - crawljax2DomcoverySimilarDoms.size();
 
 		int sumofStates = estimatedNumberofStatesNotCrawledbyCrawljax + statesCoveredByCrawljax + statesVisitedBytestsbutnotCrwaljax;
-		double domStateCoverageFinal = (double) statesCoveredbyTests / sumofStates;
+		double domStateCoverageFinal = Utils.round100((double) statesCoveredbyTests / sumofStates);
 
 		int transitionsCoveredbyTests = edges.size();
 		int estimatedNumberoftransitionsNotCrawledbyCrawljax = 0;
@@ -118,13 +118,13 @@ public class DomInterStateCoverage {
 		int transitionsVisitedBytestsbutnotCrwaljax = edges.size();
 
 		int sumofTransitions = estimatedNumberoftransitionsNotCrawledbyCrawljax + transitionsCoveredByCrawljax + transitionsVisitedBytestsbutnotCrwaljax;
-		double domTransitionCoverageFinal = (double) transitionsCoveredbyTests / sumofTransitions;
+		double domTransitionCoverageFinal = Utils.round100((double) transitionsCoveredbyTests / sumofTransitions);
 
 		// print resutls in file
 		String outputToFile = "******for Whole Application: \n";
-		String domstatecovall = domStateCoverageFinal + " (" + statesCoveredbyTests + " / " + sumofStates + ")";
+		String domstatecovall = Utils.format(domStateCoverageFinal, statesCoveredbyTests, sumofStates);
 		String coverageSLine = "DOM state coverage is : " + domstatecovall + "\n";
-		String domtransitioncovall = domTransitionCoverageFinal + " (" + transitionsCoveredbyTests + " / " + sumofTransitions + ")";
+		String domtransitioncovall = Utils.format(domTransitionCoverageFinal, transitionsCoveredbyTests, sumofTransitions);
 		String coverageTLine = "DOM transition coverage is : " + domtransitioncovall + " \n";
 		System.out.println(coverageSLine);
 		System.out.println(coverageTLine);
@@ -215,7 +215,7 @@ public class DomInterStateCoverage {
 	}
 
 	private void writestate(State state, String statefilename, OutputBuilder outputBuilder) {
-		StateWriter writer = new StateWriter(outputBuilder, null, null);
+		NewStateWriter writer = new NewStateWriter(outputBuilder, null, null);
 		writer.writeHtmlForState(state, statefilename);
 	}
 
@@ -234,18 +234,30 @@ public class DomInterStateCoverage {
 		if (doms.isEmpty())
 			return null;
 		String prev = doms.get(0).getDomFileName();
+		String prevTest = doms.get(0).getTestClassName();
 		// if (!domStateCoverage.containsKey(doms.get(0).getDomFileName()))
 		// prev = "-" + prev;
 		for (int i = 1; i < doms.size(); i++) {
 			String elem = doms.get(i).getDomFileName();
+			String elemTest = doms.get(i).getTestClassName();
+			// System.out.println("classname: " + prevTest);
 			// if (!domStateCoverage.containsKey(doms.get(i).getDomFileName()))
 			// elem = "-" + elem;
-			if (elem.equals(prev))
+			if (elem.equals(prev)) {
+				prev = new String(elem);
+				prevTest = new String(elemTest);
 				continue;
+			}
+			if (!elemTest.equals(prevTest)) {
+				prev = new String(elem);
+				prevTest = new String(elemTest);
+				continue;
+			}
 			Edge e = new Edge(getnumberWithDash(prev), getnumberWithDash(elem), 0, "", String.valueOf(i), "", "", "true");
 			System.out.println("new edge: " + e);
 			edges.add(e);
-			prev = elem;
+			prev = new String(elem);
+			prevTest = new String(elemTest);
 		}
 
 		return edges;
@@ -312,6 +324,7 @@ public class DomInterStateCoverage {
 		BufferedImage img = null;
 		try {
 			File input = new File(file);
+			System.out.println("file: " + file);
 			img = ImageIO.read(input);
 			// Let's add a little border before we return result.
 			BufferedImage pad = pad(img, 4, Color.GREEN);

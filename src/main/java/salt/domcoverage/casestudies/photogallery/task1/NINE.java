@@ -3,11 +3,16 @@ package salt.domcoverage.casestudies.photogallery.task1;
 //import java.util.regex.Pattern;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import org.junit.*;
+
 import static org.junit.Assert.*;
+
 //import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import salt.domcoverage.core.utils.Utils;
 
 //import org.openqa.selenium.support.ui.Select;
 
@@ -49,17 +54,11 @@ public class NINE {
 				break;
 			}
 		}
-		try {
-			assertEquals("Your rating saved!", driver.findElement(By.cssSelector("span#rateStatus")).getText());
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		Utils.sleep(3000);
+		assertEquals("Your rating saved!", driver.findElement(By.cssSelector("span#rateStatus")).getText().trim());
 		driver.findElement(By.xpath("//div[@id='Granny']/div[5]/div[2]/center/a/img")).click();
-		try { // ^http://localhost:8888/[\\s\\S]*mode=stories
-			assertTrue(driver.getCurrentUrl().matches("^http://localhost:8888/[\\s\\S]*p=2$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.getCurrentUrl().matches("^http://localhost:8888/[\\s\\S]*p=2$"));
+
 	}
 
 	@After

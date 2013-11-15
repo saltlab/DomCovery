@@ -77,6 +77,9 @@ public class DOMUtility {
 		dom = dom.replace("indirectCoverage=\"true\"", "");
 		dom = dom.replace(" indirectcoverage=\"true\"", "");
 		dom = dom.replace("indirectcoverage=\"true\"", "");
+		dom = dom.replace("assertedcoverage=\"true\"", "");
+		dom = dom.replace("indirectcoverage=true", "");
+		dom = dom.replace("assertedcoverage=true", "");
 		dom = dom.replace("  ", " ");
 		dom = dom.replace("\"=\"\"", "");
 		dom = dom.replace("'", "");

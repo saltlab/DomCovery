@@ -1,7 +1,6 @@
 package salt.domcoverage.casestudies.photogallery.task1;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,12 +42,7 @@ public class FIVE {
 		driver.findElement(By.id("listRadioNo")).click();
 		driver.findElement(By.id("listRadioYe")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
-		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.findElement(By.cssSelector("div.note_valid")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
 	}
 
 	@After

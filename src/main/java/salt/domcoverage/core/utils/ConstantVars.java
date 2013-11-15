@@ -56,5 +56,6 @@ public class ConstantVars {
 	public static final String AssertedElementCoverage = "AssertedElementCoverage";
 	public static final String ClickableElementCoverage = "ClickableElementCoverage";
 	public static final String OutPutBuilderTemp = "outputbuildertemp/";
+	public static final String EdgeData = COVERAGE_LOCATION + "edgeData.csv";
 
 }

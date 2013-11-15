@@ -1,8 +1,6 @@
 package salt.domcoverage.casestudies.photogallery.task2;
 
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,40 +28,36 @@ public class ONE {
 	}
 
 	@Test
-	public void testAddCategory() throws Exception {
+	public void testAddStoryAssert() throws Exception {
 		driver.get(baseUrl + "/phormer-photoGallery331/");
 		driver.findElement(By.linkText("Admin Page")).click();
 		driver.findElement(By.id("loginAdminPass")).clear();
 		driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
 		driver.findElement(By.cssSelector("input.submit")).click();
-		driver.findElement(By.linkText("Manage Categories")).click();
+		driver.findElement(By.linkText("Manage Stories")).click();
+		// driver.findElement(By.id("loginAdminPass")).clear();
+		// driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
+		// driver.findElement(By.cssSelector("input.submit")).click();
 		driver.findElement(By.id("name")).clear();
-		driver.findElement(By.id("name")).sendKeys("flowers");
+		driver.findElement(By.id("name")).sendKeys("Photos");
 		driver.findElement(By.name("desc")).clear();
-		driver.findElement(By.name("desc")).sendKeys("contains photos of all the flowers !");
-		driver.findElement(By.id("listRadioNo")).click();
-		driver.findElement(By.id("listRadioYe")).click();
-		driver.findElement(By.cssSelector("input.submit")).click();
+		driver.findElement(By.name("desc")).sendKeys("Greenery !!");
 		// Warning: verifyTextPresent may require manual changes
 		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
+			assertEquals("Get Comments:", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div[3]/center/form/table/tbody/tr[4]/td")).getText());
+
+			// assertTrue(driver.findElement(By.cssSelector("div.note_valid")).getText().matches("^[\\s\\S]*Get Comments[\\s\\S]*$"));
 		} catch (Error e) {
 			verificationErrors.append(e.toString());
 		}
-		driver.findElement(By.xpath("(//a[contains(text(),'Delete / Clear')])[2]")).click();
-		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Clears Category flowers of all its own \\(direct\\) photos, nothing will be removed[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
-		// FileUtils.write(new
-		// File("salt.domcoverage.casestudies.photogallery.Add_category.testAddCategory.html"),
-		// driver.getPageSource());
-		driver.findElement(By.xpath("(//input[@name='howto'])[4]")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
-		assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to delete [\\s\\S]*$"));
-		// driver.findElement(By.cssSelector("a[title=\"Log Out\"] > img.logo")).click();
+
+		assertEquals("Story \"Photos\" added succesfully!", driver.findElement(By.cssSelector("div.note_valid")).getText());
+
+		// driver.findElement(By.id("loginAdminPass")).clear();
+		// driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
+		// driver.findElement(By.cssSelector("input.submit")).click();
+		driver.findElement(By.cssSelector("a[title=\"Log Out\"]")).click();
 	}
 
 	@After

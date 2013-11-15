@@ -26,7 +26,7 @@ public class TaskUtil {
 			FileUtils.deleteQuietly(new File(taskLocation + "Domcovery-states"));
 
 			FileUtils.copyDirectory(new File(ConstantVars.MERGEDLOCATION), new File(taskLocation + "Domcovery-states"));
-			FileUtils.copyFile(new File(ConstantVars.DomCoverageCriteria), new File(taskLocation + ConstantVars.DomCoverageCriteria));
+			// FileUtils.copyFile(new File(ConstantVars.DomCoverageCriteria), new File(taskLocation + ConstantVars.DomCoverageCriteria));
 
 			// copy css files of photogallery to the mergedDom folder
 			FileUtils.copyDirectory(new File("extrafilesToCopy/photogallery"), new File(taskLocation + "Domcovery-states"));

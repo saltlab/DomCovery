@@ -37,22 +37,8 @@ public class TEN {
     public void testSlideShowPlayPause() throws Exception {
         driver.get(baseUrl);
         By by = By.id("ss_playpause_link");
-        //System.out.println("by: "+by);    
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(DomCoverageClass.collectData(by, driver, this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName()), driver, this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName())).click();
-    }
-
-    private void modifyElementAll(String url, String loc) throws IOException {
-        Document doc = Jsoup.connect(url).get();
-        //for id       : #:loc    
-        //for class    : .class:loc    
-        //for name     : .name:loc    
-        //for Xpath    : use XPATHHelper    
-        //for cssSelector: put same thing!    
-        //for linktext : [href:loc]    
-        //for taghname : loc    
-        Elements elementID = doc.select("#" + loc);
-        System.out.println("element extracted by jsoup: " + elementID.toString());
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(by, driver, this.getClass().getName() + "." + new Object() {
+        }.getClass().getEnclosingMethod().getName())).click();
     }
 
     @After
@@ -66,7 +52,8 @@ public class TEN {
 
     private boolean isElementPresent(By by) {
         try {
-            driver.findElement(by);
+            driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(by, driver, this.getClass().getName() + "." + new Object() {
+            }.getClass().getEnclosingMethod().getName()));
             return true;
         } catch (NoSuchElementException e) {
             return false;

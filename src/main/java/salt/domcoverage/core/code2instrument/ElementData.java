@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.io.FileUtils;
 
 import salt.domcoverage.core.utils.ConstantVars;
@@ -51,6 +52,10 @@ public class ElementData {
 
 	public String getTestName() {
 		return testName;
+	}
+
+	public String getTestClassName() {
+		return testName.substring(0, testName.lastIndexOf("."));
 	}
 
 	public void setTestName(String testName) {
@@ -115,7 +120,9 @@ public class ElementData {
 		this.observerElement = observedElement;
 		try {
 			domData = FileUtils.readFileToString(new File(ConstantVars.COVERAGE_LOCATION + domfilename));
-			elements = Arrays.asList((FileUtils.readFileToString(new File(ConstantVars.COVERAGE_LOCATION + elementF + ".txt"))).split(ConstantVars.ELEMENTS_SEPARATOR));
+			File file = new File(ConstantVars.COVERAGE_LOCATION + elementF + ".txt");
+			if (file.exists())
+				elements = Arrays.asList((FileUtils.readFileToString(file)).split(ConstantVars.ELEMENTS_SEPARATOR));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

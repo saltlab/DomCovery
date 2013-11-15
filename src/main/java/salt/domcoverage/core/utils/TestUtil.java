@@ -63,6 +63,7 @@ public class TestUtil {
 	public static void executeUnitTests(List<String> allTests) {
 		for (String test : allTests) {
 			// new TestExecutor().execute(test);
+			Utils.resetProgramVariables();
 			executeUnitTest(test);
 		}
 

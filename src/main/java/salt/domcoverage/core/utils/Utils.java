@@ -2,6 +2,7 @@ package salt.domcoverage.core.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -185,4 +186,43 @@ public class Utils {
 		}
 		return null;
 	}
+
+	public static double round(double d) {
+		DecimalFormat twoDForm = new DecimalFormat("#.#");
+		return Double.valueOf(twoDForm.format(d));
+
+	}
+
+	public static double round100(double d) {
+		d = d * 100;
+		DecimalFormat twoDForm = new DecimalFormat("#.#");
+		return Double.valueOf(twoDForm.format(d));
+
+	}
+
+	public static String format(double domStateCoverageFinal, int statesCoveredbyTests, int sumofStates) {
+		return domStateCoverageFinal + "% (" + statesCoveredbyTests + " / " + sumofStates + ")";
+	}
+
+	public static void resetProgramVariables() {
+		ConstantVars.oracleAssertion = false;
+		ConstantVars.indirectCoverageMode = false;
+		ConstantVars.JS_REWRITE_EXECUTED = false;
+
+	}
+
+	public static void Record(String testName, String domfilename) {
+		try {
+			String buffer = testName + ConstantVars.SEPARATOR + "time" + ConstantVars.SEPARATOR + "by" + ConstantVars.SEPARATOR + "elementFile" + ConstantVars.SEPARATOR + domfilename + ConstantVars.SEPARATOR + ConstantVars.oracleAssertion + ConstantVars.SEPARATOR + ConstantVars.indirectCoverageMode + "\r";
+
+			FileUtils.writeStringToFile(new File(ConstantVars.EdgeData), buffer, true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	// public static String format(double directCovStr, double directCov, int directCovAllElements) {
+	// return directCovStr + " (" + round(directCov) + " / " + directCovAllElements + ")";
+	// }
 }
