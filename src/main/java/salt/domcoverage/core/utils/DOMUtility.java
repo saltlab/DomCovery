@@ -67,12 +67,21 @@ public class DOMUtility {
 		return element;
 	}
 
+	public static void main(String argv[]) {
+		try {
+			String readFileToString = FileUtils.readFileToString(new File("/Users/mehdimir/Desktop/Dropbox/UBC-research/development/git/DomCoverage/DomcoveryOutput/gallery/Task1/Domcovery-states/salt.domcoverage.casestudies.photogallery.instrumentedtask1.EIGHT.testLoginLogOut_DOM_2013-11-15_12-51-07.707.html"));
+			System.out.println(normalizeDOM(readFileToString, false));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 	public static String normalizeDOM(String dom, boolean stripattributes) {
 		// System.out.println(readFileToString);
 		dom = new PlainStructureComparator(stripattributes).normalize(dom);
 		// dom = dom.toLowerCase();
-		dom = dom.replace(" coverage=\"true\"", "");
-		dom = dom.replace("coverage=\"true\"", "");
 		dom = dom.replace(" indirectCoverage=\"true\"", "");
 		dom = dom.replace("indirectCoverage=\"true\"", "");
 		dom = dom.replace(" indirectcoverage=\"true\"", "");
@@ -80,6 +89,8 @@ public class DOMUtility {
 		dom = dom.replace("assertedcoverage=\"true\"", "");
 		dom = dom.replace("indirectcoverage=true", "");
 		dom = dom.replace("assertedcoverage=true", "");
+		dom = dom.replace(" coverage=\"true\"", "");
+		dom = dom.replace("coverage=\"true\"", "");
 		dom = dom.replace("  ", " ");
 		dom = dom.replace("\"=\"\"", "");
 		dom = dom.replace("'", "");
