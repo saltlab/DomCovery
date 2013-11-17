@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery.task1;
+package salt.domcoverage.casestudies.photogallery.task1old;
 
 //import java.util.regex.Pattern;
 import java.util.List;
@@ -29,20 +29,13 @@ public class NINE {
 	}
 
 	@Test
-	public void testMainView() throws Exception {
+	public void testMain() throws Exception {
 		driver.get("http://localhost:8888/phormer-photoGallery331/?p=1");
-		try {
-			assertTrue(isElementPresent(By.cssSelector("div#theImage")));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(isElementPresent(By.cssSelector("div#theImage")));
 		driver.findElement(By.linkText("Hide  info")).click();
-		// ERROR: Caught exception [ERROR: Unsupported command [getEval | window.document.getElementById("photoBoxes").style.display == "none" | ]]
 		assertTrue(driver.findElement(By.id("photoBoxes")).isDisplayed() == false);
 		driver.findElement(By.linkText("Show info")).click();
-		// ERROR: Caught exception [ERROR: Unsupported command [getEval | window.document.getElementById("photoBoxes").style.display == "none" | ]]
 		assertTrue(driver.findElement(By.id("photoBoxes")).isDisplayed());
-		// ERROR: Caught exception [ERROR: Unsupported command [getEval | (window.document.getElementById("rateSelect").value % 5) + 1 | ]]
 		WebElement select = driver.findElement(By.id("rateSelect"));
 		int rating = Integer.parseInt(select.getAttribute("value"));
 		int nextRating = rating % 5 + 1;

@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery.task1;
+package salt.domcoverage.casestudies.photogallery.task1old;
 
 import static org.junit.Assert.*;
 
@@ -28,7 +28,7 @@ public class FIVE {
 	}
 
 	@Test
-	public void testAddCategory() throws Exception {
+	public void test1() throws Exception {
 		driver.get(baseUrl + "/phormer-photoGallery331/");
 		driver.findElement(By.linkText("Admin Page")).click();
 		driver.findElement(By.id("loginAdminPass")).clear();

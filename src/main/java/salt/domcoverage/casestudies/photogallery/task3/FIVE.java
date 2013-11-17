@@ -1,17 +1,20 @@
-package salt.domcoverage.casestudies.photogallery.task1old;
+package salt.domcoverage.casestudies.photogallery.task3;
 
-import java.util.regex.Pattern;
-import java.util.concurrent.TimeUnit;
-import org.junit.*;
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import org.openqa.selenium.*;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
-import com.thoughtworks.selenium.Selenium;
-
-public class FOUR {
+public class FIVE {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
@@ -31,12 +34,15 @@ public class FOUR {
 		driver.findElement(By.id("loginAdminPass")).clear();
 		driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
 		driver.findElement(By.cssSelector("input.submit")).click();
-		driver.findElement(By.linkText("Manage Stories")).click();
+		driver.findElement(By.linkText("Manage Categories")).click();
 		driver.findElement(By.id("name")).clear();
-		driver.findElement(By.id("name")).sendKeys("New test case");
+		driver.findElement(By.id("name")).sendKeys("flowers");
 		driver.findElement(By.name("desc")).clear();
-		driver.findElement(By.name("desc")).sendKeys("I cannot enter new test case related to add photos.");
+		driver.findElement(By.name("desc")).sendKeys("contains photos of all the flowers !");
+		driver.findElement(By.id("listRadioNo")).click();
+		driver.findElement(By.id("listRadioYe")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
+		assertTrue(driver.findElement(By.cssSelector("div.note_valid")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
 	}
 
 	@After

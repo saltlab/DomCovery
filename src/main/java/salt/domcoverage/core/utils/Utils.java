@@ -193,7 +193,9 @@ public class Utils {
 
 	}
 
-	public static double round100(double d) {
+	public static double round100(Double d) {
+		if (d.isNaN() || d == Double.valueOf(0.0))
+			return 0;
 		d = d * 100;
 		DecimalFormat twoDForm = new DecimalFormat("#.#");
 		return Double.valueOf(twoDForm.format(d));
@@ -222,7 +224,16 @@ public class Utils {
 		}
 
 	}
+
 	// public static String format(double directCovStr, double directCov, int directCovAllElements) {
 	// return directCovStr + " (" + round(directCov) + " / " + directCovAllElements + ")";
 	// }
+
+	public static void updatecrawljaxlocation(String crawljaxReportFolder) {
+		ConstantVars.CRAWLOVERVIEW = crawljaxReportFolder + "/";
+		ConstantVars.CRAWLJAXDOMS = ConstantVars.CRAWLOVERVIEW + "doms/";
+		ConstantVars.CRAWLJAXSTATES = ConstantVars.CRAWLOVERVIEW + "states/";
+		ConstantVars.CRAWLJAX_IMAGES = ConstantVars.CRAWLOVERVIEW + "screenshots/";
+
+	}
 }

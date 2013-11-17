@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery.task1;
+package salt.domcoverage.casestudies.photogallery.task1old;
 
 
 import java.util.regex.Pattern;
@@ -24,7 +24,7 @@ public class TWO {
   }
 
   @Test
-  public void testAdminLoginLogout() throws Exception {
+  public void testA() throws Exception {
     driver.get(baseUrl + "/phormer-photoGallery331/");
     driver.findElement(By.linkText("Admin Page")).click();
     driver.findElement(By.id("loginAdminPass")).clear();

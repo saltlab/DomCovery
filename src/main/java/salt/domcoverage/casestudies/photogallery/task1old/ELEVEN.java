@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery.task1;
+package salt.domcoverage.casestudies.photogallery.task1old;
 
 //import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -23,32 +23,16 @@ public class ELEVEN {
 	}
 
 	@Test
-	public void testSlideShow() throws Exception {
+	public void test1() throws Exception {
 		driver.get("http://localhost:8888/phormer-photoGallery331/?feat=slideshow");
 		assertTrue(driver.getTitle().matches("^SlideShow[\\s\\S]*$"));
 		driver.findElement(By.id("ss_playpause_link")).click();
-		try {
-			assertTrue(isElementPresent(By.cssSelector("img#ss_photo")));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
-		try {
-			assertEquals("1", driver.findElement(By.cssSelector("span#ss_n")).getText());
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(isElementPresent(By.cssSelector("img#ss_photo")));
+		assertEquals("1", driver.findElement(By.cssSelector("span#ss_n")).getText());
 		driver.findElement(By.linkText("Next")).click();
-		try {
-			assertEquals("2", driver.findElement(By.cssSelector("span#ss_n")).getText());
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertEquals("2", driver.findElement(By.cssSelector("span#ss_n")).getText());
 		driver.findElement(By.linkText("Previous")).click();
-		try {
-			assertEquals("1", driver.findElement(By.cssSelector("span#ss_n")).getText());
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertEquals("1", driver.findElement(By.cssSelector("span#ss_n")).getText());
 		driver.findElement(By.linkText("Smaller Size")).click();
 		assertEquals("SlideShow :: My PhotoGallery", driver.getTitle());
 	}

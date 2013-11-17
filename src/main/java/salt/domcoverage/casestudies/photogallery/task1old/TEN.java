@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery.task1;
+package salt.domcoverage.casestudies.photogallery.task1old;
 
 import java.io.IOException;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class TEN {
 	}
 
 	@Test
-	public void testSlideShowPlayPause() throws Exception {
+	public void testS() throws Exception {
 		driver.get(baseUrl);
 		By by = By.id("ss_playpause_link");
 		driver.findElement(by).click();

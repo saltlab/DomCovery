@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery.task1old;
+package salt.domcoverage.casestudies.photogallery.task2;
 
 //import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -10,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 //import org.openqa.selenium.support.ui.Select;
 
-public class SEVEN {
+public class ELEVEN {
 	private WebDriver driver;
 	// private String baseUrl;
 	private StringBuffer verificationErrors = new StringBuffer();
@@ -23,17 +23,18 @@ public class SEVEN {
 	}
 
 	@Test
-	public void testPage() throws Exception {
-		driver.get("http://localhost:8888/phormer-photoGallery331/");
-		assertTrue(isElementPresent(By.cssSelector("div#Granny")));
-		driver.findElement(By.linkText("Stories")).click();
-		assertTrue(driver.getCurrentUrl().matches("^http://localhost:8888/[\\s\\S]*mode=stories$"));
-		driver.findElement(By.partialLinkText("Default Category")).click();
-		assertTrue(driver.findElement(By.cssSelector("div.midInfo")).getText().matches("^[\\s\\S]*category[\\s\\S]*$"));
-		driver.findElement(By.partialLinkText("Default Story")).click();
-		assertTrue(driver.findElement(By.cssSelector("div.midInfo")).getText().matches("^[\\s\\S]*story[\\s\\S]*$"));
-		driver.findElement(By.linkText("SlideShow")).click();
+	public void test1() throws Exception {
+		driver.get("http://localhost:8888/phormer-photoGallery331/?feat=slideshow");
 		assertTrue(driver.getTitle().matches("^SlideShow[\\s\\S]*$"));
+		driver.findElement(By.id("ss_playpause_link")).click();
+		assertTrue(isElementPresent(By.cssSelector("img#ss_photo")));
+		assertEquals("1", driver.findElement(By.cssSelector("span#ss_n")).getText());
+		driver.findElement(By.linkText("Next")).click();
+		assertEquals("2", driver.findElement(By.cssSelector("span#ss_n")).getText());
+		driver.findElement(By.linkText("Previous")).click();
+		assertEquals("1", driver.findElement(By.cssSelector("span#ss_n")).getText());
+		driver.findElement(By.linkText("Smaller Size")).click();
+		assertEquals("SlideShow :: My PhotoGallery", driver.getTitle());
 	}
 
 	@After

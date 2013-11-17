@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery.task1old;
+package salt.domcoverage.casestudies.photogallery.task5;
 
 import static org.junit.Assert.*;
 
@@ -28,7 +28,7 @@ public class SIX {
 	}
 
 	@Test
-	public void testA() throws Exception {
+	public void testAddCategory() throws Exception {
 		driver.get(baseUrl + "/phormer-photoGallery331/");
 		driver.findElement(By.linkText("Admin Page")).click();
 		driver.findElement(By.id("loginAdminPass")).clear();
@@ -42,13 +42,19 @@ public class SIX {
 		driver.findElement(By.id("listRadioNo")).click();
 		driver.findElement(By.id("listRadioYe")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
+		// Warning: verifyTextPresent may require manual changes
 		assertTrue(driver.findElement(By.cssSelector("div.note_valid")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
 		driver.findElement(By.xpath("(//a[contains(text(),'Delete / Clear')])[2]")).click();
-
+		// Warning: verifyTextPresent may require manual changes
 		assertEquals("Clears Category flowers of all its own (direct) photos, nothing will be removed.", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div/div/form/table/tbody/tr/td[2]")).getText());
+		// assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Clears Category flowers of all its own \\(direct\\) photos, nothing will be removed[\\s\\S]*$"));
+		// FileUtils.write(new
+		// File("salt.domcoverage.casestudies.photogallery.Add_category.testAddCategory.html"),
+		// driver.getPageSource());
 		driver.findElement(By.xpath("(//input[@name='howto'])[4]")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
 		assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to delete [\\s\\S]*$"));
+		// driver.findElement(By.cssSelector("a[title=\"Log Out\"] > img.logo")).click();
 	}
 
 	@After

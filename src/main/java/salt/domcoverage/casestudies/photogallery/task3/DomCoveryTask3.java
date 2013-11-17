@@ -1,14 +1,15 @@
-package salt.domcoverage.casestudies.photogallery.task1old;
+package salt.domcoverage.casestudies.photogallery.task3;
 
 import salt.domcoverage.core.RoundTripDOMCoverage;
+import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.Utils;
 
-public class DomCoveryTask1 {
+public class DomCoveryTask3 {
 
 	public static void main(String argv[]) {
 
 		// ////////////////inputs
-		int taskNumber = 1;
+		int taskNumber = 3;
 		String crawljaxReportFolder = "outtask" + taskNumber;
 
 		String testLocationFolder = System.getProperty("user.dir") + "/src/main/java/salt/domcoverage/casestudies/photogallery/instrumentedtask" + taskNumber;

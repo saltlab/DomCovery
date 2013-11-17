@@ -1,17 +1,20 @@
-package salt.domcoverage.casestudies.photogallery.task1old;
+package salt.domcoverage.casestudies.photogallery.task4;
 
-import java.util.regex.Pattern;
-import java.util.concurrent.TimeUnit;
-import org.junit.*;
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import org.openqa.selenium.*;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
-import com.thoughtworks.selenium.Selenium;
-
-public class FOUR {
+public class ONE {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
@@ -25,7 +28,7 @@ public class FOUR {
 	}
 
 	@Test
-	public void test1() throws Exception {
+	public void testA() throws Exception {
 		driver.get(baseUrl + "/phormer-photoGallery331/");
 		driver.findElement(By.linkText("Admin Page")).click();
 		driver.findElement(By.id("loginAdminPass")).clear();
@@ -33,10 +36,19 @@ public class FOUR {
 		driver.findElement(By.cssSelector("input.submit")).click();
 		driver.findElement(By.linkText("Manage Stories")).click();
 		driver.findElement(By.id("name")).clear();
-		driver.findElement(By.id("name")).sendKeys("New test case");
+		driver.findElement(By.id("name")).sendKeys("Photos");
 		driver.findElement(By.name("desc")).clear();
-		driver.findElement(By.name("desc")).sendKeys("I cannot enter new test case related to add photos.");
+		driver.findElement(By.name("desc")).sendKeys("Greenery !!");
+		assertEquals("Get Comments:", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div[3]/center/form/table/tbody/tr[4]/td")).getText());
+
 		driver.findElement(By.cssSelector("input.submit")).click();
+
+		assertEquals("Story \"Photos\" added succesfully!", driver.findElement(By.cssSelector("div.note_valid")).getText());
+
+		// driver.findElement(By.id("loginAdminPass")).clear();
+		// driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
+		// driver.findElement(By.cssSelector("input.submit")).click();
+		driver.findElement(By.cssSelector("a[title=\"Log Out\"]")).click();
 	}
 
 	@After

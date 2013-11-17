@@ -1,4 +1,4 @@
-package salt.domcoverage.casestudies.photogallery.task2;
+package salt.domcoverage.casestudies.photogallery.task1old;
 
 import static org.junit.Assert.*;
 
@@ -28,28 +28,19 @@ public class ONE {
 	}
 
 	@Test
-	public void testAddStoryAssert() throws Exception {
+	public void testA() throws Exception {
 		driver.get(baseUrl + "/phormer-photoGallery331/");
 		driver.findElement(By.linkText("Admin Page")).click();
 		driver.findElement(By.id("loginAdminPass")).clear();
 		driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
 		driver.findElement(By.cssSelector("input.submit")).click();
 		driver.findElement(By.linkText("Manage Stories")).click();
-		// driver.findElement(By.id("loginAdminPass")).clear();
-		// driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
-		// driver.findElement(By.cssSelector("input.submit")).click();
 		driver.findElement(By.id("name")).clear();
 		driver.findElement(By.id("name")).sendKeys("Photos");
 		driver.findElement(By.name("desc")).clear();
 		driver.findElement(By.name("desc")).sendKeys("Greenery !!");
-		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertEquals("Get Comments:", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div[3]/center/form/table/tbody/tr[4]/td")).getText());
+		assertEquals("Get Comments:", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div[3]/center/form/table/tbody/tr[4]/td")).getText());
 
-			// assertTrue(driver.findElement(By.cssSelector("div.note_valid")).getText().matches("^[\\s\\S]*Get Comments[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
 		driver.findElement(By.cssSelector("input.submit")).click();
 
 		assertEquals("Story \"Photos\" added succesfully!", driver.findElement(By.cssSelector("div.note_valid")).getText());

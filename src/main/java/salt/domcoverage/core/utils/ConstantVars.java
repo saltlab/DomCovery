@@ -32,10 +32,10 @@ public class ConstantVars {
 	public static final String DomCoverageCriteria = "DomCoverageCriteriaReport.txt";
 	public static final double SIMILARITY_THRESHOLD = 34;// 5
 	public static final String ELEMENTS_SEPARATOR = "@@@@@@@@@";
-	public static final String CRAWLJAXDOMS = "out/doms/";
-	public static final String CRAWLJAXSTATES = "out/states/";
-	public static final String CRAWLOVERVIEW = "out/";
-	public static final String CRAWLJAX_IMAGES = "out/screenshots/";
+	public static String CRAWLOVERVIEW = "out/";
+	public static String CRAWLJAXDOMS = CRAWLOVERVIEW + "doms/";
+	public static String CRAWLJAXSTATES = CRAWLOVERVIEW + "states/";
+	public static String CRAWLJAX_IMAGES = CRAWLOVERVIEW + "screenshots/";
 	public static final boolean ENFORCE_SIMILARITY_FROM_BEGINING = true;
 	public static boolean JS_REWRITE_EXECUTED = false;
 	public static boolean oracleAssertion = false;

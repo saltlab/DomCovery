@@ -1,19 +1,23 @@
 package salt.domcoverage.casestudies.photogallery.task2;
 
 import salt.domcoverage.core.RoundTripDOMCoverage;
+import salt.domcoverage.core.utils.ConstantVars;
+import salt.domcoverage.core.utils.Utils;
 
 public class DomCoveryTask2 {
 
 	public static void main(String argv[]) {
 
-		final long startTime = System.currentTimeMillis();
-
+		// ////////////////inputs
 		int taskNumber = 2;
+		String crawljaxReportFolder = "outtask2";
 
 		String testLocationFolder = System.getProperty("user.dir") + "/src/main/java/salt/domcoverage/casestudies/photogallery/instrumentedtask" + taskNumber;
+		final long startTime = System.currentTimeMillis();
 
+		Utils.updatecrawljaxlocation(crawljaxReportFolder);
 		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
-		rtdc.execute(testLocationFolder, "DomcoveryOutput/Task" + taskNumber + "/");
+		rtdc.execute(testLocationFolder, "DomcoveryOutput/gallery/Task" + taskNumber + "/");
 
 		final long endTime = System.currentTimeMillis();
 
