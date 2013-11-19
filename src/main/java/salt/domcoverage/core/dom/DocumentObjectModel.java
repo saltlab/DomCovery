@@ -2,9 +2,12 @@ package salt.domcoverage.core.dom;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -13,6 +16,9 @@ import org.w3c.dom.NodeList;
 import salt.domcoverage.core.utils.ConstantVars;
 
 import com.crawljax.util.DomUtils;
+import com.google.common.collect.Lists;
+
+import flex.messaging.io.ArrayList;
 
 public class DocumentObjectModel {
 
@@ -43,7 +49,12 @@ public class DocumentObjectModel {
 		return elemA.getLength() + elemB.getLength() + elemI.getLength() + elemIm.getLength();
 	}
 
-	public int getAllElements() {
+	public int getAllElementsSize() {
+		List<Node> allElements = getAllElements();
+		return allElements.size();
+	}
+
+	public List<Node> getAllElements() {
 		int all = 0;
 		Document w3cdoc = getW3cDocument();
 		// NodeList body = w3cdoc.getElementsByTagName("body");
@@ -53,7 +64,7 @@ public class DocumentObjectModel {
 		all = w3cdoc.getElementsByTagName("*").getLength();
 
 		NodeList elements = w3cdoc.getElementsByTagName("*");
-
+		List<Node> listofnodes = new ArrayList();
 		int bodyelementorder = 0;
 		for (int i = 0; i < elements.getLength(); i++) {
 			Node item = elements.item(i);
@@ -72,10 +83,11 @@ public class DocumentObjectModel {
 			if (item.getFirstChild() != null && !containsText(item.getFirstChild().getNodeValue()))
 				continue;
 			if (countingItem(item.getNodeName())) {
+				listofnodes.add(item);
 				numberofCountingItems++;
 			}
 		}
-		return numberofCountingItems;
+		return listofnodes;
 	}
 
 	private boolean containsText(String nodeValue) {
@@ -106,10 +118,40 @@ public class DocumentObjectModel {
 		return asDocument;
 	}
 
-	public int getElementAccessedInDOMThroughAttribute(String attribute) {
-		org.jsoup.nodes.Document doc = Jsoup.parse(DOM);
-		Elements elements = doc.select("[" + attribute + "]");
+	public int getElementAccessedSizeInDOMThroughAttribute(String attribute) {
+		Elements elements = getElementAccessedInDOMThroughAttribute(attribute);
 		return elements.size();
 
+	}
+
+	public Elements getElementAccessedInDOMThroughAttribute(String attribute) {
+		org.jsoup.nodes.Document doc = Jsoup.parse(DOM);
+		Elements elements = doc.select("[" + attribute + "]");
+
+		return elements;
+	}
+
+	public Elements getAllElementsUsingJsoup() {
+		org.jsoup.nodes.Document doc = Jsoup.parse(DOM);
+		Elements elements = doc.getAllElements();
+		Elements out = new Elements();
+		for (Element element : elements) {
+			if (countingItem(element.nodeName()))
+				out.add(element);
+		}
+		return out;
+	}
+
+	public int getAllElementsAndInterserctionwithClickableElements() {
+		Elements clickableElements = getElementAccessedInDOMThroughAttribute(ConstantVars.clickableCoverageAttribute + "=true");
+		Elements allElements = getAllElementsUsingJsoup();
+		int sizeall = allElements.size();
+		// for (Element element : allElements) {
+		// if(element.hasAttr(ConstantVars.clickableCoverageAttribute))
+		// }
+		boolean addAll = allElements.addAll(clickableElements);
+		// List intersection = ListUtils.intersection(allElements, clickableElements);
+
+		return allElements.size() - sizeall + clickableElements.size();
 	}
 }

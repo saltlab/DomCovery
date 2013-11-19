@@ -6,6 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import salt.domcoverage.core.utils.ConstantVars;
+
 public class HtmlModifier {
 
 	public static void main(String[] args) {
@@ -23,7 +25,7 @@ public class HtmlModifier {
 			// new_attribute.attr("coverage", "true");
 			// }
 
-			links.attr("coverage", "true");
+			links.attr(ConstantVars.directCoverageAttribute, "true");
 			System.out.println("Document After->\n" + doc);
 		} catch (IOException e) {
 			e.printStackTrace();

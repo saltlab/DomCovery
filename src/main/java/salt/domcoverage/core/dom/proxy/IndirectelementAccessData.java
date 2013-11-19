@@ -28,17 +28,19 @@ public class IndirectelementAccessData {
 		String[] split = typeandId.split(ConstantVars.SEPARATOR);
 		String type = split[0].toLowerCase().trim();
 		String id = split[1].trim();
-		String html = split[2].trim();
+		String html = typeandId.substring(typeandId.indexOf(split[2].trim()));
+		// String html = split[2].trim();
 
 		String[] splitRaw = rawResponse.split(ConstantVars.SEPARATOR);
 		String typeRaw = splitRaw[0].toLowerCase().trim();
 		String idRaw = splitRaw[1].trim();
-		String htmlRaw = splitRaw[2].trim();
+		String htmlRaw = rawResponse.substring(rawResponse.indexOf(split[2].trim()));
+		// String htmlRaw = splitRaw[2].trim();
 
 		if (!typeRaw.equals(type))
 			return false;
 
-		if (!idRaw.equals(idRaw))
+		if (!idRaw.equals(id))
 			return false;
 
 		boolean domsSimilar = DomInterStateCoverage.domsSimilar(html, htmlRaw);

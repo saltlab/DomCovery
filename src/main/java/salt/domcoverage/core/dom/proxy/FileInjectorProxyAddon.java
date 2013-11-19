@@ -14,6 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import salt.domcoverage.core.metrics.ClickableElements;
 import salt.domcoverage.core.utils.Utils;
 
 import com.crawljax.util.DomUtils;
@@ -102,11 +103,18 @@ public class FileInjectorProxyAddon extends ProxyPlugin {
 
 			// parse the response body
 			try {
-				System.out.println("REQUESTTTTTTTTTTTTTTTTTTTT: " + request.getURL());
+				System.out.println("REQUESTT: " + request.getURL());
 				if (request.getURL().toString().contains("?thisisafunctiontracingcall")) {
 					String rawResponse = new String(request.getContent());
-					System.out.println("rawResponse: " + Utils.printSubstring(rawResponse, 20));
+					System.out.println("indirect element rawResponse: " + Utils.printSubstring(rawResponse, 20));
 					IndirectelementAccessData.addElements(rawResponse);
+					return response;
+				}
+
+				if (request.getURL().toString().contains("?thisisaclickableelementdetector")) {
+					String rawResponse = new String(request.getContent());
+					System.out.println("clickable detector rawResponse: " + Utils.printSubstring(rawResponse, 100));
+					ClickableElements.manipulateElements(rawResponse);
 					return response;
 				}
 

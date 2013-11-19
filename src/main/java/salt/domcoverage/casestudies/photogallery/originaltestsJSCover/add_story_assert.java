@@ -16,6 +16,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import salt.domcoverage.core.code2instrument.DomCoverageClass;
+
 public class add_story_assert {
 	private WebDriver driver;
 	private String baseUrl;
@@ -24,15 +26,17 @@ public class add_story_assert {
 
 	@Before
 	public void setUp() throws Exception {
+		System.out.println("setup");
 		driver = new FirefoxDriver(salt.domcoverage.core.dom.proxy.BrowserProfile.getProfile());
 		// driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8888";
-		baseUrl = "http://watersmc.ece.ubc.ca:8888";
+		// baseUrl = "http://watersmc.ece.ubc.ca:8888";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	@Test
 	public void testAddStoryAssert() throws Exception {
+		System.out.println("test1");
 		driver.get(baseUrl + "/phormer-photoGallery331/");
 		driver.findElement(By.linkText("Admin Page")).click();
 		driver.findElement(By.id("loginAdminPass")).clear();
@@ -57,10 +61,22 @@ public class add_story_assert {
 		// driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
 		// driver.findElement(By.cssSelector("input.submit")).click();
 		driver.findElement(By.cssSelector("a[title=\"Log Out\"]")).click();
+
+	}
+
+	@Test
+	public void testSlideShowPlayPause() throws Exception {
+		System.out.println("test2");
+		baseUrl = "http://watersmc.ece.ubc.ca:8888/phormer-photoGallery331/?feat=slideshow";
+		driver.get(baseUrl);
+		By by = By.id("ss_playpause_link");
+		// System.out.println("by: "+by);
+		driver.findElement(by).click();
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		System.out.println("teardonw");
 		((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('report');}");
 		driver.quit();
 		String verificationErrorString = verificationErrors.toString();

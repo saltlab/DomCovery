@@ -15,8 +15,8 @@ public class ConstantVars {
 	public static final String[] seleniumDomRelatedMethodCallList = new String[] { "findElement", "findElements" };
 	public static final String[] allSeleniumMethodCalls = new String[] { "findElement", "id", "xpath", "tagName", "linkText", "cssSelector", "partialLinkText", "className", "findElements" };
 	public static final String[] assertion_methods_list = new String[] { "assertEquals", "assertTrue", "assertNotNull", "assertNull" };
-	public static final String[] ELEMENTS_NOT_COUNT = new String[] { "p", "form", "tbody", "tabular", "span", "thead", "h1", "h2", "h3", "br", "hr", "code", "i", "kbd", "pre", "small", "strong", "abbr", "ul", "ol", "dl", "th", "select" };
-	public static final String[] ELEMENTS_TO_COUNT = new String[] { "div", "input", "a", "li", "td", "tr", "table", "option", "img", "dt", "iframe", "textarea" };
+	public static final String[] ELEMENTS_NOT_COUNT = new String[] { "p", "form", "tbody", "tabular", "thead", "h1", "h2", "h3", "br", "hr", "code", "i", "kbd", "pre", "small", "strong", "abbr", "ul", "ol", "dl", "th", "select" };
+	public static final String[] ELEMENTS_TO_COUNT = new String[] { "div", "input", "a", "li", "td", "tr", "table", "option", "img", "dt", "iframe", "textarea", "span" };
 	public static final String INJECT_ELEMENT_ACCESS_JS = "elementaccessinject.js";
 	public static final String INJECT_ELEMENT_ACCESS_CSS = "elementaccessinject.css";
 	public static final String CLICKABLE_DETECTOR_JS = "clickable-detector-pre.js";
@@ -27,7 +27,7 @@ public class ConstantVars {
 	public static final String JS_CODE_INJECT = "jsCodeInject.js";
 
 	public static final String PROXY_IP = "127.0.0.1";
-	public static final int PROXY_PORT = 8884;
+	public static int PROXY_PORT = 8884;
 	public static final String[] SELENIUMDRIVER_METHODCALLS = new String[] { "FirefoxDriver", "ChromeDriver" };
 	public static final String DomCoverageCriteria = "DomCoverageCriteriaReport.txt";
 	public static final double SIMILARITY_THRESHOLD = 34;// 5
@@ -43,19 +43,21 @@ public class ConstantVars {
 	public static String ESTIMATIONFILE = "estimation.b";
 	public static String EXPLORATIONFILE = "exploration.b";
 	public static boolean indirectCoverageMode = false;
+	public static boolean Clickable_mode = false;
 
 	public static final String assertedCoverageAttribute = "assertedcoverage";
-	public static final String coverageAttribute = "coverage";
+	public static final String directCoverageAttribute = "directcoverage";
 	public static final String clickableCoverageAttribute = "clickablecoverage";
+	public static final String indirectCoverageAttribute = "indirectcoverage";
 
 	public static final String DomStateCoverage = "DomStateCoverage";
 	public static final String DomTransitionCoverage = "DomTransitionCoverage";
 	public static final String DirectElementCoverage = "DirectElementCoverage";
-	public static final String indirectCoverage = "indirectcoverage";
 	public static final String IndirectElementCoverage = "IndirectElementCoverage";
 	public static final String AssertedElementCoverage = "AssertedElementCoverage";
 	public static final String ClickableElementCoverage = "ClickableElementCoverage";
 	public static final String OutPutBuilderTemp = "outputbuildertemp/";
 	public static final String EdgeData = COVERAGE_LOCATION + "edgeData.csv";
+	public static boolean Clickable_element_collection = true;
 
 }

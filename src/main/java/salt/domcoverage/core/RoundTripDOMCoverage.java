@@ -12,6 +12,7 @@ import salt.domcoverage.core.codeanalysis.TestInstrumentor;
 import salt.domcoverage.core.dom.DomComparatorUsingSchema;
 import salt.domcoverage.core.dom.DomMerger;
 import salt.domcoverage.core.dom.clustering.DataClustererWithRelativeSimilarity;
+import salt.domcoverage.core.metrics.ClickableElements;
 import salt.domcoverage.core.metrics.DomInterStateCoverage;
 import salt.domcoverage.core.metrics.DomInterStateCoverageEasy;
 import salt.domcoverage.core.metrics.ElementCoverage;
@@ -60,8 +61,11 @@ public class RoundTripDOMCoverage {
 
 		dm.merge(doms);
 
-		// getcoverage
-
+		// getclickable elements
+		if (ConstantVars.Clickable_element_collection == true) {
+			ClickableElements ce = new ClickableElements();
+			ce.findClickableElements(testLocationFolder);
+		}
 		// DomInterStateCoverageEasy domStateCoverage = new DomInterStateCoverageEasy();
 		DomInterStateCoverage domStateCoverage = new DomInterStateCoverage();
 		Map<String, String> coverage = domStateCoverage.getDomStateAndTransitionCoverage();

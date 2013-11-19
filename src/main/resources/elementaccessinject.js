@@ -1,12 +1,16 @@
 window.xhr = new XMLHttpRequest();
 
 function enableRewrite() {
+var prevHTMLid='';
 var geet = Document.prototype.getElementById
 Document.prototype.getElementById= function(id) {
 	 //notify client the accesses to this element:
 	 var r= geet.call(this,id);
-     window.xhr.open('POST', document.location.href + '?thisisafunctiontracingcall', false);
-     window.xhr.send('id~~'+id+'~~'+document.documentElement.outerHTML);
+    if(prevHTMLid != document.documentElement.outerHTML){
+     	window.xhr.open('POST', document.location.href + '?thisisafunctiontracingcall', false);
+     	window.xhr.send('id~~'+id+'~~'+document.documentElement.outerHTML);
+    	prevHTMLid=document.documentElement.outerHTML;
+     }
      //console.log("dom: "+document);
      console.log("id: "+id +" and r is: "+r); 
      
@@ -16,12 +20,15 @@ Document.prototype.getElementById= function(id) {
        return r;  
 }
 
-
+var prevHTMLname='';
 var geetName = Document.prototype.getElementsByName
 Document.prototype.getElementsByName= function(id) {
     console.log("id: "+id+ "  geet: "+geetName); 
-    window.xhr.open('POST', document.location.href + '?thisisafunctiontracingcall', false);
-    window.xhr.send('name~~'+id+'~~'+document.documentElement.outerHTML);
+    if(prevHTMLname != document.documentElement.outerHTML){
+    	window.xhr.open('POST', document.location.href + '?thisisafunctiontracingcall', false);
+    	window.xhr.send('name~~'+id+'~~'+document.documentElement.outerHTML);
+    	prevHTMLname=document.documentElement.outerHTML;
+    }
     return modifyAll(geetName.call(this, id));
 }
 

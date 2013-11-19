@@ -10,7 +10,7 @@ public class DomCoverageInstrumentExampleTest {
 		final long startTime = System.currentTimeMillis();
 
 		// String testLocationFolder = TestConstantVars.add_story_assert;
-		String testLocationFolder = System.getProperty("user.dir") + "/src/main/java/salt/domcoverage/casestudies/photogallery/instrumentedtask4";
+		String testLocationFolder = System.getProperty("user.dir") + "/src/main/java/salt/domcoverage/casestudies/photogallery/instrumentedtask3";
 		// String testLocationFolder = System.getProperty("user.dir") + "/src/main/java/salt/domcoverage/casestudies/claroline/instrumentedtask4";
 
 		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();

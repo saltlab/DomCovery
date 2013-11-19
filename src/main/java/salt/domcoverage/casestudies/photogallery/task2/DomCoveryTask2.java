@@ -10,13 +10,14 @@ public class DomCoveryTask2 {
 
 		// ////////////////inputs
 		int taskNumber = 2;
-		String crawljaxReportFolder = "outtask2";
+		String crawljaxReportFolder = "outtask" + taskNumber;
 
 		String testLocationFolder = System.getProperty("user.dir") + "/src/main/java/salt/domcoverage/casestudies/photogallery/instrumentedtask" + taskNumber;
 		final long startTime = System.currentTimeMillis();
 
 		Utils.updatecrawljaxlocation(crawljaxReportFolder);
 		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
+		ConstantVars.Clickable_element_collection = false;
 		rtdc.execute(testLocationFolder, "DomcoveryOutput/gallery/Task" + taskNumber + "/");
 
 		final long endTime = System.currentTimeMillis();

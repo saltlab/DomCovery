@@ -82,20 +82,26 @@ public class DOMUtility {
 		// System.out.println(readFileToString);
 		dom = new PlainStructureComparator(stripattributes).normalize(dom);
 		// dom = dom.toLowerCase();
-		dom = dom.replace(" indirectCoverage=\"true\"", "");
-		dom = dom.replace("indirectCoverage=\"true\"", "");
-		dom = dom.replace(" indirectcoverage=\"true\"", "");
-		dom = dom.replace("indirectcoverage=\"true\"", "");
-		dom = dom.replace("assertedcoverage=\"true\"", "");
-		dom = dom.replace("indirectcoverage=true", "");
-		dom = dom.replace("assertedcoverage=true", "");
-		dom = dom.replace(" coverage=\"true\"", "");
-		dom = dom.replace("coverage=\"true\"", "");
+		dom = removeCoverageTrue(dom, ConstantVars.clickableCoverageAttribute);
+		dom = removeCoverageTrue(dom, ConstantVars.assertedCoverageAttribute);
+		dom = removeCoverageTrue(dom, ConstantVars.indirectCoverageAttribute);
+		dom = removeCoverageTrue(dom, ConstantVars.directCoverageAttribute);
 		dom = dom.replace("  ", " ");
 		dom = dom.replace("\"=\"\"", "");
 		dom = dom.replace("'", "");
 		// remove all comments
 		dom = removeAllComments(dom);
+		return dom;
+	}
+
+	private static String removeCoverageTrue(String dom, String cov) {
+		String tro1 = "=true";
+		String tro2 = "=\"true\"";
+		String tro3 = "= true";
+		dom = dom.replace(cov + tro1, "");
+		dom = dom.replace(cov + tro2, "");
+		dom = dom.replace(cov + tro3, "");
+
 		return dom;
 	}
 
@@ -172,14 +178,14 @@ public class DOMUtility {
 		org.jsoup.nodes.Document docDom = Jsoup.parse(dom);
 		org.jsoup.nodes.Document docMergedDom = Jsoup.parse(mergedDom);
 		Elements elements = new Elements();
-		elements = docDom.select("[indirectCoverage=true]");
+		elements = docDom.select("[" + ConstantVars.indirectCoverageAttribute + "=true]");
 		for (org.jsoup.nodes.Element element : elements) {
-			element.removeAttr("indirectCoverage");
-			element.removeAttr("coverage");
+			element.removeAttr(ConstantVars.indirectCoverageAttribute);
+			element.removeAttr(ConstantVars.directCoverageAttribute);
 			org.jsoup.nodes.Element elementInMergedDom = DOMUtility.elementExistsInDom(docMergedDom, element);
 			if (elementInMergedDom != null) {
 				System.out.println("containts!");
-				elementInMergedDom.attr("indirectCoverage", "true");
+				elementInMergedDom.attr(ConstantVars.indirectCoverageAttribute, "true");
 			}
 			// DOM = element.ownerDocument().outerHtml();
 		}

@@ -27,7 +27,7 @@ public class CrawljaxExecutionPhotogallery {
 	private static void photogalleryCall() {
 		String URL = "http://localhost:8888/phormer-photoGallery331";
 		InputSpecification inputSpecification = getGalleryInputSpecification();
-		int time = 1;
+		int time = 10;
 
 		callCrawljax(URL, inputSpecification, time, ConstantVars.ESTIMATIONFILE);
 	}
@@ -67,7 +67,7 @@ public class CrawljaxExecutionPhotogallery {
 		builder.crawlRules().insertRandomDataInInputForms(false);
 		builder.crawlRules().waitAfterReloadUrl(WAIT_TIME_AFTER_RELOAD, TimeUnit.MILLISECONDS);
 		builder.crawlRules().waitAfterEvent(WAIT_TIME_AFTER_EVENT, TimeUnit.MILLISECONDS);
-		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, 1));
+		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, 2));
 		CrawljaxRunner crawljax = new CrawljaxRunner(builder.build());
 		crawljax.call();
 	}

@@ -10,7 +10,7 @@ public class DocumentObjectModelTest {
 		String str = "<title> title </title> ";
 		str = " <html>  <head>  </head> <body><div>tittt</div><p></p><br><input type=radio>intkkkkkk</input><a href=url></a></body> </html>";
 		DocumentObjectModel dom = new DocumentObjectModel(str);
-		int all = dom.getAllElements();
+		int all = dom.getAllElementsSize();
 
 		System.out.println("all elements : " + all);
 		// count numbers

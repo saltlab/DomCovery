@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 
 import salt.domcoverage.core.code2instrument.ElementData;
 
@@ -234,6 +236,20 @@ public class Utils {
 		ConstantVars.CRAWLJAXDOMS = ConstantVars.CRAWLOVERVIEW + "doms/";
 		ConstantVars.CRAWLJAXSTATES = ConstantVars.CRAWLOVERVIEW + "states/";
 		ConstantVars.CRAWLJAX_IMAGES = ConstantVars.CRAWLOVERVIEW + "screenshots/";
+
+	}
+
+	public static void collectJSCoverageResults(WebDriver driver, String taskno) {
+		((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('Task" + taskno + "-JSCoverReport');}");
+		// sleep(5000);
+		String copyto = "DomcoveryOutput/gallery/Task" + taskno + "/";
+
+		// try {
+		// FileUtils.copyDirectory(new File(" /Users/mehdimir/Desktop/Dropbox/UBC-research/DOM-coverage-documents/JSCover-1.0.5/target/jscover-proxy/JSCoverageReport"), new File(copyto));
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 
 	}
 }

@@ -36,23 +36,13 @@ public class add_story_assert {
 		driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
 		driver.findElement(By.cssSelector("input.submit")).click();
 		driver.findElement(By.linkText("Manage Stories")).click();
-		// driver.findElement(By.id("loginAdminPass")).clear();
-		// driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
-		// driver.findElement(By.cssSelector("input.submit")).click();
 		driver.findElement(By.id("name")).clear();
 		driver.findElement(By.id("name")).sendKeys("Photos");
 		driver.findElement(By.name("desc")).clear();
 		driver.findElement(By.name("desc")).sendKeys("Greenery !!");
-		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Get Comments[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Get Comments[\\s\\S]*$"));
+
 		driver.findElement(By.cssSelector("input.submit")).click();
-		// driver.findElement(By.id("loginAdminPass")).clear();
-		// driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
-		// driver.findElement(By.cssSelector("input.submit")).click();
 		driver.findElement(By.cssSelector("a[title=\"Log Out\"]")).click();
 	}
 

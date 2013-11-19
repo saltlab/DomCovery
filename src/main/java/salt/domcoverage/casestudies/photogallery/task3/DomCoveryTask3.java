@@ -17,6 +17,7 @@ public class DomCoveryTask3 {
 
 		Utils.updatecrawljaxlocation(crawljaxReportFolder);
 		RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
+		ConstantVars.Clickable_element_collection = false;
 		rtdc.execute(testLocationFolder, "DomcoveryOutput/gallery/Task" + taskNumber + "/");
 
 		final long endTime = System.currentTimeMillis();

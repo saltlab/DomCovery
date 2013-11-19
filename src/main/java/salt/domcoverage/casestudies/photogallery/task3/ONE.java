@@ -1,7 +1,6 @@
 package salt.domcoverage.casestudies.photogallery.task3;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,26 +28,27 @@ public class ONE {
 	}
 
 	@Test
-	public void testAddCategory() throws Exception {
+	public void testA() throws Exception {
 		driver.get(baseUrl + "/phormer-photoGallery331/");
 		driver.findElement(By.linkText("Admin Page")).click();
 		driver.findElement(By.id("loginAdminPass")).clear();
 		driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
 		driver.findElement(By.cssSelector("input.submit")).click();
-		driver.findElement(By.linkText("Manage Categories")).click();
+		driver.findElement(By.linkText("Manage Stories")).click();
 		driver.findElement(By.id("name")).clear();
-		driver.findElement(By.id("name")).sendKeys("flowers");
+		driver.findElement(By.id("name")).sendKeys("Photos");
 		driver.findElement(By.name("desc")).clear();
-		driver.findElement(By.name("desc")).sendKeys("contains photos of all the flowers !");
-		driver.findElement(By.id("listRadioNo")).click();
-		driver.findElement(By.id("listRadioYe")).click();
+		driver.findElement(By.name("desc")).sendKeys("Greenery !!");
+		assertEquals("Get Comments:", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div[3]/center/form/table/tbody/tr[4]/td")).getText());
+
 		driver.findElement(By.cssSelector("input.submit")).click();
-		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+
+		assertEquals("Story \"Photos\" added succesfully!", driver.findElement(By.cssSelector("div.note_valid")).getText());
+
+		// driver.findElement(By.id("loginAdminPass")).clear();
+		// driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
+		// driver.findElement(By.cssSelector("input.submit")).click();
+		driver.findElement(By.cssSelector("a[title=\"Log Out\"]")).click();
 	}
 
 	@After

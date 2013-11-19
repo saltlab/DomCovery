@@ -1,20 +1,31 @@
 [indirectcoverage=true] {
   border-style: solid !important;
-  border-color: grey !important;
+  border-color: red !important;
   border-width: 3px;
-  color: grey;
+  color: red;
 }
-[coverage=true] {
+[directcoverage=true] {
   outline: 3px solid green;
   border-style: solid !important;
   border-color: green !important;
   border-width: 3px;
-  color: green;
+ // color: green;
 }
 [assertedcoverage=true] {
   outline: 3px solid green;
   border-style: solid !important;
   border-color: blue !important;
   border-width: 3px;
-  color: green;
+  //color: green;
+}
+/*[clickablecoverage=true] {
+  outline: 1px solid yellow;
+  border-style: solid !important;
+  border-color: yellow !important;
+  border-width: 1px;
+  //color: yellow;
+}*/
+
+[clickablecoverage=true] {
+ background-color:yellow;
 }

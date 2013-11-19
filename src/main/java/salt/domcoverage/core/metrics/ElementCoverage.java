@@ -23,10 +23,10 @@ public class ElementCoverage {
 
 		for (File file : domFiles) {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
-			int coverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("coverage=true");
-			int indirectcoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("indirectcoverage=true");
-			int assertedCoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("assertedcoverage=true");
-			int allelementsinDom = DOM.getAllElements();
+			int coverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.directCoverageAttribute + "=true");
+			int indirectcoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.indirectCoverageAttribute + "=true");
+			int assertedCoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.assertedCoverageAttribute + "assertedcoverage=true");
+			int allelementsinDom = DOM.getAllElementsSize();
 			int clickableElements = DOM.getNumberofAllClickables();
 			double directCov = (double) coverageTrueSize / allelementsinDom;
 			double indirectCov = (double) indirectcoverageTrueSize / allelementsinDom;
@@ -62,11 +62,14 @@ public class ElementCoverage {
 		int directCovElements = 0, indirectCovElements = 0, assertedCovElements = 0, clickableCovElements = 0;
 		for (File file : domFiles) {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
-			int coverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("coverage=true");
-			int assertedCoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("assertedcoverage=true");
-			int indirectcoverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("indirectcoverage=true");
-			int allelementsinDom = DOM.getAllElements();
-			int clickableElements = DOM.getNumberofAllClickables();
+			int coverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.directCoverageAttribute + "=true");
+			int assertedCoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.assertedCoverageAttribute + "=true");
+			int indirectcoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.indirectCoverageAttribute + "=true");
+			int clickableElements = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.clickableCoverageAttribute + "=true");
+			int allelementsinDom = DOM.getAllElementsSize();
+			if (clickableElements > 0)
+				allelementsinDom = clickableElements;// DOM.getAllElementsAndInterserctionwithClickableElements();
+			clickableElements = allelementsinDom;// ****************************
 			String domName = file.getName();
 
 			String outputToFile = "******for DOM: " + domName + "\n";
@@ -219,8 +222,8 @@ public class ElementCoverage {
 
 	public double getDirectElementCoverage(String string) {
 		DocumentObjectModel DOM = new DocumentObjectModel(new File(string));
-		int coverageTrueSize = DOM.getElementAccessedInDOMThroughAttribute("coverage=true");
-		int allElements = DOM.getAllElements();
+		int coverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.directCoverageAttribute + "=true");
+		int allElements = DOM.getAllElementsSize();
 
 		return (double) coverageTrueSize / allElements;
 	}

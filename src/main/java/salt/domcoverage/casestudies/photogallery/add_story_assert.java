@@ -14,6 +14,9 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import salt.domcoverage.core.metrics.ClickableElements;
+import salt.domcoverage.core.utils.ConstantVars;
+
 public class add_story_assert {
 
 	private WebDriver driver;
@@ -26,6 +29,7 @@ public class add_story_assert {
 
 	@Before
 	public void setUp() throws Exception {
+		ConstantVars.Clickable_mode = true;
 		driver = new FirefoxDriver(salt.domcoverage.core.dom.proxy.BrowserProfile.getConfigureProxyandgetProfile());
 		baseUrl = "http://localhost:8888";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

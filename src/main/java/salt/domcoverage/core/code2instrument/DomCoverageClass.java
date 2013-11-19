@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +27,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import salt.domcoverage.core.dom.proxy.IndirectelementAccessData;
+import salt.domcoverage.core.metrics.ClickableElements;
 import salt.domcoverage.core.metrics.DomInterStateCoverage;
 import salt.domcoverage.core.metrics.DomStateCoverageTest;
 import salt.domcoverage.core.utils.ConstantVars;
@@ -102,14 +104,14 @@ public class DomCoverageClass {
 			String[] split = typeandId.split(ConstantVars.SEPARATOR);
 			String type = split[0].toLowerCase().trim();
 			String id = split[1].trim();
-			String html = split[2].trim();
+			String html = typeandId.substring(typeandId.indexOf(split[2].trim()));
 			// boolean domsSimilar = DomInterStateCoverage.domsSimilar(DOM, html);
 			// if (!domsSimilar)
 			// continue;
 			System.out.println("found an indirect access: " + Utils.printSubstring(typeandId, 20));
 			Type eumType = extractEnumTypeofString(type);
-			ArrayList<String> elementsUsingJsoupByIdTypeandId = getElementsUsingJsoupByIdTypeandId(DOM, id, eumType);
 			ConstantVars.indirectCoverageMode = true;
+			ArrayList<String> elementsUsingJsoupByIdTypeandId = getElementsUsingJsoupByIdTypeandId(DOM, id, eumType);
 			String time = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss.SSS").format(new Date());
 			String by = "By." + type + ": " + id;
 
@@ -157,6 +159,13 @@ public class DomCoverageClass {
 	public static String collectData(String bys, WebDriver driver, String testName) {
 		// xpathhelper
 		// jsoup
+
+		if (ConstantVars.Clickable_mode == true) {
+			DOM = driver.getPageSource();
+			recordClickableElement(DOM);
+			return "";
+		}
+
 		((JavascriptExecutor) driver).executeScript("enableRewrite();");
 		indirectElements(testName, driver);
 
@@ -188,7 +197,6 @@ public class DomCoverageClass {
 		// new ElementDataPersist(time, testName, by.toString(), DOM,
 		// recordedDomFileName, elements);
 		// } else
-		addClickableElementsToDom(DOM);
 		new ElementDataPersist(time, testName, bys, DOM, "", elements);
 
 		// else
@@ -201,6 +209,57 @@ public class DomCoverageClass {
 		return bys;
 	}
 
+	private static String recordClickableElement(String dom) {
+		if (dom == null || dom.length() == 0)
+			return "";
+		List<String> elements2add = new ArrayList<String>();
+		List<String> elements = new ArrayList(ClickableElements.Elements);
+		for (String typeandId : elements) {
+			String[] split = typeandId.split(ConstantVars.SEPARATOR);
+			String type = split[0].toLowerCase().trim();
+			String id = split[1].trim();
+			String html = typeandId.substring(typeandId.indexOf(split[3].trim()));
+			// boolean domsSimilar = DomInterStateCoverage.domsSimilar(DOM, html);
+			// if (!domsSimilar)
+			// continue;
+			System.out.println("found a clickableelement: " + Utils.printSubstring(typeandId, 130));
+			// System.out.println("html : " + html);
+			// get all doms in mergeddom folder
+			Map<String, String> mergedDoms = Utils.readFilesfromDirectory(ConstantVars.MERGEDLOCATION, "html");
+			String similardominarray = similardominarray(html, mergedDoms);
+			if (similardominarray != null) {
+				String similardom = mergedDoms.get(similardominarray);
+				Type eumType = extractEnumTypeofString(type);
+				// System.out.println("DOMbefore: " + Utils.printSubstring(similardom, 330));
+				DOM = similardom;
+				ArrayList<String> elementsUsingJsoupByIdTypeandId = getElementsofDOMByIdTypeandId(similardom, id, eumType);
+				// new dom is in DOM field
+				// write DOM into file
+				try {
+					// System.out.println("DOMafter: " + Utils.printSubstring(DOM, 330));
+					FileUtils.write(new File(ConstantVars.MERGEDLOCATION + similardominarray), DOM);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		}
+		ClickableElements.Elements = new ArrayList<String>();
+		return "";
+	}
+
+	private static String similardominarray(String crawljaxdom, Map<String, String> mergedDoms) {
+		for (String filename : mergedDoms.keySet()) {
+			String mergeddom = mergedDoms.get(filename);
+			if (DomInterStateCoverage.domsSimilar(crawljaxdom, mergeddom)) {
+				// say yes
+				return filename;
+			}
+		}
+		return null;
+	}
+
 	private static void addClickableElementsToDom(String dOM2) {
 
 	}
@@ -210,10 +269,19 @@ public class DomCoverageClass {
 		return DOM;
 	}
 
-	public static ArrayList<String> getElementsofDOM(String string, String dom) {
+	public static ArrayList<String> getElementsofDOM(String by, String dom) {
+		// String byString = getString(by);
+		// byString = byString.toLowerCase();
+		Type byType = byType(by);
+		ArrayList<String> elementsString = getElementsofDOMByIdTypeandId(dom, by, byType);
+		return elementsString;
+
+	}
+
+	public static ArrayList<String> getElementsofDOMByIdTypeandId(String dom, String string, Type byType) {
 		ArrayList<String> elements = new ArrayList<String>();
 
-		switch (byType(string)) {
+		switch (byType) {
 		case XPATH:
 			elements.addAll(getElementsByXPATHInString(dom, getXpath(string)));
 			break;
@@ -261,20 +329,32 @@ public class DomCoverageClass {
 			break;
 		}
 		for (org.jsoup.nodes.Element element : elements) {
-			if (!element.hasAttr(ConstantVars.indirectCoverage) && ConstantVars.indirectCoverageMode) {
-				element.attr(ConstantVars.indirectCoverage, "true");
-				DOM = element.ownerDocument().outerHtml();
-				elementsString.add(element.toString());
+			if (ConstantVars.Clickable_mode) {
+				if (!element.hasAttr(ConstantVars.clickableCoverageAttribute)) {
+					element.attr(ConstantVars.clickableCoverageAttribute, "true");
+					DOM = element.ownerDocument().outerHtml();
+					elementsString.add(element.toString());
+				}
 				continue;
 			}
-			if (!element.hasAttr(ConstantVars.assertedCoverageAttribute) && ConstantVars.oracleAssertion) {
-				element.attr(ConstantVars.assertedCoverageAttribute, "true");
-				DOM = element.ownerDocument().outerHtml();
-				elementsString.add(element.toString());
+			if (ConstantVars.indirectCoverageMode) {
+				if (!element.hasAttr(ConstantVars.indirectCoverageAttribute)) {
+					element.attr(ConstantVars.indirectCoverageAttribute, "true");
+					DOM = element.ownerDocument().outerHtml();
+					elementsString.add(element.toString());
+				}
 				continue;
 			}
-			if (!element.hasAttr("coverage") && !element.tagName().toLowerCase().equals("body")) {
-				element.attr("coverage", "true");
+			if (ConstantVars.oracleAssertion) {
+				if (!element.hasAttr(ConstantVars.assertedCoverageAttribute)) {
+					element.attr(ConstantVars.assertedCoverageAttribute, "true");
+					DOM = element.ownerDocument().outerHtml();
+					elementsString.add(element.toString());
+				}
+				continue;
+			}
+			if (!element.hasAttr(ConstantVars.directCoverageAttribute) && !element.tagName().toLowerCase().equals("body")) {
+				element.attr(ConstantVars.directCoverageAttribute, "true");
 				DOM = element.ownerDocument().outerHtml();
 			}
 			elementsString.add(element.toString());
@@ -347,13 +427,23 @@ public class DomCoverageClass {
 			for (int j = 0; j < evaluateXpathExpression.getLength(); j++) {
 				Node item = evaluateXpathExpression.item(j);
 				Element e = (Element) item;
-				if (e.getAttribute(ConstantVars.assertedCoverageAttribute) == "" && ConstantVars.oracleAssertion) {
-					e.setAttribute(ConstantVars.assertedCoverageAttribute, "true");
-					DOM = DomUtils.getDocumentToString(e.getOwnerDocument());
+				if (ConstantVars.Clickable_mode) {
+					if (e.getAttribute(ConstantVars.clickableCoverageAttribute).isEmpty()) {
+						e.setAttribute(ConstantVars.clickableCoverageAttribute, "true");
+						DOM = DomUtils.getDocumentToString(e.getOwnerDocument());
+						// elementsString.add(element.toString());
+					}
 					continue;
 				}
-				if (e.getAttribute("coverage") == "") {
-					e.setAttribute("coverage", "true");
+				if (ConstantVars.oracleAssertion) {
+					if (e.getAttribute(ConstantVars.assertedCoverageAttribute).isEmpty()) {
+						e.setAttribute(ConstantVars.assertedCoverageAttribute, "true");
+						DOM = DomUtils.getDocumentToString(e.getOwnerDocument());
+					}
+					continue;
+				}
+				if (e.getAttribute(ConstantVars.directCoverageAttribute).isEmpty()) {
+					e.setAttribute(ConstantVars.directCoverageAttribute, "true");
 					DOM = DomUtils.getDocumentToString(e.getOwnerDocument());
 				}
 				// System.out.println(DOM);

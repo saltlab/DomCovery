@@ -1,6 +1,9 @@
 package salt.domcoverage.core.dom.proxy;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,6 @@ public class WebScarabProxy {
 	public static void configureRunProxy() {
 
 		plugins = new ArrayList<ProxyPlugin>();
-		jsAndcssCodeInject(ConstantVars.INJECT_ELEMENT_ACCESS_JS, ConstantVars.INJECT_ELEMENT_ACCESS_CSS);
 		// try {
 		// this.addPlugin(new ExternalJavaScriptFileInjectorProxyAddon(new URI("http://mutation-summary.googlecode.com/git/src/mutation-summary.js")));
 		// } catch (FileNotFoundException e) {
@@ -43,6 +45,30 @@ public class WebScarabProxy {
 
 		// Configure the proxy to use the port 8084 (you can change this of
 		// course)
+		if (ConstantVars.Clickable_mode) {
+			plugins = new ArrayList<ProxyPlugin>();
+			try {
+				addPlugin(new ExternalJavaScriptFileInjectorProxyAddon(new URI("http://mutation-summary.googlecode.com/git/src/mutation-summary.js")));
+				// add jquery
+				addPlugin(new ExternalJavaScriptFileInjectorProxyAddon(new URI("http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js")));
+				// <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			jsAndcssCodeInject(ConstantVars.CLICKABLE_DETECTOR_JS, ConstantVars.INJECT_ELEMENT_ACCESS_CSS);
+			// ProxyConfiguration proxyConfiguration = ProxyConfiguration.manualProxyOn(ConstantVars.PROXY_IP, ConstantVars.PROXY_PORT + 1);
+			// startProxy(proxyConfiguration);
+			// return;
+		} else {
+			jsAndcssCodeInject(ConstantVars.INJECT_ELEMENT_ACCESS_JS, ConstantVars.INJECT_ELEMENT_ACCESS_CSS);
+
+		}
+
 		ProxyConfiguration proxyConfiguration = ProxyConfiguration.manualProxyOn(ConstantVars.PROXY_IP, ConstantVars.PROXY_PORT);
 
 		startProxy(proxyConfiguration);
@@ -57,6 +83,14 @@ public class WebScarabProxy {
 		// add the CSS style
 		URL cssFile = WebScarabProxy.class.getClassLoader().getResource(css);
 		addPlugin(new FileInjectorProxyAddon(cssFile, TargetNode.HEAD, FileInjectionLocation.LAST_ITEM, FileInjectionType.CSS));
+
+	}
+
+	private static void jsAndcssCodeInject(String js) {
+		// Provide the JS file to be inserted
+		URL code2inject = WebScarabProxy.class.getClassLoader().getResource(js);
+
+		addPlugin(new FileInjectorProxyAddon(code2inject, TargetNode.HEAD, FileInjectionLocation.FIRST_ITEM, FileInjectionType.JAVASCRIPT));
 
 	}
 

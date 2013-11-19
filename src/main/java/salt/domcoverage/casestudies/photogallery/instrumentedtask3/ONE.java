@@ -1,7 +1,6 @@
 package salt.domcoverage.casestudies.photogallery.instrumentedtask3;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +30,7 @@ public class ONE {
     }
 
     @Test
-    public void testAddCategory() throws Exception {
+    public void testA() throws Exception {
         driver.get(baseUrl + "/phormer-photoGallery331/");
         driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Admin Page"), driver, this.getClass().getName() + "." + new Object() {
         }.getClass().getEnclosingMethod().getName())).click();
@@ -41,31 +40,31 @@ public class ONE {
         }.getClass().getEnclosingMethod().getName())).sendKeys("editor");
         driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("input.submit"), driver, this.getClass().getName() + "." + new Object() {
         }.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Manage Categories"), driver, this.getClass().getName() + "." + new Object() {
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.linkText("Manage Stories"), driver, this.getClass().getName() + "." + new Object() {
         }.getClass().getEnclosingMethod().getName())).click();
         driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("name"), driver, this.getClass().getName() + "." + new Object() {
         }.getClass().getEnclosingMethod().getName())).clear();
         driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("name"), driver, this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName())).sendKeys("flowers");
+        }.getClass().getEnclosingMethod().getName())).sendKeys("Photos");
         driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.name("desc"), driver, this.getClass().getName() + "." + new Object() {
         }.getClass().getEnclosingMethod().getName())).clear();
         driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.name("desc"), driver, this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName())).sendKeys("contains photos of all the flowers !");
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("listRadioNo"), driver, this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName())).click();
-        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.id("listRadioYe"), driver, this.getClass().getName() + "." + new Object() {
-        }.getClass().getEnclosingMethod().getName())).click();
+        }.getClass().getEnclosingMethod().getName())).sendKeys("Greenery !!");
+        salt.domcoverage.core.code2instrument.DomCoverageClass.assertionModeOn();
+        assertEquals("Get Comments:", driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div[3]/center/form/table/tbody/tr[4]/td"), driver, this.getClass().getName() + "." + new Object() {
+        }.getClass().getEnclosingMethod().getName())).getText());
+        salt.domcoverage.core.code2instrument.DomCoverageClass.assertionModeOff();
         driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("input.submit"), driver, this.getClass().getName() + "." + new Object() {
         }.getClass().getEnclosingMethod().getName())).click();
-        // Warning: verifyTextPresent may require manual changes   
-        try {
-            salt.domcoverage.core.code2instrument.DomCoverageClass.assertionModeOn();
-            assertTrue(driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("BODY"), driver, this.getClass().getName() + "." + new Object() {
-            }.getClass().getEnclosingMethod().getName())).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
-            salt.domcoverage.core.code2instrument.DomCoverageClass.assertionModeOff();
-        } catch (Error e) {
-            verificationErrors.append(e.toString());
-        }
+        salt.domcoverage.core.code2instrument.DomCoverageClass.assertionModeOn();
+        assertEquals("Story \"Photos\" added succesfully!", driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("div.note_valid"), driver, this.getClass().getName() + "." + new Object() {
+        }.getClass().getEnclosingMethod().getName())).getText());
+        salt.domcoverage.core.code2instrument.DomCoverageClass.assertionModeOff();
+        // driver.findElement(By.id("loginAdminPass")).clear();   
+        // driver.findElement(By.id("loginAdminPass")).sendKeys("editor");   
+        // driver.findElement(By.cssSelector("input.submit")).click();   
+        driver.findElement(salt.domcoverage.core.code2instrument.DomCoverageClass.collectData(By.cssSelector("a[title=\"Log Out\"]"), driver, this.getClass().getName() + "." + new Object() {
+        }.getClass().getEnclosingMethod().getName())).click();
     }
 
     @After
