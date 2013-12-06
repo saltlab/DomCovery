@@ -39,6 +39,14 @@ public class BrowserProfile {
 		return profile;
 	}
 
+	public static DesiredCapabilities getNodeCoverProfile() {
+		Proxy proxy = new Proxy().setHttpProxy("localhost:3128");
+		DesiredCapabilities cap = new DesiredCapabilities();
+		cap.setCapability(CapabilityType.PROXY, proxy);
+
+		return cap;
+	}
+
 	public static DesiredCapabilities getCap() {
 		Proxy proxy = new Proxy().setHttpProxy("localhost:3128");
 		DesiredCapabilities cap = new DesiredCapabilities();

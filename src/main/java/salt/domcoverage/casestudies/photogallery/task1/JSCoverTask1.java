@@ -23,7 +23,6 @@ public class JSCoverTask1 {
 	@Before
 	public void setUp() throws Exception {
 		driver = new FirefoxDriver(salt.domcoverage.core.dom.proxy.BrowserProfile.getProfile());
-		// baseUrl = "http://localhost/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 

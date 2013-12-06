@@ -226,6 +226,12 @@ public class DomCoverageClass {
 			// System.out.println("html : " + html);
 			// get all doms in mergeddom folder
 			Map<String, String> mergedDoms = Utils.readFilesfromDirectory(ConstantVars.MERGEDLOCATION, "html");
+			try {
+				FileUtils.write(new File(ConstantVars.MERGEDLOCATION + 1), html);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 			String similardominarray = similardominarray(html, mergedDoms);
 			if (similardominarray != null) {
 				String similardom = mergedDoms.get(similardominarray);
@@ -395,7 +401,12 @@ public class DomCoverageClass {
 	}
 
 	private static String getXpath(String by) {
-		String xpath = by.substring(by.toString().indexOf(" ") + 1, by.toString().length());
+		String xpath = by;// .substring(by.toString().indexOf(" ") + 1, by.toString().length());
+		return capitalizeXpath(xpath.trim());
+	}
+
+	private static String getXpath(By by) {
+		String xpath = by.toString().substring(by.toString().indexOf(" ") + 1, by.toString().length());
 		return capitalizeXpath(xpath.trim());
 	}
 
@@ -415,6 +426,7 @@ public class DomCoverageClass {
 			org.w3c.dom.Document documentDom;
 			documentDom = DomUtils.asDocument(dom);
 			try {
+				System.out.println("xpath exp: " + by);
 				evaluateXpathExpression = XPathHelper.evaluateXpathExpression(documentDom, by);
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -8,7 +8,7 @@ import salt.domcoverage.core.utils.ConstantVars;
 import salt.domcoverage.core.utils.TestUtil;
 
 public class ClickableElements {
-	public static void findClickableElements(String testLocationFolder) {
+	public static void findClickableElements(List<String> allTests) {
 		ConstantVars.Clickable_mode = true;
 		ConstantVars.oracleAssertion = false;
 		//
@@ -16,7 +16,7 @@ public class ClickableElements {
 		// RoundTripDOMCoverage rtdc = new RoundTripDOMCoverage();
 		// rtdc.execute(testLocationFolder, "DomcoveryOutput/gallery/Tas/");
 
-		List<String> allTests = TestUtil.getAllTests(testLocationFolder, ".java");
+		// List<String> allTests = TestUtil.getAllTests(testLocationFolder, ".java");
 		ConstantVars.PROXY_PORT++;
 		TestUtil.executeUnitTests(allTests);
 

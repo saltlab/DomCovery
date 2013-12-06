@@ -62,11 +62,13 @@ public class N {
 			verificationErrors.append(e.toString());
 		}
 		driver.findElement(By.linkText("Logout")).click();
+		salt.domcoverage.core.utils.Utils.collectJSCoverageResults(driver, this.getClass().getName());
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('report');}");driver.quit();
+		salt.domcoverage.core.utils.Utils.jSCoverLocalStor(driver, this.getClass().getName());
+		driver.quit();
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
 			fail(verificationErrorString);

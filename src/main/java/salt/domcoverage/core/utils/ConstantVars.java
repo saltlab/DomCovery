@@ -30,7 +30,7 @@ public class ConstantVars {
 	public static int PROXY_PORT = 8884;
 	public static final String[] SELENIUMDRIVER_METHODCALLS = new String[] { "FirefoxDriver", "ChromeDriver" };
 	public static final String DomCoverageCriteria = "DomCoverageCriteriaReport.txt";
-	public static final double SIMILARITY_THRESHOLD = 34;// 5
+	public static final double SIMILARITY_THRESHOLD = 23;// organizer:5, photogalley:34, claroline:23
 	public static final String ELEMENTS_SEPARATOR = "@@@@@@@@@";
 	public static String CRAWLOVERVIEW = "out/";
 	public static String CRAWLJAXDOMS = CRAWLOVERVIEW + "doms/";

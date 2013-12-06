@@ -14,6 +14,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import salt.domcoverage.core.utils.Utils;
+
 public class Add_course {
 	private WebDriver driver;
 	private String baseUrl;
@@ -31,7 +33,7 @@ public class Add_course {
 
 	@Test
 	public void testAddCourse() throws Exception {
-		driver.get(baseUrl + "/claroline-1.11.7/index.php");
+		driver.get(baseUrl + "claroline-1.11.7/index.php");
 		driver.findElement(By.id("login")).clear();
 		driver.findElement(By.id("login")).sendKeys("nainy");
 		driver.findElement(By.id("password")).clear();
@@ -43,7 +45,6 @@ public class Add_course {
 		driver.findElement(By.id("course_title")).sendKeys("Computer Science");
 		driver.findElement(By.id("course_officialCode")).clear();
 		driver.findElement(By.id("course_officialCode")).sendKeys("A7");
-		// ERROR: Caught exception [ERROR: Unsupported command [addSelection | id=mslist2 | label=Sciences]]
 		driver.findElement(By.linkText("Advanced options")).click();
 		driver.findElement(By.id("course_status_date")).click();
 		driver.findElement(By.name("changeProperties")).click();
@@ -51,11 +52,9 @@ public class Add_course {
 
 	@After
 	public void tearDown() throws Exception {
-		
-		// String json = (String) ((JavascriptExecutor) driver).executeScript("return jscoverage_serializeCoverageToJSON();");
-		// System.out.println(json);
-		// FileUtils.writeStringToFile(new File("coverage.txt"), json);
-		((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('report');}");driver.quit();
+
+		salt.domcoverage.core.utils.Utils.jSCoverLocalStor(driver, this.getClass().getName());
+		driver.quit();
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
 			fail(verificationErrorString);

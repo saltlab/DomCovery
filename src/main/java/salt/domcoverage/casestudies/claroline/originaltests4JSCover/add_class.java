@@ -12,6 +12,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import salt.domcoverage.core.utils.Utils;
+
 public class add_class {
 	private WebDriver driver;
 	private String baseUrl;
@@ -51,8 +53,9 @@ public class add_class {
 
 	@After
 	public void tearDown() throws Exception {
-
-		((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('report');}");driver.quit();
+		salt.domcoverage.core.utils.Utils.jSCoverLocalStor(driver, this.getClass().getName());
+		// salt.domcoverage.core.utils.Utils.collectJSCoverageResults(driver, this.getClass().getName());
+		driver.quit();
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
 			fail(verificationErrorString);

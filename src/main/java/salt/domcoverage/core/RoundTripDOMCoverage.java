@@ -45,12 +45,14 @@ public class RoundTripDOMCoverage {
 	}
 
 	// execute test
-
 	public void execute(String testLocationFolder, String outputFolder) {
+		List<String> allTests = TestUtil.getAllTests(testLocationFolder, ".java");
+		execute(allTests, outputFolder);
+	}
+
+	public void execute(List<String> allTests, String outputFolder) {
 
 		TaskUtil.setUpDomcoveryExecution(outputFolder);
-
-		List<String> allTests = TestUtil.getAllTests(testLocationFolder, ".java");
 
 		TestUtil.executeUnitTests(allTests);
 
@@ -64,7 +66,7 @@ public class RoundTripDOMCoverage {
 		// getclickable elements
 		if (ConstantVars.Clickable_element_collection == true) {
 			ClickableElements ce = new ClickableElements();
-			ce.findClickableElements(testLocationFolder);
+			ce.findClickableElements(allTests);
 		}
 		// DomInterStateCoverageEasy domStateCoverage = new DomInterStateCoverageEasy();
 		DomInterStateCoverage domStateCoverage = new DomInterStateCoverage();

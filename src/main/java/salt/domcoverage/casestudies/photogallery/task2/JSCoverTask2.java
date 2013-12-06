@@ -33,28 +33,28 @@ public class JSCoverTask2 {
 
 	@Test
 	public void testA() throws Exception {
+		driver.get("http://localhost:8888/phormer-photoGallery331/?p=1");
 
-		driver.get(baseUrl + "/phormer-photoGallery331/");
-		driver.findElement(By.linkText("Admin Page")).click();
-		driver.findElement(By.id("loginAdminPass")).clear();
-		driver.findElement(By.id("loginAdminPass")).sendKeys("editor");
-		driver.findElement(By.cssSelector("input.submit")).click();
-		driver.findElement(By.linkText("Manage Categories")).click();
-		driver.findElement(By.id("name")).clear();
-		driver.findElement(By.id("name")).sendKeys("flowers");
-		driver.findElement(By.name("desc")).clear();
-		driver.findElement(By.name("desc")).sendKeys("contains photos of all the flowers !");
-		driver.findElement(By.id("listRadioNo")).click();
-		driver.findElement(By.id("listRadioYe")).click();
-		driver.findElement(By.cssSelector("input.submit")).click();
-		assertTrue(driver.findElement(By.cssSelector("div.note_valid")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
-		driver.findElement(By.xpath("(//a[contains(text(),'Delete / Clear')])[2]")).click();
-
-		assertEquals("Clears Category flowers of all its own (direct) photos, nothing will be removed.", driver.findElement(By.xpath("//div[@id='Granny']/div[3]/div[3]/div[2]/div/div/form/table/tbody/tr/td[2]")).getText());
-		driver.findElement(By.xpath("(//input[@name='howto'])[4]")).click();
-		driver.findElement(By.cssSelector("input.submit")).click();
-		assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to delete [\\s\\S]*$"));
-		driver.findElement(By.cssSelector("a[title=\"Log Out\"]")).click();
+		assertTrue(isElementPresent(By.cssSelector("div#theImage")));
+		driver.findElement(By.linkText("Hide  info")).click();
+		assertTrue(driver.findElement(By.id("photoBoxes")).isDisplayed() == false);
+		driver.findElement(By.linkText("Show info")).click();
+		assertTrue(driver.findElement(By.id("photoBoxes")).isDisplayed());
+		WebElement select = driver.findElement(By.id("rateSelect"));
+		int rating = Integer.parseInt(select.getAttribute("value"));
+		int nextRating = rating % 5 + 1;
+		System.out.println(nextRating);
+		List<WebElement> allOptions = select.findElements(By.tagName("option"));
+		for (WebElement option : allOptions) {
+			if (Integer.parseInt(option.getAttribute("value")) == nextRating) {
+				option.click();
+				break;
+			}
+		}
+		// Thread.sleep(10000);
+		// assertEquals("Your rating saved!", driver.findElement(By.cssSelector("span#rateStatus")).getText().trim());
+		driver.findElement(By.xpath("//div[@id='Granny']/div[5]/div[2]/center/a/img")).click();
+		assertTrue(driver.getCurrentUrl().matches("^http://localhost:8888/[\\s\\S]*p=2$"));
 
 		driver.get("http://localhost:8888/phormer-photoGallery331/?feat=slideshow");
 		assertTrue(driver.getTitle().matches("^SlideShow[\\s\\S]*$"));
@@ -65,9 +65,9 @@ public class JSCoverTask2 {
 		assertEquals("2", driver.findElement(By.cssSelector("span#ss_n")).getText());
 		driver.findElement(By.linkText("Previous")).click();
 		assertEquals("1", driver.findElement(By.cssSelector("span#ss_n")).getText());
-		driver.findElement(By.linkText("Smaller Size")).click();
-		assertEquals("SlideShow :: My PhotoGallery", driver.getTitle());
-
+		// driver.findElement(By.linkText("Smaller Size")).click();
+		// assertEquals("SlideShow :: My PhotoGallery", driver.getTitle());
+		//
 		driver.get(baseUrl + "/phormer-photoGallery331/");
 		driver.findElement(By.linkText("Admin Page")).click();
 		driver.findElement(By.id("loginAdminPass")).clear();

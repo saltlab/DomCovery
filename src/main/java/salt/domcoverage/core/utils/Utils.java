@@ -239,17 +239,20 @@ public class Utils {
 
 	}
 
+	public static void collectNodeCoverageResults(WebDriver driver, String taskno) {
+		((JavascriptExecutor) driver).executeScript("$$_l.submit();");
+
+	}
+
 	public static void collectJSCoverageResults(WebDriver driver, String taskno) {
-		((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('Task" + taskno + "-JSCoverReport');}");
-		// sleep(5000);
-		String copyto = "DomcoveryOutput/gallery/Task" + taskno + "/";
+		((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('" + taskno + "');}");
+	}
 
-		// try {
-		// FileUtils.copyDirectory(new File(" /Users/mehdimir/Desktop/Dropbox/UBC-research/DOM-coverage-documents/JSCover-1.0.5/target/jscover-proxy/JSCoverageReport"), new File(copyto));
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+	static int in = 0;
 
+	public static void jSCoverLocalStor(WebDriver driver, String taskno) {
+		System.out.println(in);
+		((JavascriptExecutor) driver).executeScript("if (window.jscoverage_report) {return jscoverage_report('" + in++ + taskno + "');}");
+		// ((JavascriptExecutor) driver).executeScript("localStorage.removeItem('jscover');");
 	}
 }

@@ -95,7 +95,7 @@ public class JSCoverTask3 {
 
 		driver.findElement(By.cssSelector("a[title=\"Log Out\"]")).click();
 
-		// rating
+		// // // rating
 		driver.get("http://localhost:8888/phormer-photoGallery331/?p=1");
 		assertTrue(isElementPresent(By.cssSelector("div#theImage")));
 		driver.findElement(By.linkText("Hide  info")).click();
@@ -113,7 +113,7 @@ public class JSCoverTask3 {
 				break;
 			}
 		}
-		Utils.sleep(3000);
+		// Utils.sleep(3000);
 		// assertEquals("Your rating saved!", driver.findElement(By.cssSelector("span#rateStatus")).getText().trim());
 		driver.findElement(By.xpath("//div[@id='Granny']/div[5]/div[2]/center/a/img")).click();
 		assertTrue(driver.getCurrentUrl().matches("^http://localhost:8888/[\\s\\S]*p=2$"));

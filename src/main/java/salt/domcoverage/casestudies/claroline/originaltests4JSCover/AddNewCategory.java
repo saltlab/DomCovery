@@ -40,7 +40,6 @@ public class AddNewCategory {
 		driver.findElement(By.id("category_code")).clear();
 		driver.findElement(By.id("category_code")).sendKeys("SWT22");
 		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
-		// Warning: verifyTextPresent may require manual changes
 		try {
 			assertFalse(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Category created[\\s\\S]*$"));
 		} catch (Error e) {
@@ -51,7 +50,8 @@ public class AddNewCategory {
 
 	@After
 	public void tearDown() throws Exception {
-		((JavascriptExecutor) driver).executeScript("		if (window.jscoverage_report) {return jscoverage_report('report');}");driver.quit();
+		salt.domcoverage.core.utils.Utils.jSCoverLocalStor(driver, this.getClass().getName());
+		driver.quit();
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
 			fail(verificationErrorString);
