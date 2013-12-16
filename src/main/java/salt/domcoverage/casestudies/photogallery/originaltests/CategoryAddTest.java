@@ -43,12 +43,7 @@ public class CategoryAddTest {
 		driver.findElement(By.id("listRadioNo")).click();
 		driver.findElement(By.id("listRadioYe")).click();
 		driver.findElement(By.cssSelector("input.submit")).click();
-		// Warning: verifyTextPresent may require manual changes
-		try {
-			assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Category \"flowers\" added succesfully![\\s\\S]*$"));
 	}
 
 	@After

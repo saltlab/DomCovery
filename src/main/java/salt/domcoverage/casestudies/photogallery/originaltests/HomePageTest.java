@@ -27,29 +27,13 @@ public class HomePageTest {
 		driver.get("http://localhost:8888/phormer-photoGallery331/");
 		assertTrue(isElementPresent(By.cssSelector("div#Granny")));
 		driver.findElement(By.linkText("Stories")).click();
-		try {
-			assertTrue(driver.getCurrentUrl().matches("^http://localhost:8888/[\\s\\S]*mode=stories$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.getCurrentUrl().matches("^http://localhost:8888/[\\s\\S]*mode=stories$"));
 		driver.findElement(By.partialLinkText("Default Category")).click();
-		try {
-			assertTrue(driver.findElement(By.cssSelector("div.midInfo")).getText().matches("^[\\s\\S]*category[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.findElement(By.cssSelector("div.midInfo")).getText().matches("^[\\s\\S]*category[\\s\\S]*$"));
 		driver.findElement(By.partialLinkText("Default Story")).click();
-		try {
-			assertTrue(driver.findElement(By.cssSelector("div.midInfo")).getText().matches("^[\\s\\S]*story[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.findElement(By.cssSelector("div.midInfo")).getText().matches("^[\\s\\S]*story[\\s\\S]*$"));
 		driver.findElement(By.linkText("SlideShow")).click();
-		try {
-			assertTrue(driver.getTitle().matches("^SlideShow[\\s\\S]*$"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		assertTrue(driver.getTitle().matches("^SlideShow[\\s\\S]*$"));
 	}
 
 	@After

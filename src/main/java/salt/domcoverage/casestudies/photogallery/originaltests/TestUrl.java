@@ -32,7 +32,6 @@ public class TestUrl {
 	public void testStoringHitsValue() throws Exception {
 		mydriver.get(baseUrl + "/");
 		String xpathExpression = "//DIV[@id='sidecolinner']/DIV[3]/DIV[2]/DIV[5]";
-		// System.out.println(this.getClass().getName()+"."+new Object(){}.getClass().getEnclosingMethod().getName());
 		WebElement findElement = mydriver.findElement(By.xpath(xpathExpression));
 	}
 

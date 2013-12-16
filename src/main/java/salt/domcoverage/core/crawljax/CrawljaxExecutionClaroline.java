@@ -24,7 +24,7 @@ public class CrawljaxExecutionClaroline {
 		String URL = "http://localhost:8888/claroline-1.11.7/";
 		// String URL = "http://localhost:8888/phormer-photoGallery331";
 		InputSpecification inputSpecification = getInputSpecification();
-		int time = 60;
+		int time = 300;
 
 		callCrawljax(URL, inputSpecification, time, ConstantVars.ESTIMATIONFILE);
 	}
@@ -57,7 +57,7 @@ public class CrawljaxExecutionClaroline {
 		builder.crawlRules().insertRandomDataInInputForms(false);
 		builder.crawlRules().waitAfterReloadUrl(WAIT_TIME_AFTER_RELOAD, TimeUnit.MILLISECONDS);
 		builder.crawlRules().waitAfterEvent(WAIT_TIME_AFTER_EVENT, TimeUnit.MILLISECONDS);
-		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, 5));
+		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, 2));
 		CrawljaxRunner crawljax = new CrawljaxRunner(builder.build());
 		crawljax.call();
 	}
