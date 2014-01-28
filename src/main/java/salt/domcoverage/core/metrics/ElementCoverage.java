@@ -24,8 +24,10 @@ public class ElementCoverage {
 		for (File file : domFiles) {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
 			int coverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.directCoverageAttribute + "=true");
-			int indirectcoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.indirectCoverageAttribute + "=true");
-			int assertedCoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.assertedCoverageAttribute + "assertedcoverage=true");
+			int indirectcoverageTrueSize = DOM
+					.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.indirectCoverageAttribute + "=true");
+			int assertedCoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.assertedCoverageAttribute
+					+ "assertedcoverage=true");
 			int allelementsinDom = DOM.getAllElementsSize();
 			int clickableElements = DOM.getNumberofAllClickables();
 			double directCov = (double) coverageTrueSize / allelementsinDom;
@@ -63,13 +65,15 @@ public class ElementCoverage {
 		for (File file : domFiles) {
 			DocumentObjectModel DOM = new DocumentObjectModel(file);
 			int coverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.directCoverageAttribute + "=true");
-			int assertedCoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.assertedCoverageAttribute + "=true");
-			int indirectcoverageTrueSize = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.indirectCoverageAttribute + "=true");
+			int assertedCoverageTrueSize = DOM
+					.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.assertedCoverageAttribute + "=true");
+			int indirectcoverageTrueSize = DOM
+					.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.indirectCoverageAttribute + "=true");
 			int clickableElements = DOM.getElementAccessedSizeInDOMThroughAttribute(ConstantVars.clickableCoverageAttribute + "=true");
 			int allelementsinDom = DOM.getAllElementsSize();
-			if (clickableElements > 0)
-				allelementsinDom = clickableElements;// DOM.getAllElementsAndInterserctionwithClickableElements();
-			clickableElements = allelementsinDom;// ****************************
+			if (clickableElements == 0)
+				// allelementsinDom = clickableElements;// DOM.getAllElementsAndInterserctionwithClickableElements();
+				clickableElements = allelementsinDom;// ****************************
 			String domName = file.getName();
 
 			String outputToFile = "******for DOM: " + domName + "\n";
@@ -84,7 +88,9 @@ public class ElementCoverage {
 			double ac = Utils.round100((double) assertedCoverageTrueSize / allelementsinDom);
 			String assertedCovAll = ac + " (" + assertedCoverageTrueSize + " / " + allelementsinDom + ")";
 			outputToFile += "Asserted Element coverage: " + assertedCovAll + " \n";
-			double covclick = Utils.round100((double) coverageTrueSize / (clickableElements / clustersize));
+			double covclick = 0;
+			if (clickableElements > 0)
+				covclick = Utils.round100((double) coverageTrueSize / (clickableElements / clustersize));
 			String covClickAll = covclick + " (" + coverageTrueSize + " / " + clickableElements + ")";
 			outputToFile += "clickable element coverage: " + covClickAll + " \n";
 
@@ -122,7 +128,9 @@ public class ElementCoverage {
 		rep.put(ConstantVars.IndirectElementCoverage, Utils.format(indirectCovStr, indirectCovElements, directCovAllElements));
 		double assertedCovStr = Utils.round100((double) assertedCovElements / directCovAllElements);
 		rep.put(ConstantVars.AssertedElementCoverage, Utils.format(assertedCovStr, assertedCovElements, directCovAllElements));
-		double clickableCovStr = Utils.round100((double) directCovElements / clickableCovAllElements);
+		double clickableCovStr = 0;
+		if (clickableCovAllElements != 0)
+			clickableCovStr = Utils.round100((double) directCovElements / clickableCovAllElements);
 		rep.put(ConstantVars.ClickableElementCoverage, Utils.format(clickableCovStr, directCovElements, clickableCovAllElements));
 
 		return rep;
@@ -200,7 +208,8 @@ public class ElementCoverage {
 	// // if cluster is a set of nodes: get
 	// }
 
-	private void printCoverage(int sumofallelementsinDom, int sumofclickableelements, int sumofelementSize, String domName, int clustersize, double sumofasserted) {
+	private void printCoverage(int sumofallelementsinDom, int sumofclickableelements, int sumofelementSize, String domName,
+			int clustersize, double sumofasserted) {
 
 		String outputToFile = "******for DOM: " + domName + "\n";
 		sumofallelementsinDom = sumofallelementsinDom / clustersize;

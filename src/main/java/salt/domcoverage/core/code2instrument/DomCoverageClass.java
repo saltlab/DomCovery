@@ -162,7 +162,11 @@ public class DomCoverageClass {
 
 		if (ConstantVars.Clickable_mode == true) {
 			DOM = driver.getPageSource();
+			// ConstantVars.SIMILARITY_THRESHOLD = ConstantVars.SIMILARITY_THRESHOLD * 7;
+
 			recordClickableElement(DOM);
+			// ConstantVars.SIMILARITY_THRESHOLD = ConstantVars.SIMILARITY_THRESHOLD / 7;
+
 			return "";
 		}
 
@@ -226,11 +230,6 @@ public class DomCoverageClass {
 			// System.out.println("html : " + html);
 			// get all doms in mergeddom folder
 			Map<String, String> mergedDoms = Utils.readFilesfromDirectory(ConstantVars.MERGEDLOCATION, "html");
-			try {
-				FileUtils.write(new File(ConstantVars.MERGEDLOCATION + 1), html);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 
 			String similardominarray = similardominarray(html, mergedDoms);
 			if (similardominarray != null) {
@@ -238,6 +237,7 @@ public class DomCoverageClass {
 				Type eumType = extractEnumTypeofString(type);
 				// System.out.println("DOMbefore: " + Utils.printSubstring(similardom, 330));
 				DOM = similardom;
+				Utils.writeStringToFile(ConstantVars.MERGEDLOCATION + "cliclables/" + similardominarray + "clickable.html", html);
 				ArrayList<String> elementsUsingJsoupByIdTypeandId = getElementsofDOMByIdTypeandId(similardom, id, eumType);
 				// new dom is in DOM field
 				// write DOM into file
@@ -388,6 +388,8 @@ public class DomCoverageClass {
 			return Type.ID;
 		if (bystr.contains("By.name:"))
 			return Type.NAME;
+		if (bystr.contains("By.tagName:"))
+			return Type.TAGNAME;
 		if (bystr.contains("By.tag:"))
 			return Type.NAME;
 		if (bystr.contains("By.class:"))

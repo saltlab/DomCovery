@@ -17,7 +17,7 @@ public class PerformExplorationAndEstimationTest {
 
 		String estimate = pee.estimate(ConstantVars.EXPLORATIONFILE, ConstantVars.ESTIMATIONFILE);
 
-		FileUtils.writeStringToFile(new File("estimate.csv"), estimate);
+		FileUtils.writeStringToFile(new File("temestimate-photgalerythreshold3-1min-30min.csv"), estimate);
 
 	}
 }

@@ -40,10 +40,12 @@ public class PerformExplorationAndEstimation {
 	private int estimationDepthThreshold;
 	private List<Eventable> productiveEdges;
 
-	public PerformExplorationAndEstimation(DirectedGraph<StateVertex, Eventable> exploreSFG, DirectedGraph<StateVertex, Eventable> estimateSFG) {
+	public PerformExplorationAndEstimation(DirectedGraph<StateVertex, Eventable> exploreSFG,
+			DirectedGraph<StateVertex, Eventable> estimateSFG) {
 		super();
 		this.exploreSFG = exploreSFG;
 		this.estimateSFG = estimateSFG;
+
 	}
 
 	public Map<StateVertex, List<Eventable>> getnonFiredEventablesInSFG() {
@@ -107,7 +109,8 @@ public class PerformExplorationAndEstimation {
 	private StateVertex containsSameNamedDom(StateVertex stateVertex, DirectedGraph<StateVertex, Eventable> estimateSFG2) {
 		Set<StateVertex> vertexSet = estimateSFG2.vertexSet();
 		for (StateVertex stateVertex2 : vertexSet) {
-			boolean domsSimilar = isEqual(stateVertex, stateVertex2);// DomStateCoverage.domsSimilar(stateVertex.getDom(), stateVertex2.getDom());
+			boolean domsSimilar = isEqual(stateVertex, stateVertex2);// DomStateCoverage.domsSimilar(stateVertex.getDom(),
+																		// stateVertex2.getDom());
 			if (domsSimilar)
 				return stateVertex2;
 		}
@@ -124,9 +127,11 @@ public class PerformExplorationAndEstimation {
 
 		int threshold = keySet.size();
 		if (threshold > 4)
-			threshold = threshold / 2;
+			threshold = (threshold / 2) + 1;
+		// if (threshold == 4)
+		// threshold = 3;
 		// threshold = 1;
-		for (int i = 0; i <= threshold; i++) {
+		for (int i = 0; i < threshold; i++) {
 			// randomly choose one Vertice in VerticesFiredEventable and randomly one Eventable from ImmutableList<Eventable> list
 			StateVertex randomStateVertex = keySet.get(i);
 			List<Eventable> list = verticesnonFiredEventable.get(randomStateVertex);
@@ -143,7 +148,8 @@ public class PerformExplorationAndEstimation {
 		int unvisitedstates = (int) unexploredProductiveTransitions * unexploredProductiveTransitions / sampledProductiveTransitions;
 		int visited = exploreSFG.vertexSet().size();
 		double coverageofexploredsfg = (double) visited / (unvisitedstates + visited);
-		String x = unexploredProductiveTransitions + ", " + statesFoundDuringSampling + ", " + sampledProductiveTransitions + ", " + unvisitedstates + ", " + coverageofexploredsfg;
+		String x = unexploredProductiveTransitions + ", " + statesFoundDuringSampling + ", " + sampledProductiveTransitions + ", "
+				+ unvisitedstates + ", " + coverageofexploredsfg;
 		System.out.println(x);
 		return x;
 
@@ -166,7 +172,8 @@ public class PerformExplorationAndEstimation {
 
 	private StateVertex addIfproductive(StateVertex randomStateVertex, List<Eventable> edgesoftargetVertexofrandom) {
 		if (estimationDepthThreshold >= 0) {
-			// java.util.ArrayList<Eventable> edgesoftargetVertexofrandom = Lists.newArrayList(getEdgesofVertexInSFG(randomStateVertex, estimateSFG));
+			// java.util.ArrayList<Eventable> edgesoftargetVertexofrandom = Lists.newArrayList(getEdgesofVertexInSFG(randomStateVertex,
+			// estimateSFG));
 			Collections.shuffle(edgesoftargetVertexofrandom);
 			Eventable edge = null;// new Randomize(1).getNonStaticRandom(edgesoftargetVertexofrandom);
 			System.out.println("statevertex: " + randomStateVertex.getName() + " ( " + printEdges(edgesoftargetVertexofrandom) + " )");
@@ -221,7 +228,8 @@ public class PerformExplorationAndEstimation {
 				// it is a productive vertex
 				productiveVertices.add(targetVertexofRandom);
 				estimationDepthThreshold--;
-				java.util.ArrayList<Eventable> edgesoftargetVertexofrandom = Lists.newArrayList(getEdgesofVertexInSFG(targetVertexofRandom, estimateSFG));
+				java.util.ArrayList<Eventable> edgesoftargetVertexofrandom = Lists.newArrayList(getEdgesofVertexInSFG(targetVertexofRandom,
+						estimateSFG));
 				Collections.shuffle(edgesoftargetVertexofrandom);
 				Eventable nonStaticRandom = new Randomize(1).getNonStaticRandom(edgesoftargetVertexofrandom);
 				for (Eventable eventable : edgesoftargetVertexofrandom) {
@@ -240,7 +248,9 @@ public class PerformExplorationAndEstimation {
 		boolean containsEdge = exploreSFG.containsEdge(edge);
 		Set<Eventable> edgeSet = exploreSFG.edgeSet();
 		for (Eventable eventable : edgeSet) {
-			if (eventable.getIdentification().toString().equals(edge.getIdentification().toString()) && eventable.getSourceStateVertex().getName().equals(edge.getSourceStateVertex().getName()) && eventable.getTargetStateVertex().getName().equals(edge.getTargetStateVertex().getName()))
+			if (eventable.getIdentification().toString().equals(edge.getIdentification().toString())
+					&& eventable.getSourceStateVertex().getName().equals(edge.getSourceStateVertex().getName())
+					&& eventable.getTargetStateVertex().getName().equals(edge.getTargetStateVertex().getName()))
 				return true;
 		}
 		return containsEdge;
@@ -302,6 +312,8 @@ public class PerformExplorationAndEstimation {
 		InFileStateFlowGraph fsfg = new InFileStateFlowGraph();
 		exploreSFG = fsfg.readGraphFromFile(eXPLORATIONFILE);
 		estimateSFG = fsfg.readGraphFromFile(eSTIMATIONFILE);
+		System.out.println("explore SFG states: " + exploreSFG.vertexSet().size());
+		System.out.println("estimate SFG states: " + estimateSFG.vertexSet().size());
 		String estimate = "";
 		for (int i = 0; i < 20; i++) {
 			productiveVertices = new ArrayList();
@@ -332,6 +344,8 @@ public class PerformExplorationAndEstimation {
 			sumunvisitedstates += Double.parseDouble(unvisitedstates);
 			sumcoverageofexploredsfg += Double.parseDouble(coverageofexploredsfg);
 		}
+		System.out.println("explore SFG states: " + exploreSFG.vertexSet().size());
+		System.out.println("estimate SFG states: " + estimateSFG.vertexSet().size());
 		double aveunvisited = (double) sumunvisitedstates / (lines.length - 1);
 		System.out.println("average of unvisited states: " + aveunvisited);
 		double ave = (double) sumcoverageofexploredsfg / (lines.length - 1);

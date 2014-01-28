@@ -18,53 +18,51 @@ import com.crawljax.core.configuration.Form;
 import com.crawljax.core.configuration.InputSpecification;
 import com.crawljax.plugins.crawloverview.CrawlOverview;
 
-public class CrawljaxExecutionPhotogallery {
+public class CrawljaxExecutiontheorganizer {
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
-		photogalleryCall();
+		// String URL = "http://watersmc.ece.ubc.ca:8888/claroline-1.11.7/";
+		organizerCall();
+		// photogalleryCall();
 	}
 
-	private static void photogalleryCall() {
-		String URL = "http://localhost:8888/phormer-photoGallery331";
-		InputSpecification inputSpecification = getGalleryInputSpecification();
-		int time = 120;
+	private static void organizerCall() {
+		String URL = "http://localhost:8080/theorganizer";
+		// URL = "http://watersmc.ece.ubc.ca:8888/claroline-1.11.7/";
+		InputSpecification inputSpecification = getInputSpecification();
+		int time = 5;
 
 		callCrawljax(URL, inputSpecification, time, ConstantVars.ESTIMATIONFILE);
 	}
 
 	private static void callCrawljax(String URL, InputSpecification inputSpecification, int time, String sfgLocation) {
-		long WAIT_TIME_AFTER_EVENT = 3000;
-		long WAIT_TIME_AFTER_RELOAD = 3000;
+		long WAIT_TIME_AFTER_EVENT = 1000;
+		long WAIT_TIME_AFTER_RELOAD = 1000;
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(URL);
 		builder.crawlRules().clickDefaultElements();
-		// builder.crawlRules().click("span", "div", "p", "a", "input", "button", "li", "img");
 		// builder.crawlRules().clickOnce(false);
 		// builder.crawlRules().insertRandomDataInInputForms(true);
-		builder.crawlRules().crawlFrames(true);
+		// builder.crawlRules().crawlFrames(true);
 		// builder.crawlRules().followExternalLinks(false);
 
-		// gallery:
-		builder.crawlRules().dontClick("a").withText("Log Out");
-		builder.crawlRules().dontClick("a").withAttribute("href", "?page=logout");
-		builder.crawlRules().dontClick("a").withAttribute("target", "_blank");
-		builder.crawlRules().dontClick("a").withAttribute("title", "RSS Feed");
-		builder.crawlRules().dontClick("div").withAttribute("class", "back2mainR");
-
+		// organizer:
+		// builder.crawlRules().dontClick("a").withText("Logout");
+		// builder.crawlRules().dontClick("img").withAttribute("id", "logoff");
 		builder.crawlRules().setInputSpec(inputSpecification);
 
 		CrawlOverview plugin = new CrawlOverview();
 		deleteOutDirectory();
 		builder.addPlugin(plugin);
 
-		builder.addPlugin(new DomComparatorPlugin());
-		builder.addPlugin(new SerializeSFGPlugin(new File(sfgLocation)));
+		// builder.addPlugin(new DomComparatorPlugin());
+		// builder.addPlugin(new CopyOfSerializeSFGPlugin(new File(sfgLocation)));
 
 		builder.setUnlimitedCrawlDepth();
 		builder.setUnlimitedStates();
 
 		builder.setMaximumRunTime(time, TimeUnit.MINUTES);
-		builder.crawlRules().insertRandomDataInInputForms(false);
+		// builder.crawlRules().insertRandomDataInInputForms(false);
 		builder.crawlRules().waitAfterReloadUrl(WAIT_TIME_AFTER_RELOAD, TimeUnit.MILLISECONDS);
 		builder.crawlRules().waitAfterEvent(WAIT_TIME_AFTER_EVENT, TimeUnit.MILLISECONDS);
 		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, 1));
@@ -82,11 +80,14 @@ public class CrawljaxExecutionPhotogallery {
 
 	}
 
-	private static InputSpecification getGalleryInputSpecification() {
+	private static InputSpecification getInputSpecification() {
 		InputSpecification input = new InputSpecification();
 		Form loginForm = new Form();
-		loginForm.field("loginAdminPass").setValues("editor");
-		input.setValuesInForm(loginForm).beforeClickElement("input").withAttribute("class", "submit");
+		loginForm.field("logon_username").setValues("mehdi");
+		loginForm.field("logon_password").setValues("m");
+		// input.setValuesInForm(loginForm).beforeClickElement("button").withText("Enter");
+		input.setValuesInForm(loginForm).beforeClickElement("input").withText("Submit");
 		return input;
 	}
+
 }

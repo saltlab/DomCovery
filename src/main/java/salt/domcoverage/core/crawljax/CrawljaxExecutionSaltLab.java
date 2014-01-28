@@ -27,27 +27,33 @@ public class CrawljaxExecutionSaltLab {
 	}
 
 	private static void crwalCall() {
-		int time = 5;
-		int numberOfBrowsers = 1;
+		int time = 10;
+		int numberOfBrowsers = 5;
 		String serializedFile = ConstantVars.ESTIMATIONFILE;
 
 		String URL = "http://salt.ece.ubc.ca/";
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(URL);
 
+		builder.crawlRules().clickDefaultElements();
+		builder.crawlRules().click("span", "div", "p", "a", "input", "button", "li", "img");
+		builder.crawlRules().clickOnce(false);
+		builder.crawlRules().insertRandomDataInInputForms(true);
+		builder.crawlRules().crawlFrames(true);
+
 		CrawlOverview plugin = new CrawlOverview();
 		deleteOutDirectory();
 		builder.addPlugin(plugin);
 
 		builder.addPlugin(new DomComparatorPlugin());
-		// builder.addPlugin(new SerializeSFGPlugin(new File(serializedFile)));
+		builder.addPlugin(new SerializeSFGPlugin(new File(serializedFile)));
 
 		builder.setUnlimitedCrawlDepth();
 		builder.setUnlimitedStates();
 		long WAIT_TIME_AFTER_EVENT = 3000;
 		long WAIT_TIME_AFTER_RELOAD = 3000;
 
-		builder.setMaximumRunTime(time, TimeUnit.SECONDS);
+		builder.setMaximumRunTime(time, TimeUnit.MINUTES);
 		builder.crawlRules().insertRandomDataInInputForms(false);
 		builder.crawlRules().waitAfterReloadUrl(WAIT_TIME_AFTER_RELOAD, TimeUnit.MILLISECONDS);
 		builder.crawlRules().waitAfterEvent(WAIT_TIME_AFTER_EVENT, TimeUnit.MILLISECONDS);
@@ -66,23 +72,4 @@ public class CrawljaxExecutionSaltLab {
 
 	}
 
-	private static InputSpecification getInputSpecification() {
-		InputSpecification input = new InputSpecification();
-		Form loginForm = new Form();
-		// loginForm.field("login").setValues("nainy");
-		// loginForm.field("password").setValues("nainy");
-		loginForm.field("logon_username").setValues("mehdi");
-		loginForm.field("logon_password").setValues("m");
-		// input.setValuesInForm(loginForm).beforeClickElement("button").withText("Enter");
-		input.setValuesInForm(loginForm).beforeClickElement("class").withText("submit");
-		return input;
-	}
-
-	private static InputSpecification getGalleryInputSpecification() {
-		InputSpecification input = new InputSpecification();
-		Form loginForm = new Form();
-		loginForm.field("loginAdminPass").setValues("editor");
-		input.setValuesInForm(loginForm).beforeClickElement("input").withAttribute("class", "submit");
-		return input;
-	}
 }

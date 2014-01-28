@@ -13,10 +13,13 @@ public class ConstantVars {
 	public static final int MINIMUM_LENGTH_OF_DOM = 50;
 	public static final String DISTANCES_ARRAY = "Distances.csv";
 	public static final String[] seleniumDomRelatedMethodCallList = new String[] { "findElement", "findElements" };
-	public static final String[] allSeleniumMethodCalls = new String[] { "findElement", "id", "xpath", "tagName", "linkText", "cssSelector", "partialLinkText", "className", "findElements" };
+	public static final String[] allSeleniumMethodCalls = new String[] { "findElement", "id", "xpath", "tagName", "linkText",
+			"cssSelector", "partialLinkText", "className", "findElements" };
 	public static final String[] assertion_methods_list = new String[] { "assertEquals", "assertTrue", "assertNotNull", "assertNull" };
-	public static final String[] ELEMENTS_NOT_COUNT = new String[] { "p", "form", "tbody", "tabular", "thead", "h1", "h2", "h3", "br", "hr", "code", "i", "kbd", "pre", "small", "strong", "abbr", "ul", "ol", "dl", "th", "select" };
-	public static final String[] ELEMENTS_TO_COUNT = new String[] { "div", "input", "a", "li", "td", "tr", "table", "option", "img", "dt", "iframe", "textarea", "span" };
+	public static final String[] ELEMENTS_NOT_COUNT = new String[] { "p", "form", "tbody", "tabular", "thead", "h1", "h2", "h3", "br",
+			"hr", "code", "i", "kbd", "pre", "small", "strong", "abbr", "ul", "ol", "dl", "th", "select" };
+	public static final String[] ELEMENTS_TO_COUNT = new String[] { "div", "input", "a", "li", "td", "tr", "table", "option", "img", "dt",
+			"iframe", "textarea", "span" };
 	public static final String INJECT_ELEMENT_ACCESS_JS = "elementaccessinject.js";
 	public static final String INJECT_ELEMENT_ACCESS_CSS = "elementaccessinject.css";
 	public static final String CLICKABLE_DETECTOR_JS = "clickable-detector-pre.js";
@@ -30,7 +33,7 @@ public class ConstantVars {
 	public static int PROXY_PORT = 8884;
 	public static final String[] SELENIUMDRIVER_METHODCALLS = new String[] { "FirefoxDriver", "ChromeDriver" };
 	public static final String DomCoverageCriteria = "DomCoverageCriteriaReport.txt";
-	public static final double SIMILARITY_THRESHOLD = 23;// organizer:5, photogalley:34, claroline:23
+	public static double SIMILARITY_THRESHOLD = 17;// saltlab:17,organizer:5, photogalley:34, claroline:23
 	public static final String ELEMENTS_SEPARATOR = "@@@@@@@@@";
 	public static String CRAWLOVERVIEW = "out/";
 	public static String CRAWLJAXDOMS = CRAWLOVERVIEW + "doms/";

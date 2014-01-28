@@ -21,34 +21,40 @@ import com.crawljax.plugins.crawloverview.CrawlOverview;
 public class CrawljaxExecutionClaroline {
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
+		final long startTime = System.currentTimeMillis();
 		String URL = "http://localhost:8888/claroline-1.11.7/";
 		// String URL = "http://localhost:8888/phormer-photoGallery331";
 		InputSpecification inputSpecification = getInputSpecification();
-		int time = 300;
+		int time = 1;
+		String outdir = "out";// ;+ "Claroline" + time;
 
-		callCrawljax(URL, inputSpecification, time, ConstantVars.ESTIMATIONFILE);
+		callCrawljax(URL, inputSpecification, time, ConstantVars.EXPLORATIONFILE, outdir);
+		final long endTime = System.currentTimeMillis();
+
+		System.out.println("Total execution time: " + (endTime - startTime));
+
 	}
 
-	private static void callCrawljax(String URL, InputSpecification inputSpecification, int time, String sfgLocation) {
+	private static void callCrawljax(String URL, InputSpecification inputSpecification, int time, String sfgLocation, String outdir) {
 		long WAIT_TIME_AFTER_EVENT = 3000;
 		long WAIT_TIME_AFTER_RELOAD = 3000;
 
 		CrawljaxConfigurationBuilder builder = CrawljaxConfiguration.builderFor(URL);
-		// builder.crawlRules().clickDefaultElements();
+		builder.crawlRules().clickDefaultElements();
 		builder.crawlRules().click("span", "div", "p", "a", "input", "button", "li", "img");
 		// builder.crawlRules().clickOnce(false);
 		// builder.crawlRules().insertRandomDataInInputForms(true);
-		builder.crawlRules().crawlFrames(true);
+		// builder.crawlRules().crawlFrames(true);
 		// builder.crawlRules().followExternalLinks(false);
 
 		builder.crawlRules().setInputSpec(inputSpecification);
 
 		CrawlOverview plugin = new CrawlOverview();
-		deleteOutDirectory();
+		deleteOutDirectory(outdir);
 		builder.addPlugin(plugin);
 
 		builder.addPlugin(new DomComparatorPlugin());
-		// builder.addPlugin(new SerializeSFGPlugin(new File(sfgLocation)));
+		builder.addPlugin(new SerializeSFGPlugin(new File(sfgLocation)));
 
 		builder.setUnlimitedCrawlDepth();
 		builder.setUnlimitedStates();
@@ -57,14 +63,14 @@ public class CrawljaxExecutionClaroline {
 		builder.crawlRules().insertRandomDataInInputForms(false);
 		builder.crawlRules().waitAfterReloadUrl(WAIT_TIME_AFTER_RELOAD, TimeUnit.MILLISECONDS);
 		builder.crawlRules().waitAfterEvent(WAIT_TIME_AFTER_EVENT, TimeUnit.MILLISECONDS);
-		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, 2));
+		builder.setBrowserConfig(new BrowserConfiguration(BrowserType.FIREFOX, 1));
 		CrawljaxRunner crawljax = new CrawljaxRunner(builder.build());
 		crawljax.call();
 	}
 
-	private static void deleteOutDirectory() {
+	private static void deleteOutDirectory(String outDir) {
 		try {
-			FileUtils.deleteDirectory(new File("out"));
+			FileUtils.deleteDirectory(new File(outDir));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

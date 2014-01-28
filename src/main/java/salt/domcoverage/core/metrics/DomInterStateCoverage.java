@@ -57,10 +57,12 @@ public class DomInterStateCoverage {
 		// key:crawljax , value:value
 		mapMergedDoms2number = createMapping2Numbers(mergedDoms, crawljax2DomcoverySimilarDoms);
 
-		List<String> statesNamesNotCrawled = ListUtils.subtract(com.google.inject.internal.Lists.newArrayList(mergedDoms.keySet()), Lists.newArrayList(crawljax2DomcoverySimilarDoms.values()));
+		List<String> statesNamesNotCrawled = ListUtils.subtract(com.google.inject.internal.Lists.newArrayList(mergedDoms.keySet()),
+				Lists.newArrayList(crawljax2DomcoverySimilarDoms.values()));
 		Set<String> keySet = crawljax2DomcoverySimilarDoms.keySet();
 		for (String string : keySet) {
-			System.out.println("crawjlax states covered: " + string + " is similar to mergeddom: " + crawljax2DomcoverySimilarDoms.get(string));
+			System.out.println("crawjlax states covered: " + string + " is similar to mergeddom: "
+					+ crawljax2DomcoverySimilarDoms.get(string));
 		}
 
 		// add border to small snapshots of Overview plugin
@@ -76,7 +78,8 @@ public class DomInterStateCoverage {
 				String pathname = ConstantVars.CRAWLJAXDOMS + number;
 				File newhtmlfilename = new File(pathname);
 				FileUtils.copyFile(new File(ConstantVars.MERGEDLOCATION + mergeddomFileName), newhtmlfilename);
-				domScreenShot.takeScreenshot(ConstantVars.MERGEDLOCATION + mergeddomFileName, ConstantVars.CRAWLJAX_IMAGES + newhtmlfilename.getName().replace(".html", ".jpg"), true);
+				domScreenShot.takeScreenshot(ConstantVars.MERGEDLOCATION + mergeddomFileName, ConstantVars.CRAWLJAX_IMAGES
+						+ newhtmlfilename.getName().replace(".html", ".jpg"), true);
 				// add border
 				addBorder(ConstantVars.CRAWLJAX_IMAGES + newhtmlfilename.getName().replace(".html", "") + "_small.jpg");
 
@@ -88,7 +91,8 @@ public class DomInterStateCoverage {
 		// take an snapshot of doms and copy them to snapshot folder of overview plugin
 		for (String crawljaxStateFileName : keySet) {
 			String domStateCoveredFileName = crawljax2DomcoverySimilarDoms.get(crawljaxStateFileName);
-			domScreenShot.takeScreenshot(ConstantVars.MERGEDLOCATION + domStateCoveredFileName, ConstantVars.CRAWLJAX_IMAGES + crawljaxStateFileName.replace(".html", ".jpg"));
+			domScreenShot.takeScreenshot(ConstantVars.MERGEDLOCATION + domStateCoveredFileName, ConstantVars.CRAWLJAX_IMAGES
+					+ crawljaxStateFileName.replace(".html", ".jpg"));
 		}
 		domScreenShot.finalize();
 
@@ -97,7 +101,8 @@ public class DomInterStateCoverage {
 		// /////////////modify states and add intra state coverages
 		// getting elementCoverage
 		ElementCoverage ec = new ElementCoverage();
-		Map<String, String> coverageOffilesAccordingToCoverageTrue = ec.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION);
+		Map<String, String> coverageOffilesAccordingToCoverageTrue = ec
+				.getCoverageOffilesAccordingToCoverageTrue(ConstantVars.MERGEDLOCATION);
 		List<ElementCoverageData> elementCovData = ec.getElementCovData();
 		RewriteCrawljaxState s = new RewriteCrawljaxState();
 		s.applyCoverageToStateFiles(elementCovData, crawljax2DomcoverySimilarDoms, mapMergedDoms2number);
@@ -117,7 +122,8 @@ public class DomInterStateCoverage {
 		int transitionsCoveredByCrawljax = numberofCrawljaxEdges;
 		int transitionsVisitedBytestsbutnotCrwaljax = edges.size();
 
-		int sumofTransitions = estimatedNumberoftransitionsNotCrawledbyCrawljax + transitionsCoveredByCrawljax + transitionsVisitedBytestsbutnotCrwaljax;
+		int sumofTransitions = estimatedNumberoftransitionsNotCrawledbyCrawljax + transitionsCoveredByCrawljax
+				+ transitionsVisitedBytestsbutnotCrwaljax;
 		double domTransitionCoverageFinal = Utils.round100((double) transitionsCoveredbyTests / sumofTransitions);
 
 		// print resutls in file
@@ -305,7 +311,8 @@ public class DomInterStateCoverage {
 		return out;
 	}
 
-	private void replaceCrawljaxStates(Map<String, String> domStateCoverage, Map<String, String> mergedDoms, List<ElementCoverageData> elementCovData) {
+	private void replaceCrawljaxStates(Map<String, String> domStateCoverage, Map<String, String> mergedDoms,
+			List<ElementCoverageData> elementCovData) {
 		List<String> doms2getscreenshot = new ArrayList<String>();
 		for (String crawljaxStateFileName : domStateCoverage.keySet()) {
 			String mergedDomStateFileName = domStateCoverage.get(crawljaxStateFileName);

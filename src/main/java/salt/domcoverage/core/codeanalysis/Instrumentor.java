@@ -50,7 +50,7 @@ public abstract class Instrumentor {
 			}
 			if (writeBack == true)
 				CompilationUnitUtils.writeCompilationUnitToFile(cu, fileName);
-			System.out.println(cu);
+			// System.out.println(cu);
 			System.out.println("done writing");
 
 		} catch (FileNotFoundException e1) {

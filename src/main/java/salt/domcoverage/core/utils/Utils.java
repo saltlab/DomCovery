@@ -212,12 +212,15 @@ public class Utils {
 		ConstantVars.oracleAssertion = false;
 		ConstantVars.indirectCoverageMode = false;
 		ConstantVars.JS_REWRITE_EXECUTED = false;
-
+		// ConstantVars.Clickable_element_collection = false;
+		// ConstantVars.Clickable_mode = false;
 	}
 
 	public static void Record(String testName, String domfilename) {
 		try {
-			String buffer = testName + ConstantVars.SEPARATOR + "time" + ConstantVars.SEPARATOR + "by" + ConstantVars.SEPARATOR + "elementFile" + ConstantVars.SEPARATOR + domfilename + ConstantVars.SEPARATOR + ConstantVars.oracleAssertion + ConstantVars.SEPARATOR + ConstantVars.indirectCoverageMode + "\r";
+			String buffer = testName + ConstantVars.SEPARATOR + "time" + ConstantVars.SEPARATOR + "by" + ConstantVars.SEPARATOR
+					+ "elementFile" + ConstantVars.SEPARATOR + domfilename + ConstantVars.SEPARATOR + ConstantVars.oracleAssertion
+					+ ConstantVars.SEPARATOR + ConstantVars.indirectCoverageMode + "\r";
 
 			FileUtils.writeStringToFile(new File(ConstantVars.EdgeData), buffer, true);
 		} catch (IOException e) {

@@ -57,7 +57,8 @@ public class ClickableElements {
 		String[] splitRaw = rawResponse.split(ConstantVars.SEPARATOR);
 		String typeRaw = splitRaw[0].toLowerCase().trim();
 		String idRaw = splitRaw[1].trim();
-		String htmlRaw = rawResponse.substring(rawResponse.indexOf(split[3].trim()));
+		int indexOf = rawResponse.indexOf(splitRaw[3].trim());
+		String htmlRaw = rawResponse.substring(indexOf);
 
 		if (!typeRaw.equals(type))
 			return false;
