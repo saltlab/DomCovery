@@ -5,7 +5,7 @@ To assess the quality of web application test cases, web developers currently me
 
 #### Publications
 
-DOM-Based Test Adequacy Criteria for Web Applications, under review.
+M. Mirzaaghaei and A. Mesbah, “DOM-based Test Adequacy Criteria for Web Applications”, in Proceedings of the International Symposium on Software Testing and Analysis (ISSTA), 2014, 11 pages, ACM. 
 
 
 #### Experimental Data
